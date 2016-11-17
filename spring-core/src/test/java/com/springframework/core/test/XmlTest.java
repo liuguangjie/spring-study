@@ -83,7 +83,6 @@ public class XmlTest {
 
          */
         Map<String,String> map = new ConcurrentHashMap<String,String>();
-
         map.put("sss","sss");
         System.out.println(map.get("sss"));
 

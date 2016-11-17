@@ -182,6 +182,8 @@ public class BeanDefinitionHolder implements BeanMetadataElement {
 	/**
 	 * This implementation returns the long description. Can be overridden
 	 * to return the short description or any kind of custom description instead.
+	 * *************************************************************************
+	 * 这个实现返回长描述。可以覆盖返回简短描述或任何类型的自定义描述。
 	 * @see #getLongDescription()
 	 * @see #getShortDescription()
 	 */
