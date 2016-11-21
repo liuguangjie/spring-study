@@ -25,6 +25,8 @@ import org.springframework.util.Assert;
 /**
  * Support class for {@link AttributeAccessor AttributeAccessors}, providing
  * a base implementation of all methods. To be extended by subclasses.
+ * *************************************************************************
+ * ~$ 支持类  {@link AttributeAccessor AttributeAccessors}, 提供的基本实现方法. 扩展的子类
  *
  * <p>{@link Serializable} if subclasses and all attribute values are {@link Serializable}.
  *
@@ -70,7 +72,10 @@ public abstract class AttributeAccessorSupport implements AttributeAccessor, Ser
 
 	/**
 	 * Copy the attributes from the supplied AttributeAccessor to this accessor.
+	 * *************************************************************************
+	 * ~$ 复制的属性提供AttributeAccessor访问器
 	 * @param source the AttributeAccessor to copy from
+	 *               AttributeAccessor复制
 	 */
 	protected void copyAttributesFrom(AttributeAccessor source) {
 		Assert.notNull(source, "Source must not be null");

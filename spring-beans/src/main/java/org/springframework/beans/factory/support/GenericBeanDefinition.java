@@ -28,6 +28,15 @@ import org.springframework.beans.factory.config.BeanDefinition;
  * registering user-visible bean definitions (which a post-processor might operate on,
  * potentially even reconfiguring the parent name). Use <code>RootBeanDefinition</code> /
  * <code>ChildBeanDefinition</code> where parent/child relationships happen to be pre-determined.
+ * **********************************************************************************************
+ * ~$ GenericBeanDefinition提供一站式标准bean定义的目的.
+ *    像任何bean定义,它允许指定一个类+可选地构造函数参数值和属性值.此外,
+ *    源于父母可以灵活配置bean定义“parentName”属性
+ *
+ * <p> 一般来说,使用这个 <code>GenericBeanDefinition</code> 类注册用户可见的bean定义的目的
+ * 						(后处理 可能操作,重新配置 根 bean的名字)
+ * 	  使用 	<code>RootBeanDefinition</code> / <code>ChildBeanDefinition</code>
+ * 	  父/子关系恰好是预先确定的
  *
  * @author Juergen Hoeller
  * @since 2.5
@@ -43,6 +52,8 @@ public class GenericBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new GenericBeanDefinition, to be configured through its bean
 	 * properties and configuration methods.
+	 * *********************************************************************
+	 * ~$ 创建一个新的GenericBeanDefinition,通过其配置bean属性和配置方法
 	 * @see #setBeanClass
 	 * @see #setBeanClassName
 	 * @see #setScope
@@ -58,6 +69,8 @@ public class GenericBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new GenericBeanDefinition as deep copy of the given
 	 * bean definition.
+	 * ************************************************************
+	 * ~$ 创建一个新的GenericBeanDefinition深拷贝的bean定义
 	 * @param original the original bean definition to copy from
 	 */
 	public GenericBeanDefinition(BeanDefinition original) {

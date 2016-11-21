@@ -40,10 +40,13 @@ import org.springframework.util.StringUtils;
  * {@link BeanDefinition} classes,
  * factoring out common properties of {@link RootBeanDefinition} and
  * {@link ChildBeanDefinition}.
- *
  * <p>The autowire constants match the ones defined in the
  * {@link AutowireCapableBeanFactory}
  * interface.
+ * *****************************************************************
+ * 基本类 , 成熟的 {@link BeanDefinition} 类, 分解出公共属性
+ * 	{@link RootBeanDefinition} 和  {@link ChildBeanDefinition}.
+ * <p>自动装配常数匹配在 {@link AutowireCapableBeanFactory} 接口中定义的
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -58,30 +61,39 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Constant for the default scope name: "", equivalent to singleton status
 	 * but to be overridden from a parent bean definition (if applicable).
+	 * ***********************************************************************
+	 * ~$ 常数为默认范围名称:“”相当于单状态,但从父母的bean定义覆盖(如适用)
 	 */
 	public static final String SCOPE_DEFAULT = "";
 
 
 	/**
 	 * Constant that indicates no autowiring at all.
+	 * ~$ 常数表明没有自动装配
 	 * @see #setAutowireMode
 	 */
 	public static final int AUTOWIRE_NO = AutowireCapableBeanFactory.AUTOWIRE_NO;
 
 	/**
 	 * Constant that indicates autowiring bean properties by name.
+	 * **********************************************************
+	 * ~$ 常数表明自动装配bean属性的名字
 	 * @see #setAutowireMode
 	 */
 	public static final int AUTOWIRE_BY_NAME = AutowireCapableBeanFactory.AUTOWIRE_BY_NAME;
 
 	/**
 	 * Constant that indicates autowiring bean properties by type.
+	 * **********************************************************
+	 * ~$ 常数表明自动装配bean属性的类型
 	 * @see #setAutowireMode
 	 */
 	public static final int AUTOWIRE_BY_TYPE = AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE;
 
 	/**
 	 * Constant that indicates autowiring a constructor.
+	 * *************************************************
+	 * ~$ 常数表明自动装配一个构造函数
 	 * @see #setAutowireMode
 	 */
 	public static final int AUTOWIRE_CONSTRUCTOR = AutowireCapableBeanFactory.AUTOWIRE_CONSTRUCTOR;
@@ -89,9 +101,13 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Constant that indicates determining an appropriate autowire strategy
 	 * through introspection of the bean class.
+	 * ********************************************************************
+	 * ~$ 常数表明确定一个适当的自动装配策略通过内省的bean类
 	 * @see #setAutowireMode
 	 * @deprecated as of Spring 3.0: If you are using mixed autowiring strategies,
 	 * use annotation-based autowiring for clearer demarcation of autowiring needs.
+	 * ***************************************************************************
+	 * ~$ 如果您使用的是混合自动装配策略,使用基于注解的自动装配自动装配需求的清晰界定
 	 */
 	@Deprecated
 	public static final int AUTOWIRE_AUTODETECT = AutowireCapableBeanFactory.AUTOWIRE_AUTODETECT;
@@ -99,18 +115,24 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Constant that indicates no dependency check at all.
+	 * ***************************************************
+	 * ~$ 常数表明任何依赖项检查
 	 * @see #setDependencyCheck
 	 */
 	public static final int DEPENDENCY_CHECK_NONE = 0;
 
 	/**
 	 * Constant that indicates dependency checking for object references.
+	 * *****************************************************************
+	 * ~$ 常数表明依赖检查对象引用
 	 * @see #setDependencyCheck
 	 */
 	public static final int DEPENDENCY_CHECK_OBJECTS = 1;
 
 	/**
 	 * Constant that indicates dependency checking for "simple" properties.
+	 * *******************************************************************
+	 * ~$ 常数表明依赖检查 "simple" 的特性
 	 * @see #setDependencyCheck
 	 * @see org.springframework.beans.BeanUtils#isSimpleProperty
 	 */
@@ -119,6 +141,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Constant that indicates dependency checking for all properties
 	 * (object references as well as "simple" properties).
+	 * **************************************************************
+	 * ~$ 常数表明依赖检查所有属性 (对象引用包含 "simple" 属性)
 	 * @see #setDependencyCheck
 	 */
 	public static final int DEPENDENCY_CHECK_ALL = 3;
@@ -129,6 +153,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * specification of a method name. The value {@value} is specifically designed to
 	 * include characters otherwise illegal in a method name, ensuring no possibility of
 	 * collisions with a legitimately named methods having the same name.
+	 * ********************************************************************************
+	 * ~$ 常数表明容器应该试图推断出 {@link #setDestroyMethodName 销毁方法名称}的bean,而不是明确的规范方法名称.
+	 * {@value }的值是专门设计用于包括字符否则非法方法名称,确保不可能碰撞的合法拥有相同名称的命名方法
 	 */
 	public static final String INFER_METHOD = "(inferred)";
 
@@ -191,6 +218,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Create a new AbstractBeanDefinition with default settings.
+	 * **********************************************************
+	 * ~$ 创建一个新的AbstractBeanDefinition默认设置
 	 */
 	protected AbstractBeanDefinition() {
 		this(null, null);
@@ -199,6 +228,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Create a new AbstractBeanDefinition with the given
 	 * constructor argument values and property values.
+	 * **************************************************
+	 * ~$ 创建一个新的AbstractBeanDefinition给定
+	 * 	  构造函数参数值和属性值
 	 */
 	protected AbstractBeanDefinition(ConstructorArgumentValues cargs, MutablePropertyValues pvs) {
 		setConstructorArgumentValues(cargs);
@@ -208,7 +240,10 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Create a new AbstractBeanDefinition as deep copy of the given
 	 * bean definition.
+	 * *************************************************************
+	 * ~$ 创建一个新的AbstractBeanDefinition深拷贝的bean定义
 	 * @param original the original bean definition to copy from
+	 *                 从最初的bean定义复制
 	 * @deprecated since Spring 2.5, in favor of {@link #AbstractBeanDefinition(BeanDefinition)}
 	 */
 	@Deprecated
@@ -219,6 +254,8 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Create a new AbstractBeanDefinition as deep copy of the given
 	 * bean definition.
+	 * *************************************************************
+	 * ~$ 创建一个新的AbstractBeanDefinition深拷贝的bean定义
 	 * @param original the original bean definition to copy from
 	 */
 	protected AbstractBeanDefinition(BeanDefinition original) {
@@ -266,6 +303,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * Override settings in this bean definition (assumably a copied parent
 	 * from a parent-child inheritance relationship) from the given bean
 	 * definition (assumably the child).
+	 * ********************************************************************
+	 * ~$  覆盖设置在这个bean定义 (多半复制父母的亲子继承关系)
+	 *     从给定的bean定义(?)
 	 * @deprecated since Spring 2.5, in favor of {@link #overrideFrom(BeanDefinition)}
 	 */
 	@Deprecated

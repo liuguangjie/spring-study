@@ -22,6 +22,8 @@ import org.springframework.util.ObjectUtils;
 /**
  * Holder for a key-value style attribute that is part of a bean definition.
  * Keeps track of the definition source in addition to the key-value pair.
+ * ***********************************************************************
+ * ~$ 持有人的键值样式属性是一个bean定义的一部分。跟踪定义源除了键-值对
  *
  * @author Juergen Hoeller
  * @since 2.5
@@ -64,6 +66,8 @@ public class BeanMetadataAttribute implements BeanMetadataElement {
 	/**
 	 * Set the configuration source <code>Object</code> for this metadata element.
 	 * <p>The exact type of the object will depend on the configuration mechanism used.
+	 * ********************************************************************************
+	 * ~$ 设置配置源 <code>Object</code> 的元数据元素
 	 */
 	public void setSource(Object source) {
 		this.source = source;

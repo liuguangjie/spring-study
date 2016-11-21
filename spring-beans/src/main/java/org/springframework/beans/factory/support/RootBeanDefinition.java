@@ -40,6 +40,14 @@ import org.springframework.util.Assert;
  * bean definitions programmatically is the {@link GenericBeanDefinition} class.
  * GenericBeanDefinition has the advantage that it allows to dynamically define
  * parent dependencies, not 'hard-coding' the role as a root bean definition.
+ * *************************************************************************************
+ * ~$ 根bean定义表示支持一个特定的合并后的bean定义bean Spring BeanFactory在运行时.
+ * 	  它可能来自多个原始的创建bean定义继承对方,通常注册为{@link GenericBeanDefinition GenericBeanDefinitions}.
+ * 	  根bean定义实质上是“统一”在运行时视图bean定义
+ *
+ * <p>根bean定义也可以用于注册个人bean定义在配置阶段.
+ * 	  然而,由于Spring 2.5中,注册的首选bean定义编程是{@link GenericBeanDefinition }类
+ * 	  GenericBeanDefinition的优点是它允许动态地定义父依赖关系,不是“硬编码”作为根bean定义
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -59,23 +67,29 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	boolean isFactoryMethodUnique;
 
 	/** Package-visible field for caching the resolved constructor or factory method */
+	/** Package-visible字段缓存解决构造函数或工厂方法*/
 	Object resolvedConstructorOrFactoryMethod;
 
 	/** Package-visible field that marks the constructor arguments as resolved */
+	/** Package-visible标志着构造函数参数作为解决的领域 */
 	boolean constructorArgumentsResolved = false;
 
 	/** Package-visible field for caching fully resolved constructor arguments */
+	/** Package-visible字段缓存完全解决构造函数参数 */
 	Object[] resolvedConstructorArguments;
 
 	/** Package-visible field for caching partly prepared constructor arguments */
+	/** Package-visible字段缓存部分准备的构造函数参数 */
 	Object[] preparedConstructorArguments;
 
 	final Object constructorArgumentLock = new Object();
 
 	/** Package-visible field that indicates a before-instantiation post-processor having kicked in */
+	/** Package-visible字段表明before-instantiation后处理器在踢 */
 	volatile Boolean beforeInstantiationResolved;
 
 	/** Package-visible field that indicates MergedBeanDefinitionPostProcessor having been applied */
+	/** Package-visible字段表明MergedBeanDefinitionPostProcessor应用 */
 	boolean postProcessed = false;
 
 	final Object postProcessingLock = new Object();
@@ -84,6 +98,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition, to be configured through its bean
 	 * properties and configuration methods.
+	 * ******************************************************************
+	 * ~$ 创建一个新的RootBeanDefinition,通过其配置bean属性和配置方法
 	 * @see #setBeanClass
 	 * @see #setBeanClassName
 	 * @see #setScope
@@ -98,6 +114,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Create a new RootBeanDefinition for a singleton.
+	 * ************************************************
+	 * ~$ 创建一个新的RootBeanDefinition singleton
 	 * @param beanClass the class of the bean to instantiate
 	 */
 	public RootBeanDefinition(Class beanClass) {
@@ -107,8 +125,12 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Create a new RootBeanDefinition with the given singleton status.
+	 * ****************************************************************
+	 * ~$ 创建一个新的RootBeanDefinition用给定的独立地位
 	 * @param beanClass the class of the bean to instantiate
+	 *                  ~$ 要实例化bean的类
 	 * @param singleton the singleton status of the bean
+	 *                  ~$ 单例bean的状态
 	 * @deprecated since Spring 2.5, in favor of {@link #setScope}
 	 */
 	@Deprecated
@@ -121,6 +143,9 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition for a singleton,
 	 * using the given autowire mode.
+	 * ************************************************
+	 * ~$ 创建一个新的RootBeanDefinition单,
+	 * 	  使用给定的自动装配模式
 	 * @param beanClass the class of the bean to instantiate
 	 * @param autowireMode by name or type, using the constants in this interface
 	 * @deprecated as of Spring 3.0, in favor of {@link #setAutowireMode} usage
@@ -135,6 +160,9 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition for a singleton,
 	 * using the given autowire mode.
+	 * ************************************************
+	 * ~$ 创建一个新的RootBeanDefinition单,
+	 *    使用给定的自动装配模式。
 	 * @param beanClass the class of the bean to instantiate
 	 * @param autowireMode by name or type, using the constants in this interface
 	 * @param dependencyCheck whether to perform a dependency check for objects
@@ -152,6 +180,9 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition for a singleton,
 	 * providing property values.
+	 * ************************************************
+	 * ~$ 创建一个新的RootBeanDefinition单,
+	 * 	  提供属性值
 	 * @param beanClass the class of the bean to instantiate
 	 * @param pvs the property values to apply
 	 * @deprecated as of Spring 3.0, in favor of {@link #getPropertyValues} usage
@@ -165,6 +196,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition with the given singleton status,
 	 * providing property values.
+	 * ****************************************************************
+	 * ~$ 用给定的单例创建一个新的RootBeanDefinition状态,提供属性值
 	 * @param beanClass the class of the bean to instantiate
 	 * @param pvs the property values to apply
 	 * @param singleton the singleton status of the bean
@@ -180,6 +213,9 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition for a singleton,
 	 * providing constructor arguments and property values.
+	 * ****************************************************
+	 * ~$ 创建一个新的RootBeanDefinition单,
+	 *    提供构造函数参数和属性值。
 	 * @param beanClass the class of the bean to instantiate
 	 * @param cargs the constructor argument values to apply
 	 * @param pvs the property values to apply
@@ -193,6 +229,10 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	 * Create a new RootBeanDefinition for a singleton,
 	 * providing constructor arguments and property values.
 	 * <p>Takes a bean class name to avoid eager loading of the bean class.
+	 * ****************************************************
+	 * ~$ 创建一个新的RootBeanDefinition单,
+	 *    提供构造函数参数和属性值。
+	 * <P> 需要一个bean类名称,以避免立即加载bean类。
 	 * @param beanClassName the name of the class to instantiate
 	 */
 	public RootBeanDefinition(String beanClassName) {
@@ -215,6 +255,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition as deep copy of the given
 	 * bean definition.
+	 * *********************************************************
+	 * ~$ 创建一个新的RootBeanDefinition深拷贝的bean定义
 	 * @param original the original bean definition to copy from
 	 */
 	public RootBeanDefinition(RootBeanDefinition original) {
@@ -224,6 +266,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new RootBeanDefinition as deep copy of the given
 	 * bean definition.
+	 * *********************************************************
+	 * ~$ 创建一个新的RootBeanDefinition深拷贝的bean定义
 	 * @param original the original bean definition to copy from
 	 */
 	RootBeanDefinition(BeanDefinition original) {
@@ -248,6 +292,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Specify a factory method name that refers to a non-overloaded method.
+	 * ********************************************************************
+	 * ~$ 指定一个工厂方法的名称,是指一个non-overloaded方法
 	 */
 	public void setUniqueFactoryMethodName(String name) {
 		Assert.hasText(name, "Factory method name must not be empty");
@@ -257,6 +303,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Check whether the given candidate qualifies as a factory method.
+	 * ********************************************************************
+     * ~$ 检查给定的候选人是否有资格作为一个工厂方法
 	 */
 	public boolean isFactoryMethod(Method candidate) {
 		return (candidate != null && candidate.getName().equals(getFactoryMethodName()));
@@ -264,6 +312,8 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Return the resolved factory method as a Java Method object, if available.
+	 * **************************************************************************
+	 * ~$ 返回解析后的工厂方法作为Java对象方法,如果可用
 	 * @return the factory method, or <code>null</code> if not found or not resolved yet
 	 */
 	public Method getResolvedFactoryMethod() {

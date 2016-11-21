@@ -37,6 +37,12 @@ import org.springframework.util.ObjectUtils;
  * which allows to dynamically define parent dependencies through the
  * {@link GenericBeanDefinition#setParentName} method. This effectively
  * supersedes the ChildBeanDefinition class for most use cases.
+ * ******************************************************************************
+ * ~$ Bean定义Bean从父母继承设置.孩子bean定义有一个固定的依赖父母bean定义。
+ * <p> 一个孩子bean定义将继承的构造函数参数值,属性值和方法覆盖父,选择添加新值
+ * 		如果init方法,销毁方法和/或指定静态工厂方法,他们将覆盖相应的父设置
+ * 		其余设置 <i>always</i> 总是会从child定义:
+ * 		取决于,自动装配模式,依赖检查,单例,延迟初始化
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -51,6 +57,8 @@ public class ChildBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new ChildBeanDefinition for the given parent, to be
 	 * configured through its bean properties and configuration methods.
+	 * *****************************************************************
+	 * ~$ 创建一个新的ChildBeanDefinition为给定的parent,通过其配置bean属性和配置方法
 	 * @param parentName the name of the parent bean
 	 * @see #setBeanClass
 	 * @see #setBeanClassName
@@ -67,6 +75,8 @@ public class ChildBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Create a new ChildBeanDefinition for the given parent.
+	 * ******************************************************
+	 * ~$ 创建一个新的ChildBeanDefinition给定的 parent
 	 * @param parentName the name of the parent bean
 	 * @param pvs the additional property values of the child
 	 */
@@ -77,6 +87,8 @@ public class ChildBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Create a new ChildBeanDefinition for the given parent.
+	 * ******************************************************
+	 * ~$ 创建一个新的ChildBeanDefinition给定的 parent
 	 * @param parentName the name of the parent bean
 	 * @param cargs the constructor argument values to apply
 	 * @param pvs the additional property values of the child
@@ -91,6 +103,9 @@ public class ChildBeanDefinition extends AbstractBeanDefinition {
 	/**
 	 * Create a new ChildBeanDefinition for the given parent,
 	 * providing constructor arguments and property values.
+	 * ******************************************************
+	 * ~$ 创建一个新的ChildBeanDefinition为给定的parent,
+	 *	  提供构造函数参数和属性值。
 	 * @param parentName the name of the parent bean
 	 * @param beanClass the class of the bean to instantiate
 	 * @param cargs the constructor argument values to apply
@@ -108,6 +123,10 @@ public class ChildBeanDefinition extends AbstractBeanDefinition {
 	 * Create a new ChildBeanDefinition for the given parent,
 	 * providing constructor arguments and property values.
 	 * Takes a bean class name to avoid eager loading of the bean class.
+	 * *****************************************************************
+	 * ~$ 创建一个新的ChildBeanDefinition为给定的parent,
+	 *	  提供构造函数参数和属性值。
+	 *   需要bean类名称,以避免立即加载bean类。
 	 * @param parentName the name of the parent bean
 	 * @param beanClassName the name of the class to instantiate
 	 * @param cargs the constructor argument values to apply

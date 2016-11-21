@@ -32,6 +32,16 @@ import org.springframework.util.ObjectUtils;
  * A {@link BeanWrapper} implementation should handle any necessary conversion,
  * as this object doesn't know anything about the objects it will be applied to.
  *
+ * *****************************************************************************
+ * ~$ 对象来保存信息和价值对于单个bean属性.
+ *    使用一个对象,而不是存储在所有属性
+ *    地图的属性名,允许更大的灵活性,
+ *    能力等以一种优化的方式来处理索引属性
+ *
+ * <p>注意所需的价值不需要最后的类型:
+ *    一个{@link BeanWrapper }实现应该处理任何必要的转换,
+ *    这个对象不了解它将被应用到对象
+ *
  * @author Rod Johnson
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -54,12 +64,15 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 	private Object convertedValue;
 
 	/** Package-visible field that indicates whether conversion is necessary */
+	/** Package-visible字段表明是否转换是必要的 */
 	volatile Boolean conversionNecessary;
 
 	/** Package-visible field for caching the resolved property path tokens */
+	/** Package-visible字段缓存解决产权路径标记*/
 	volatile Object resolvedTokens;
 
 	/** Package-visible field for caching the resolved PropertyDescriptor */
+	/** Package-visible字段缓存PropertyDescriptor解决*/
 	volatile PropertyDescriptor resolvedDescriptor;
 
 
@@ -94,6 +107,9 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 	/**
 	 * Constructor that exposes a new value for an original value holder.
 	 * The original holder will be exposed as source of the new holder.
+	 * ******************************************************************
+	 * ~$ 构造函数,使一个新值原始值持有人.
+	 *    原持有人将公开为新持有人的来源
 	 * @param original the PropertyValue to link to (never <code>null</code>)
 	 * @param newValue the new value to apply
 	 */
@@ -112,6 +128,7 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 
 	/**
 	 * Return the name of the property.
+	 * ~$ 返回属性的名称
 	 */
 	public String getName() {
 		return this.name;
@@ -122,6 +139,10 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 	 * <p>Note that type conversion will <i>not</i> have occurred here.
 	 * It is the responsibility of the BeanWrapper implementation to
 	 * perform type conversion.
+	 * ***************************************************************
+	 * ~$ 返回属性的值
+	 * <p>请注意,类型转换将 <i>not</i>  这里发生过
+	 *    BeanWrapper实现的责任 执行类型转换
 	 */
 	public Object getValue() {
 		return this.value;
@@ -129,6 +150,8 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 
 	/**
 	 * Return the original PropertyValue instance for this value holder.
+	 * *****************************************************************
+	 * ~$ 这个值持有人交回原PropertyValue实例
 	 * @return the original PropertyValue (either a source of this
 	 * value holder or this value holder itself).
 	 */
@@ -151,6 +174,9 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 	/**
 	 * Return whether this holder contains a converted value already (<code>true</code>),
 	 * or whether the value still needs to be converted (<code>false</code>).
+	 * *********************************************************************************
+	 * ~$ 返回这是否持有人已经包含一个转换值(<code>true</code>),
+	 *    是否仍然需要转换价值 (<code>false</code>).
 	 */
 	public synchronized boolean isConverted() {
 		return this.converted;
@@ -159,6 +185,8 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 	/**
 	 * Set the converted value of the constructor argument,
 	 * after processed type conversion.
+	 * ****************************************************
+	 * ~$ 构造函数参数的设置转换后的值  后加工类型转换
 	 */
 	public synchronized void setConvertedValue(Object value) {
 		this.converted = true;
@@ -168,6 +196,8 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 	/**
 	 * Return the converted value of the constructor argument,
 	 * after processed type conversion.
+	 * ******************************************************
+	 * ~$ 返回转换后的值的构造函数参数, 后加工类型转换
 	 */
 	public synchronized Object getConvertedValue() {
 		return this.convertedValue;

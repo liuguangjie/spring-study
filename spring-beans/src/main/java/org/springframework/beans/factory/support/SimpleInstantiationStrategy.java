@@ -32,9 +32,12 @@ import org.springframework.util.StringUtils;
 
 /**
  * Simple object instantiation strategy for use in a BeanFactory.
- *
+ * ***************************************************************
+ * ~$ BeanFactory中使用的简单对象实例化策略
  * <p>Does not support Method Injection, although it provides hooks for subclasses
  * to override to add Method Injection support, for example by overriding methods.
+ * *******************************************************************************
+ * ~$ 不支方法注入,虽然它为子类覆盖提供了挂钩添加方法注入支持,例如通过重写方法
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -46,6 +49,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 
 	public Object instantiate(RootBeanDefinition beanDefinition, String beanName, BeanFactory owner) {
 		// Don't override the class with CGLIB if no overrides.
+		/** 不要和CGLIB覆盖类如果没有覆盖 */
 		if (beanDefinition.getMethodOverrides().isEmpty()) {
 			Constructor<?> constructorToUse;
 			synchronized (beanDefinition.constructorArgumentLock) {
@@ -77,6 +81,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 		}
 		else {
 			// Must generate CGLIB subclass.
+			/** 必须生成CGLIB子类 */
 			return instantiateWithMethodInjection(beanDefinition, beanName, owner);
 		}
 	}
@@ -86,6 +91,8 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 	 * UnsupportedOperationException, if they can instantiate an object with
 	 * the Method Injection specified in the given RootBeanDefinition.
 	 * Instantiation should use a no-arg constructor.
+	 * *********************************************************************
+	 * ~$ 子类可以重写此方法,实现抛出UnsupportedOperationException,方式,如果他们可以实例化一个对象中指定的方法注入RootBeanDefinition
 	 */
 	protected Object instantiateWithMethodInjection(
 			RootBeanDefinition beanDefinition, String beanName, BeanFactory owner) {
@@ -100,6 +107,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 		if (beanDefinition.getMethodOverrides().isEmpty()) {
 			if (System.getSecurityManager() != null) {
 				// use own privileged to change accessibility (when security is on)
+				/** 利用自己的特权变化可访问性(安全)*/
 				AccessController.doPrivileged(new PrivilegedAction<Object>() {
 					public Object run() {
 						ReflectionUtils.makeAccessible(ctor);
@@ -119,6 +127,9 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 	 * UnsupportedOperationException, if they can instantiate an object with
 	 * the Method Injection specified in the given RootBeanDefinition.
 	 * Instantiation should use the given constructor and parameters.
+	 * *********************************************************************
+	 * ~$ 子类可以重写此方法,实现抛出UnsupportedOperationException,如果他们能实例化一个对象的方法注入给RootBeanDefinition中指定
+	 * ~$ 应该使用给定的实例化构造函数和参数
 	 */
 	protected Object instantiateWithMethodInjection(RootBeanDefinition beanDefinition,
 			String beanName, BeanFactory owner, Constructor ctor, Object[] args) {
@@ -175,6 +186,8 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 	 * Return the factory method currently being invoked or {@code null} if none.
 	 * Allows factory method implementations to determine whether the current
 	 * caller is the container itself as opposed to user code.
+	 * **************************************************************************
+	 * ~$ 返回当前调用工厂方法或{@code null}如果没有.允许工厂方法实现确定当前的调用者是否容器本身而非用户代码
 	 */
 	public static Method getCurrentlyInvokedFactoryMethod() {
 		return currentlyInvokedFactoryMethod.get();

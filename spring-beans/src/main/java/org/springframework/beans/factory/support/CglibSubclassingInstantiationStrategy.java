@@ -34,9 +34,13 @@ import org.springframework.beans.factory.BeanFactory;
  * Default object instantiation strategy for use in BeanFactories.
  * Uses CGLIB to generate subclasses dynamically if methods need to be
  * overridden by the container, to implement Method Injection.
+ * *******************************************************************
+ * ~$ 用于beanfactory默认对象实例化策略 使用CGLIB动态生成子类如果容器方法需要覆盖,实现方法注入
  *
  * <p>Using Method Injection features requires CGLIB on the classpath.
  * However, the core IoC container will still run without CGLIB being available.
+ * *******************************************************************************
+ * ~$ 使用方法注入特性需要CGLIB的类路径中. 然而,核心IoC容器没有CGLIB可用 也可以运行
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -47,18 +51,24 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 	/**
 	 * Index in the CGLIB callback array for passthrough behavior,
 	 * in which case the subclass won't override the original class.
+	 * ******************************************************************
+	 * ~$ CGLIB调数组中的索引透传的行为,在这种情况下,子类不会覆盖原来的类
 	 */
 	private static final int PASSTHROUGH = 0;
 
 	/**
 	 * Index in the CGLIB callback array for a method that should
 	 * be overridden to provide method lookup.
+	 * ***********************************************************
+	 * ~$ CGLIB调数组中的索引应该覆盖一个方法提供方法查找
 	 */
 	private static final int LOOKUP_OVERRIDE = 1;
 	
 	/**
 	 * Index in the CGLIB callback array for a method that should
 	 * be overridden using generic Methodreplacer functionality.
+	 * **********************************************************
+	 * ~$ CGLIB调数组中的索引的方法应该使用通用Methodreplacer功能覆盖
 	 */
 	private static final int METHOD_REPLACER = 2;
 
@@ -68,6 +78,7 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 			RootBeanDefinition beanDefinition, String beanName, BeanFactory owner) {
 
 		// Must generate CGLIB subclass.
+		/** 必须生成 CGLIB 子类*/
 		return new CglibSubclassCreator(beanDefinition, owner).instantiate(null, null);
 	}
 
@@ -82,6 +93,8 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 
 	/**
 	 * An inner class so we don't have a CGLIB dependency in core.
+	 * ***********************************************************
+	 *  ~$ 一个内部类,所以我们没有CGLIB依赖的核心
 	 */
 	private static class CglibSubclassCreator {
 
@@ -99,10 +112,15 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 		/**
 		 * Create a new instance of a dynamically generated subclasses implementing the
 		 * required lookups.
+		 * ****************************************************************************
+		 * ~$ 创建一个新的动态生成子类的实例实现所需的查询
+		 *
 		 * @param ctor constructor to use. If this is <code>null</code>, use the
 		 * no-arg constructor (no parameterization, or Setter Injection)
+		 *	~$ 构造函数使用 如果这是NULL  使用不带参数的构造函数(没有参数化,或Setter注入)
 		 * @param args arguments to use for the constructor.
 		 * Ignored if the ctor parameter is <code>null</code>.
+		 *	~$ 使用构造函数的参数。忽略了如果构造函数 参数是<code>null</code>.
 		 * @return new instance of the dynamically generated class
 		 */
 		public Object instantiate(Constructor ctor, Object[] args) {
@@ -124,12 +142,16 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 		/**
 		 * Class providing hashCode and equals methods required by CGLIB to
 		 * ensure that CGLIB doesn't generate a distinct class per bean.
-		 * Identity is based on class and bean definition. 
+		 * Identity is based on class and bean definition.
+		 * ****************************************************************
+		 * ~$ CGLIB类提供hashCode和 equals 方法要求确保CGLIB不会每个bean生成一个不同的类。身份是基于类和bean定义
 		 */
 		private class CglibIdentitySupport {
 
 			/**
 			 * Exposed for equals method to allow access to enclosing class field
+			 * ******************************************************************
+			 * ~$ 暴露在equals方法允许访问封闭类字段
 			 */
 			protected RootBeanDefinition getBeanDefinition() {
 				return beanDefinition;
@@ -151,6 +173,8 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 		/**
 		 * CGLIB MethodInterceptor to override methods, replacing them with an
 		 * implementation that returns a bean looked up in the container.
+		 * *******************************************************************
+		 * ~$ CGLIB MethodInterceptor覆盖方法,取而代之的是一个实现返回一个bean抬起头的容器
 		 */
 		private class LookupOverrideMethodInterceptor extends CglibIdentitySupport implements MethodInterceptor {
 
@@ -165,6 +189,8 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 		/**
 		 * CGLIB MethodInterceptor to override methods, replacing them with a call
 		 * to a generic MethodReplacer.
+		 * ***********************************************************************
+		 * ~$ CGLIB MethodInterceptor覆盖方法,取而代之的是调用一个通用MethodReplacer
 		 */
 		private class ReplaceOverrideMethodInterceptor extends CglibIdentitySupport implements MethodInterceptor {
 
@@ -179,6 +205,8 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 
 		/**
 		 * CGLIB object to filter method interception behavior.
+		 * ****************************************************
+		 * ~$  CGLIB对象筛选方法拦截行为
 		 */
 		private class CallbackFilterImpl extends CglibIdentitySupport implements CallbackFilter {
 			

@@ -29,7 +29,7 @@ public class XmlTest {
      */
 
 
-    private String config="classpath:spring-context.xml";
+    private String config="spring-context.xml";
     @Test
     public void testSpringXml(){
         /*ClassPathResource resource=new ClassPathResource(config);
@@ -83,8 +83,9 @@ public class XmlTest {
 
          */
         Map<String,String> map = new ConcurrentHashMap<String,String>();
-        map.put("sss","sss");
+        map.put("sss","hello world");
         System.out.println(map.get("sss"));
+        System.out.println(map.remove("sss"));
 
 
 

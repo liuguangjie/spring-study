@@ -19,6 +19,9 @@ package org.springframework.beans;
 /**
  * Holder containing one or more {@link PropertyValue} objects,
  * typically comprising one update for a specific target bean.
+ * ***********************************************************
+ * ~$ 夹持器包含一个或多个 {@link PropertyValue } 对象,
+ * 	  通常包括一个更新为特定目标bean
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -29,11 +32,15 @@ public interface PropertyValues {
    
 	/** 
 	 * Return an array of the PropertyValue objects held in this object.
+	 * *****************************************************************
+	 * ~$ PropertyValue对象数组返回这个对象
 	 */
 	PropertyValue[] getPropertyValues();	
 	
 	/**
 	 * Return the property value with the given name, if any.
+	 * ******************************************************
+	 * ~$ 返回属性值与给定的名称,如果有的话
 	 * @param propertyName the name to search for
 	 * @return the property value, or <code>null</code>
 	 */
@@ -42,6 +49,9 @@ public interface PropertyValues {
 	/**
 	 * Return the changes since the previous PropertyValues.
 	 * Subclasses should also override <code>equals</code>.
+	 *  ******************************************************
+	 *  ~$ 返回前一propertyvalue以后的更改.
+	 *  子类也应该覆盖 <code>equals</code>.
 	 * @param old old property values
 	 * @return PropertyValues updated or new properties.
 	 * Return empty PropertyValues if there are no changes.
@@ -51,6 +61,8 @@ public interface PropertyValues {
 
 	/**
 	 * Is there a property value (or other processing entry) for this property?
+	 * ************************************************************************
+	 * ~$ 是否有此属性的属性值(或其他处理条目)?
 	 * @param propertyName the name of the property we're interested in
 	 * @return whether there is a property value for this property
 	 */
@@ -58,6 +70,7 @@ public interface PropertyValues {
 
 	/**
 	 * Does this holder not contain any PropertyValue objects at all?
+	 * ~$ 这架不包含任何PropertyValue对象吗?
 	 */
 	boolean isEmpty();
 
