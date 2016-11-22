@@ -24,6 +24,9 @@ import org.springframework.util.Assert;
 /**
  * Simple concrete variant of {@link SpringBeanELResolver}, delegating
  * to a given {@link BeanFactory} that the resolver was constructed with.
+ * *********************************************************************
+ * ~$ 简单具体的变体  {@link SpringBeanELResolver},
+ *    委托给一个给定{@link BeanFactory },由解析器
  *
  * @author Juergen Hoeller
  * @since 2.5.2
@@ -35,6 +38,8 @@ public class SimpleSpringBeanELResolver extends SpringBeanELResolver {
 
 	/**
 	 * Create a new SimpleSpringBeanELResolver for the given BeanFactory.
+	 * ******************************************************************
+	 * ~$ 创建一个新的给定BeanFactory SimpleSpringBeanELResolver
 	 * @param beanFactory the Spring BeanFactory to delegate to
 	 */
 	public SimpleSpringBeanELResolver(BeanFactory beanFactory) {

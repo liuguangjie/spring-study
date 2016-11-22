@@ -28,6 +28,8 @@ import org.springframework.util.ReflectionUtils;
 
 /**
  * General utility methods for working with annotations in JavaBeans style.
+ * ************************************************************************
+ * ~$ 一般使用注释在javabean样式的实用方法
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -38,6 +40,8 @@ public abstract class AnnotationBeanUtils {
 	/**
 	 * Copy the properties of the supplied {@link Annotation} to the supplied target bean.
 	 * Any properties defined in <code>excludedProperties</code> will not be copied.
+	 * ***********************************************************************************
+	 * ~$ 复制的属性提供{@link Annotation} bean提供的目标
 	 * @see BeanWrapper
 	 */
 	public static void copyPropertiesToBean(Annotation ann, Object bean, String... excludedProperties) {

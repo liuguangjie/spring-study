@@ -20,7 +20,8 @@ import org.springframework.beans.FatalBeanException;
 
 /**
  * Exception thrown if a bean factory could not be loaded by a bootstrap class.
- *
+ * ****************************************************************************
+ * ~$ 异常抛出如果bean工厂不能引导类加载
  * @author Rod Johnson
  * @since 02.12.2002
  */
@@ -28,6 +29,8 @@ public class BootstrapException extends FatalBeanException {
 
 	/**
 	 * Create a new BootstrapException with the specified message.
+	 * ***********************************************************
+	 * ~$ 创建一个新的BootstrapException与指定的消息
 	 * @param msg the detail message
 	 */
 	public BootstrapException(String msg) {
@@ -37,6 +40,8 @@ public class BootstrapException extends FatalBeanException {
 	/**
 	 * Create a new BootstrapException with the specified message
 	 * and root cause.
+	 * **********************************************************
+	 * ~$ 创建一个新的BootstrapException指定的消息和根源
 	 * @param msg the detail message
 	 * @param cause the root cause
 	 */

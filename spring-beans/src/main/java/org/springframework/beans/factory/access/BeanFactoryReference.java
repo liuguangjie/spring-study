@@ -25,6 +25,10 @@ import org.springframework.beans.factory.BeanFactory;
  *
  * <p>It is safe to call {@link #release()} multiple times, but
  * {@link #getFactory()} must not be called after calling release.
+ * ********************************************************************
+ * ~$ 用于追踪引用{@link BeanFactory}通过一个{@link BeanFactoryLocator}
+ * <p> 可以多次调用 {@link #release()} 但是{@link #getFactory()}
+ * 		不可称为调用后释放
  *
  * @author Colin Sampaleanu
  * @see BeanFactoryLocator
@@ -34,6 +38,8 @@ public interface BeanFactoryReference {
 
 	/**
 	 * Return the {@link BeanFactory} instance held by this reference.
+	 * **************************************************************
+	 * ~$ 返回 {@link BeanFactory} 实列 由这个引用
 	 * @throws IllegalStateException if invoked after <code>release()</code> has been called
 	 */
 	BeanFactory getFactory();
@@ -49,6 +55,15 @@ public interface BeanFactoryReference {
 	 * <p>In an EJB usage scenario this would normally be called from
 	 * <code>ejbRemove()</code> and <code>ejbPassivate()</code>.
 	 * <p>This is safe to call multiple times.
+	 * *************************************************************************************
+	 * ~$ 表明, {@link BeanFactory} 实例引用这个对象不再需要通过客户端代码获得了
+	 *    {@link BeanFactoryReference}.
+	 * <p> 这取决于的实际实现  {@link BeanFactoryLocator}, 和实际的类型 BeanFactory,
+	 *     这可能不是真的做任何事情; 交替的情况下 'closeable' BeanFactory  或派生类
+	 *     (如{@link org.springframework.context.ApplicationContext })可能“关闭”,
+	 *     或“关闭”一次不再引用依然存在.
+	 * <p> 在EJB使用场景这将通常被称为  ejbRemove()  和 ejbPassivate()
+	 * <p> 这是安全调用多次.
 	 * @throws FatalBeanException if the <code>BeanFactory</code> cannot be released
 	 * @see BeanFactoryLocator
 	 * @see org.springframework.context.access.ContextBeanFactoryReference
