@@ -41,6 +41,18 @@ import java.lang.annotation.Target;
  * consult the javadoc for the {@link AutowiredAnnotationBeanPostProcessor}
  * class (which, by default, checks for the presence of this annotation).
  *
+ * *******************************************************************************
+ * ~$ 注释的字段或方法或构造函数的参数水平,表明一个默认值影响参数的表达式.
+ *
+ * <p>通常用于expression-driven依赖注入.还支持动态分辨率的处理程序方法参数,例如Spring MVC.
+ *
+ * <p>一个常见的用例是使用"#{systemProperties.myProp }"风格表达式.
+ *
+ * <p>注意,实际处理{ @code @value }注释是由{@link org.springframework.beans.factory.config.BeanPostProcessor
+ * 	  BeanPostProcessor } 反过来意味着你不能使用{@code @value}在{@link org.springframework.beans.factory.config.BeanPostProcessor
+ * 	  BeanPostProcessor }或{@link BeanFactoryPostProcessor }类型.
+ * 	  请咨询的javadoc {@link AutowiredAnnotationBeanPostProcessor }类(默认情况下,检查是否存在该注释)
+ *
  * @author Juergen Hoeller
  * @since 3.0
  * @see AutowiredAnnotationBeanPostProcessor
@@ -55,6 +67,8 @@ public @interface Value {
 
 	/**
 	 * The actual value expression: e.g. "#{systemProperties.myProp}".
+	 * ***************************************************************
+	 * ~$ 实际值表达式:例如"#{systemProperties.myProp}"
 	 */
 	String value();
 

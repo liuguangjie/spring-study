@@ -23,7 +23,9 @@ import org.springframework.core.type.AnnotationMetadata;
  * Extended {@link BeanDefinition}
  * interface that exposes {@link AnnotationMetadata}
  * about its bean class - without requiring the class to be loaded yet.
- *
+ * ********************************************************************
+ * ~$ 继承 {@link BeanDefinition} 接口
+ * 使{@link AnnotationMetadata}的bean类——不需要加载类.
  * @author Juergen Hoeller
  * @since 2.5
  * @see AnnotatedGenericBeanDefinition
@@ -34,6 +36,8 @@ public interface AnnotatedBeanDefinition extends BeanDefinition {
 	/**
 	 * Obtain the annotation metadata (as well as basic class metadata)
 	 * for this bean definition's bean class.
+	 * ****************************************************************
+	 * 获取元数据注释(以及基本的类元数据)这个bean定义的bean类.
 	 * @return the annotation metadata object (never <code>null</code>)
 	 */
 	AnnotationMetadata getMetadata();

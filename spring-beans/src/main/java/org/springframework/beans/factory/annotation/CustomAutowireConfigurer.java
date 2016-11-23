@@ -32,6 +32,8 @@ import org.springframework.util.ClassUtils;
  * implementation that allows for convenient registration of custom autowire
  * qualifier types.
  *
+ * *************************************************************************
+ * ~$ A {@link BeanFactoryPostProcessor} 实现,允许方便注册自定义自动装配限定符类型.
  * <pre class="code">
  * &lt;bean id="customAutowireConfigurer" class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer"&gt;
  *   &lt;property name="customQualifierTypes"&gt;
@@ -75,6 +77,10 @@ public class CustomAutowireConfigurer implements BeanFactoryPostProcessor, BeanC
 	 * <p>Note that any annotation that is itself annotated with Spring's
 	 * {@link Qualifier}
 	 * does not require explicit registration.
+	 * *********************************************************************
+	 * ~$ 注册自定义限定符注释类型时要考虑自动装配bean.
+	 *    提供集的每个元素可以是一个类实例或完全限定类名的字符串表示自定义注解.
+	 * <p>请注意任何注解,本身就是注解与Spring的{@link Qualifier}不需要显式登记.
 	 * @param customQualifierTypes the custom types to register
 	 */
 	public void setCustomQualifierTypes(Set customQualifierTypes) {

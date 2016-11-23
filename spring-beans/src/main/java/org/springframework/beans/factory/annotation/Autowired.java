@@ -56,6 +56,28 @@ import java.lang.annotation.Target;
  * consult the javadoc for the {@link AutowiredAnnotationBeanPostProcessor}
  * class (which, by default, checks for the presence of this annotation).
  *
+ * ***************************************************************************
+ * ~$ 标志着一个构造函数,字段setter方法或配置方法是通过Spring的依赖项注入autowired的设施.
+ *
+ * <p>只有一个构造函数(max)任何给定的bean类可能携带这个注释,
+ *    说明构造函数自动装配使用时作为一个Spring bean.这样的构造函数不需要公开.
+ *
+ * <p>字段注入建设bean之后,任何配置方法之前被调用.这样的配置字段不需要公开.
+ *
+ * <p>配置方法可能有任意名字和任意数量的参数;这些参数将会与通过名字匹配Spring容器中的bean
+ *    Bean属性setter方法有效的只是这样一个通用配置方法的一个特例。这种配置方法不需要公开.
+ *
+ * <p>的多个参数方法,所需的参数适用于所有参数
+ *
+ * <p>对于{@link java.util.Collection}或{@link java.util.Map}依赖类型,
+ *    容器会自动装配所有bean匹配的声明的值类型.
+ *    对于地图,key必须声明为类型字符串并将解决相应的bean的名称.
+ *
+ * <p>注意实际注入是通过执行一个{@link org.springframework.beans.factory.config.BeanPostProcessor
+ *  BeanPostProcessor }反过来意味着你<em>cannot</em>使用{@code @autowired},
+ *  注入引用 {@link org.springframework.beans.factory.config.BeanPostProcessor
+ *  BeanPostProcessor }或{@link BeanFactoryPostProcessor }类型.
+ *  请咨询的javadoc {@link AutowiredAnnotationBeanPostProcessor }类(默认情况下,检查是否存在该注释).
  * @author Juergen Hoeller
  * @author Mark Fisher
  * @since 2.5
@@ -71,6 +93,8 @@ public @interface Autowired {
 	/**
 	 * Declares whether the annotated dependency is required.
 	 * <p>Defaults to <code>true</code>.
+	 * *****************************************************
+	 * ~$ 声明是否需要带注释的依赖.
 	 */
 	boolean required() default true;
 

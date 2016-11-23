@@ -28,6 +28,11 @@ import java.lang.annotation.Target;
  * <p>Please do consult the javadoc for the {@link RequiredAnnotationBeanPostProcessor}
  * class (which, by default, checks for the presence of this annotation).
  *
+ * ************************************************************************************
+ * ~$ 标志着一个方法(通常是一个JavaBean setter方法)是'required':
+ *    也就是说,必须配置为dependency-injected setter方法与一个值.
+ *
+ * <p>请咨询{@link  RequiredAnnotationBeanPostProcessor}类的javadoc(默认情况下,检查是否存在该注释)。
  * @author Rob Harrop
  * @since 2.0
  * @see RequiredAnnotationBeanPostProcessor

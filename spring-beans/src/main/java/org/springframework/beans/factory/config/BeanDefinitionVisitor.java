@@ -36,6 +36,11 @@ import org.springframework.util.StringValueResolver;
  * <p>Used by {@link PropertyPlaceholderConfigurer} to parse all String values
  * contained in a BeanDefinition, resolving any placeholders found.
  *
+ * ****************************************************************************
+ * ~$ 访问者类为遍历对象{@link BeanDefinition },特别是属性值中包含构造函数参数值,解决bean元数据值.
+ *
+ * <p>使用{@link PropertyPlaceholderConfigurer}
+ *     BeanDefinition解析中包含的所有字符串值,解决发现的任何占位符.
  * @author Juergen Hoeller
  * @author Sam Brannen
  * @since 1.2
@@ -52,6 +57,8 @@ public class BeanDefinitionVisitor {
 	/**
 	 * Create a new BeanDefinitionVisitor, applying the specified
 	 * value resolver to all bean metadata values.
+	 * ***********************************************************
+	 * ~$ 创建一个新的BeanDefinitionVisitor,将指定值解析器应用于所有bean的元数据值.
 	 * @param valueResolver the StringValueResolver to apply
 	 */
 	public BeanDefinitionVisitor(StringValueResolver valueResolver) {
@@ -62,6 +69,9 @@ public class BeanDefinitionVisitor {
 	/**
 	 * Create a new BeanDefinitionVisitor for subclassing.
 	 * Subclasses need to override the {@link #resolveStringValue} method.
+	 * *******************************************************************
+	 * ~$ 创建一个新的BeanDefinitionVisitor子类化.
+	 *    子类需要覆盖{@link #resolveStringValue }的方法。
 	 */
 	protected BeanDefinitionVisitor() {
 	}
@@ -70,7 +80,10 @@ public class BeanDefinitionVisitor {
 	/**
 	 * Traverse the given BeanDefinition object and the MutablePropertyValues
 	 * and ConstructorArgumentValues contained in them.
-	 * @param beanDefinition the BeanDefinition object to traverse
+	 * **********************************************************************
+	 * ~$ 遍历给定BeanDefinition对象和MutablePropertyValues ConstructorArgumentValues中包含他们.
+	 *
+	 * @param beanDefinition the BeanDefinition object to traverse ~$  BeanDefinition对象遍历
 	 * @see #resolveStringValue(String)
 	 */
 	public void visitBeanDefinition(BeanDefinition beanDefinition) {
@@ -271,6 +284,8 @@ public class BeanDefinitionVisitor {
 
 	/**
 	 * Resolve the given String value, for example parsing placeholders.
+	 * *****************************************************************
+	 * ~$  解决给定的字符串值,例如解析占位符.
 	 * @param strVal the original String value
 	 * @return the resolved String value
 	 */
@@ -281,6 +296,7 @@ public class BeanDefinitionVisitor {
 		}
 		String resolvedValue = this.valueResolver.resolveStringValue(strVal);
 		// Return original String if not modified.
+		/** 返回原字符串如果不修改.*/
 		return (strVal.equals(resolvedValue) ? strVal : resolvedValue);
 	}
 

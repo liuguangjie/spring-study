@@ -43,6 +43,13 @@ import org.springframework.util.ReflectionUtils;
  * {@link org.springframework.context.annotation.CommonAnnotationBeanPostProcessor} and
  * {@link org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor}.
  *
+ * ************************************************************************************
+ * ~$ 内部类来管理注入元数据.  不能直接在应用程序中使用.
+ *
+ * <p>所使用的 {@link AutowiredAnnotationBeanPostProcessor},
+ * {@link org.springframework.context.annotation.CommonAnnotationBeanPostProcessor} and
+ * {@link org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor}.
+ *
  * @author Juergen Hoeller
  * @since 2.5
  */
@@ -142,6 +149,9 @@ public class InjectionMetadata {
 
 		/**
 		 * Either this or {@link #getResourceToInject} needs to be overridden.
+		 * *******************************************************************
+		 * ~$ 这{@link #getResourceToInject }需要覆盖.
+		 *
 		 */
 		protected void inject(Object target, String requestingBeanName, PropertyValues pvs) throws Throwable {
 			if (this.isField) {
@@ -168,6 +178,9 @@ public class InjectionMetadata {
 		 * Checks whether this injector's property needs to be skipped due to
 		 * an explicit property value having been specified. Also marks the
 		 * affected property as processed for other processors to ignore it.
+		 * *****************************************************************
+		 * ~$ 检查是否这个注射的属性　需要跳过由于一个显式的属性值被指定.
+		 *    也标志着影响财产作为其他处理器处理忽略它.
 		 */
 		protected boolean checkPropertySkipping(PropertyValues pvs) {
 			if (this.skip == null) {
@@ -177,6 +190,7 @@ public class InjectionMetadata {
 							if (this.pd != null) {
 								if (pvs.contains(this.pd.getName())) {
 									// Explicit value provided as part of the bean definition.
+									/** 显式值作为bean定义的一部分提供.*/
 									this.skip = true;
 									return true;
 								}
@@ -194,6 +208,8 @@ public class InjectionMetadata {
 
 		/**
 		 * Either this or {@link #inject} needs to be overridden.
+		 * ******************************************************
+		 * ~$ 这{@link #inject}需要覆盖.
 		 */
 		protected Object getResourceToInject(Object target, String requestingBeanName) {
 			return null;

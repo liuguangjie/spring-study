@@ -94,6 +94,27 @@ import org.springframework.util.ReflectionUtils;
  * thus the latter configuration will override the former for properties wired through
  * both approaches.
  *
+ * ***********************************************************************************************
+ * ~$ {@link org.springframework.beans.factory.config.BeanPostProcessor}实现自动装配带注释的字段,
+ *    setter方法和任意的配置方法. 这些成员被注入检测通过Java 5注释:默认情况下,
+ *    Spring的{@link Autowired @Autowired }和{@link Value @Value }注释.
+ *
+ * <p>还支持jsr-330's {@link javax.inject.Inject @Inject} 注解,如果可用,直接替代Spring的<code>@Autowired</code>.
+ *
+ * <p>只有一个构造函数(max)任何给定的bean类可能携带该注释'required'参数设置为true,表示构造函数作为一个Spring bean时自动装配.
+ *    如果多个非必需的构造函数进行注释,他们将被视为适合自动装配.
+ *    最大的构造函数依赖关系的数量可以满足匹配bean在Spring容器将被选中.
+ *    如果没有一个候选人可以满足,那么将使用一个默认的构造函数(如果存在).
+ *    一个带注释的构造函数不需要公开.
+ *
+ * <p>字段注入建设bean之后,任何配置方法之前被调用。这样的配置字段不需要公开.
+ *
+ * <p>配置方法可能有任意名字和任意数量的参数,这些参数将会与通过名字匹配Spring容器中的bean.
+ *    Bean属性setter方法有效的只是这样一个通用配置方法的一个特例. 配置方法不需要公开.
+ *
+ * <p>注意:默认AutowiredAnnotationBeanPostProcessor将注册"context:annotation-config"和"context:component-scan"XML标记.
+ *    删除或关闭默认注释配置如果你意愿指定一个自定义AutowiredAnnotationBeanPostProcessor bean定义.
+ * <p>注意:注释注入将XML注入之前执行,因此后者配置将会覆盖前属性连接通过这两种方法.
  * @author Juergen Hoeller
  * @author Mark Fisher
  * @since 2.5
@@ -128,6 +149,9 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 * Create a new AutowiredAnnotationBeanPostProcessor
 	 * for Spring's standard {@link Autowired} annotation.
 	 * <p>Also supports JSR-330's {@link javax.inject.Inject} annotation, if available.
+	 * ********************************************************************************
+	 * ~$ 创建一个新的AutowiredAnnotationBeanPostProcessor Spring的标准{@link Autowired}注解
+	 * <p>还支持 JSR-330's {@link javax.inject.Inject} annotation,如果可用.
 	 */
 	@SuppressWarnings("unchecked")
 	public AutowiredAnnotationBeanPostProcessor() {
@@ -152,6 +176,10 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 * <p>This setter property exists so that developers can provide their own
 	 * (non-Spring-specific) annotation type to indicate that a member is
 	 * supposed to be autowired.
+	 * **************************************************************************
+	 * ~$ 设置autowired的注释类型,使用构造函数,字段,setter方法和任意的配置方法.
+	 * <p>默认autowired的注释类型是spring{@link Autowired },以及 {@link Value}.
+	 * <p>setter属性存在,这样开发者就可以提供自己的(non-Spring-specific)注释类型表明应该是autowired的一员.
 	 */
 	public void setAutowiredAnnotationType(Class<? extends Annotation> autowiredAnnotationType) {
 		Assert.notNull(autowiredAnnotationType, "'autowiredAnnotationType' must not be null");
@@ -167,6 +195,10 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 * <p>This setter property exists so that developers can provide their own
 	 * (non-Spring-specific) annotation types to indicate that a member is
 	 * supposed to be autowired.
+	 * **************************************************************************
+	 * ~$ 设置autowired的注释类型,使用构造函数,字段,setter方法和任意的配置方法.
+	 * <p>默认autowired的注释类型是spring{@link Autowired },以及 {@link Value}.
+	 * <p>setter属性存在,这样开发者就可以提供自己的(non-Spring-specific)注释类型表明应该是autowired的一员.
 	 */
 	public void setAutowiredAnnotationTypes(Set<Class<? extends Annotation>> autowiredAnnotationTypes) {
 		Assert.notEmpty(autowiredAnnotationTypes, "'autowiredAnnotationTypes' must not be empty");
@@ -177,6 +209,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	/**
 	 * Set the name of a parameter of the annotation that specifies
 	 * whether it is required.
+	 * ************************************************************
+	 * ~$ 设置参数的注释指定的名称是否需要它.
 	 * @see #setRequiredParameterValue(boolean)
 	 */
 	public void setRequiredParameterName(String requiredParameterName) {
@@ -188,6 +222,9 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 * <p>For example if using 'required=true' (the default), 
 	 * this value should be <code>true</code>; but if using 
 	 * 'optional=false', this value should be <code>false</code>.
+	 * **********************************************************
+	 * ~$ 根据需要设置布尔值,标志着依赖例如如果使用'required=true'(默认),
+	 *    这个值应该是真的,但如果使用'optional=false',这个值应该是假的.
 	 * @see #setRequiredParameterName(String)
 	 */
 	public void setRequiredParameterValue(boolean requiredParameterValue) {
@@ -221,6 +258,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	@Override
 	public Constructor<?>[] determineCandidateConstructors(Class<?> beanClass, String beanName) throws BeansException {
 		// Quick check on the concurrent map first, with minimal locking.
+		/** 快速检查并发映射,以最小的锁定.*/
 		Constructor<?>[] candidateConstructors = this.candidateConstructorsCache.get(beanClass);
 		if (candidateConstructors == null) {
 			synchronized (this.candidateConstructorsCache) {
@@ -260,6 +298,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					}
 					if (!candidates.isEmpty()) {
 						// Add default constructor to list of optional constructors, as fallback.
+						/** 添加默认构造函数的可选列表构造函数,作为候选.*/
 						if (requiredConstructor == null && defaultConstructor != null) {
 							candidates.add(defaultConstructor);
 						}
@@ -292,6 +331,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	/**
 	 * 'Native' processing method for direct calls with an arbitrary target instance,
 	 * resolving all of its fields and methods which are annotated with <code>@Autowired</code>.
+	 * ****************************************************************************************
+	 * ~$ 'Native'处理方法直接调用任意目标实例,解决所有的字段和方法与@autowired注解
 	 * @param bean the target instance to process
 	 * @throws BeansException if autowiring failed
 	 */
@@ -309,6 +350,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	private InjectionMetadata findAutowiringMetadata(Class<?> clazz) {
 		// Quick check on the concurrent map first, with minimal locking.
+		/** 快速检查并发映射,以最小的锁定*/
 		InjectionMetadata metadata = this.injectionMetadataCache.get(clazz);
 		if (metadata == null) {
 			synchronized (this.injectionMetadataCache) {
@@ -382,8 +424,12 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Obtain all beans of the given type as autowire candidates.
+	 * **********************************************************
+	 * ~$ 获得所有bean的特定类型自动装配的候选人.
 	 * @param type the type of the bean
+	 *             bean的类型
 	 * @return the target beans, or an empty Collection if no bean of this type is found
+	 *         目标bean,或一个空集合如果没有找到这种类型的bean
 	 * @throws BeansException if bean retrieval failed
 	 */
 	protected <T> Map<String, T> findAutowireCandidates(Class<T> type) throws BeansException {
@@ -399,6 +445,10 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 * <p>A 'required' dependency means that autowiring should fail when no beans
 	 * are found. Otherwise, the autowiring process will simply bypass the field
 	 * or method when no beans are found.
+	 * **************************************************************************
+	 * ~$ 确定带注释的字段或方法需要依赖.
+	 * <p>'required'依赖意味着自动装配应该没有发现bean时失败.
+	 *    否则,自动装配过程只会绕过当没有找到bean字段或方法.
 	 * @param annotation the Autowired annotation
 	 * @return whether the annotation indicates that a dependency is required
 	 */
@@ -415,6 +465,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Register the specified bean as dependent on the autowired beans.
+	 * ****************************************************************
+	 * ~$ 指定的bean注册为依赖于autowired的bean.
 	 */
 	private void registerDependentBeans(String beanName, Set<String> autowiredBeanNames) {
 		if (beanName != null) {
@@ -431,6 +483,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Resolve the specified cached method argument or field value.
+	 * ***********************************************************
+	 * ~$ 解决缓存指定方法参数或字段值.
 	 */
 	private Object resolvedCachedArgument(String beanName, Object cachedArgument) {
 		if (cachedArgument instanceof DependencyDescriptor) {
@@ -449,6 +503,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Class representing injection information about an annotated field.
+	 * ******************************************************************
+	 * ~$ 类代表注入一个带注释的字段信息.
 	 */
 	private class AutowiredFieldElement extends InjectionMetadata.InjectedElement {
 
@@ -511,6 +567,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Class representing injection information about an annotated method.
+	 * *******************************************************************
+	 * ~$ 类代表注入一个带注释的方法的信息.
 	 */
 	private class AutowiredMethodElement extends InjectionMetadata.InjectedElement {
 
@@ -535,6 +593,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				Object[] arguments;
 				if (this.cached) {
 					// Shortcut for avoiding synchronization...
+					/** 快捷方式避免同步...*/
 					arguments = resolveCachedArguments(beanName);
 				}
 				else {

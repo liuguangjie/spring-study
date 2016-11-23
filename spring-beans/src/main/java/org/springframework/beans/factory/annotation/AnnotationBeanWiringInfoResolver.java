@@ -27,7 +27,9 @@ import org.springframework.util.ClassUtils;
  * The bean name to look up will be taken from the {@link Configurable} annotation
  * if specified; otherwise the default will be the fully-qualified name of the
  * class being configured.
- *
+ * *******************************************************************************
+ * ~$ {@link BeanWiringInfoResolver },使用可配置的注释来识别哪些类需要自动装配.
+ *    bean名称查找将从{@link Configurable}注释如果指定,否则默认的完全限定名称类配置.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0
@@ -44,6 +46,8 @@ public class AnnotationBeanWiringInfoResolver implements BeanWiringInfoResolver 
 
 	/**
 	 * Build the BeanWiringInfo for the given Configurable annotation.
+	 * ***************************************************************
+	 * ~$ 构建BeanWiringInfo为给定 Configurable 的注释
 	 * @param beanInstance the bean instance
 	 * @param annotation the Configurable annotation found on the bean class
 	 * @return the resolved BeanWiringInfo
@@ -55,6 +59,7 @@ public class AnnotationBeanWiringInfoResolver implements BeanWiringInfoResolver 
 		else {
 			if (!"".equals(annotation.value())) {
 				// explicitly specified bean name
+				/** 显式地指定bean名称*/
 				return new BeanWiringInfo(annotation.value(), false);
 			}
 			else {
@@ -68,6 +73,9 @@ public class AnnotationBeanWiringInfoResolver implements BeanWiringInfoResolver 
 	 * Determine the default bean name for the specified bean instance.
 	 * <p>The default implementation returns the superclass name for a CGLIB
 	 * proxy and the name of the plain bean class else.
+	 * *********************************************************************
+	 * ~$ 确定默认bean名称指定的bean实例.
+	 * <p>默认实现返回的超类名称CGLIB代理和其他普通的bean类的名称.
 	 * @param beanInstance the bean instance to build a default name for
 	 * @return the default bean name to use
 	 * @see ClassUtils#getUserClass(Class)

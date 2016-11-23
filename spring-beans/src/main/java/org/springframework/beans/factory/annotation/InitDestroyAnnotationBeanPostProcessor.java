@@ -67,6 +67,20 @@ import org.springframework.util.ReflectionUtils;
  * Furthermore, it also supports the {@link javax.annotation.Resource} annotation
  * for annotation-driven injection of named beans.
  *
+ * *****************************************************************************************************
+ * ~$  {@link org.springframework.beans.factory.config.BeanPostProcessor} 实现调用带注解的初始化和销毁方法.
+ *    允许一个注解替代Spring的{ @link org.springframework.beans.factory.InitializingBean }
+ *    和{@link org.springframework.beans.factory.DisposableBean }的回调接口.
+ *
+ * <p>实际的注释类型,这种后处理器检查可以通过配置{@link #setInitAnnotationType "initAnnotationType"}
+ *    和{@link #setDestroyAnnotationType "destroyAnnotationType"}属性.
+ *
+ * <p>初始化和销毁注解可能适用于任何可见性的方法:公众,包保护的,保护,或私人.
+ *    多个这样的方法可能是注解,但建议只标注一个init方法和销毁方法,分别.
+ *
+ * <p>Spring's 的{@link org.springframework.context.annotation.CommonAnnotationBeanPostProcessor}
+ *    支持 JSR-250 {@link javax.annotation.PostConstruct} 和 {@link javax.annotation.PreDestroy} 注解,
+ *    分别为init注释并摧毁注解. 此外,它还支持{@link javax.annotation.Resource}注释注解驱动注射名为bean.
  * @author Juergen Hoeller
  * @since 2.5
  * @see #setInitAnnotationType
@@ -94,6 +108,10 @@ public class InitDestroyAnnotationBeanPostProcessor
 	 * <p>Any custom annotation can be used, since there are no required
 	 * annotation attributes. There is no default, although a typical choice
 	 * is the JSR-250 {@link javax.annotation.PostConstruct} annotation.
+	 * *********************************************************************
+	 * ~$ 指定init注解来检查,显示初始化方法来调用bean的配置.
+	 * <p>可以使用任何自定义注解,因为没有需要注释的属性.没有违约,
+	 *    但一个典型的选择是jsr-250{@link javax.annotation.PostConstruct} 注解.
 	 */
 	public void setInitAnnotationType(Class<? extends Annotation> initAnnotationType) {
 		this.initAnnotationType = initAnnotationType;
@@ -105,6 +123,10 @@ public class InitDestroyAnnotationBeanPostProcessor
 	 * <p>Any custom annotation can be used, since there are no required
 	 * annotation attributes. There is no default, although a typical choice
 	 * is the JSR-250 {@link javax.annotation.PreDestroy} annotation.
+	 * **********************************************************************
+	 * ~$ 指定检查的摧毁注解,表明破坏方法调用上下文时关闭.
+	 * <p>可以使用任何自定义注解,因为没有需要注解的属性.
+	 *    没有违约,但一个典型的选择是JSR-250 {@link javax.annotation.PreDestroy}注解。
 	 */
 	public void setDestroyAnnotationType(Class<? extends Annotation> destroyAnnotationType) {
 		this.destroyAnnotationType = destroyAnnotationType;
@@ -167,9 +189,11 @@ public class InitDestroyAnnotationBeanPostProcessor
 	private LifecycleMetadata findLifecycleMetadata(Class<?> clazz) {
 		if (this.lifecycleMetadataCache == null) {
 			// Happens after deserialization, during destruction...
+			/** 后会发生反序列化,在毁灭...*/
 			return buildLifecycleMetadata(clazz);
 		}
 		// Quick check on the concurrent map first, with minimal locking.
+		/** 快速检查并发映射,以最小的锁定.*/
 		LifecycleMetadata metadata = this.lifecycleMetadataCache.get(clazz);
 		if (metadata == null) {
 			synchronized (this.lifecycleMetadataCache) {
@@ -225,18 +249,22 @@ public class InitDestroyAnnotationBeanPostProcessor
 	//---------------------------------------------------------------------
 	// Serialization support
 	//---------------------------------------------------------------------
-
+	/** 序列化支持*/
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		// Rely on default serialization; just initialize state after deserialization.
+		/** 依赖于默认的序列化,反序列化后初始化状态.*/
 		ois.defaultReadObject();
 
 		// Initialize transient fields.
+		/** 瞬态字段进行初始化.*/
 		this.logger = LogFactory.getLog(getClass());
 	}
 
 
 	/**
 	 * Class representing information about annotated init and destroy methods.
+	 * ************************************************************************
+	 * ~$ 类代表注释信息初始化和销毁方法.
 	 */
 	private class LifecycleMetadata {
 
@@ -317,6 +345,8 @@ public class InitDestroyAnnotationBeanPostProcessor
 
 	/**
 	 * Class representing injection information about an annotated method.
+	 * *******************************************************************
+	 * ~$ 类代表注入一个带注释的方法的信息.
 	 */
 	private static class LifecycleElement {
 

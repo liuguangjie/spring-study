@@ -30,7 +30,13 @@ import org.springframework.core.type.StandardAnnotationMetadata;
  * in Spring's component scanning support (where the default definition class is
  * {@link org.springframework.context.annotation.ScannedGenericBeanDefinition},
  * which also implements the AnnotatedBeanDefinition interface).
- *
+ * ************************************************************************************
+ * ~$ 扩展的{@link GenericBeanDefinition }类,
+ *    添加注释支持元数据暴露通过 {@link AnnotatedBeanDefinition }接口.
+ * <p>这种GenericBeanDefinition转化主要是用于测试的代码,希望AnnotatedBeanDefinition操作,
+ * 例如Spring组件扫描策略实现支持
+ * (缺省定义类是{@link org.springframework.context.annotation.ScannedGenericBeanDefinition },
+ 	也实现了AnnotatedBeanDefinition接口).
  * @author Juergen Hoeller
  * @since 2.5
  * @see AnnotatedBeanDefinition#getMetadata()
@@ -43,6 +49,8 @@ public class AnnotatedGenericBeanDefinition extends GenericBeanDefinition implem
 
 	/**
 	 * Create a new AnnotatedGenericBeanDefinition for the given bean class.
+	 * *********************************************************************
+	 * ~$ 创建一个新的AnnotatedGenericBeanDefinition给定bean类.
 	 * @param beanClass the loaded bean class
 	 */
 	public AnnotatedGenericBeanDefinition(Class beanClass) {

@@ -28,6 +28,10 @@ import java.lang.annotation.Target;
  * 
  * <p>Typically used with the AspectJ <code>AnnotationBeanConfigurerAspect</code>.
  *
+ * ****************************************************************************
+ * ~$ 标记一个类作为资格之配置
+ * <p>通常使用AspectJ  <code>AnnotationBeanConfigurerAspect</code>.
+ *
  * @author Rod Johnson
  * @author Rob Harrop
  * @author Adrian Colyer
@@ -42,21 +46,29 @@ public @interface Configurable {
 
 	/**
 	 * The name of the bean definition that serves as the configuration template.
+	 * *************************************************************************
+	 * ~$ bean定义的名称作为模板的配置.
 	 */
 	String value() default "";
 
 	/**
 	 * Are dependencies to be injected via autowiring?
+	 * ***********************************************
+	 * ~$ 依赖关系是通过自动装配注射吗?
 	 */
 	Autowire autowire() default Autowire.NO;
 
 	/**
 	 * Is dependency checking to be performed for configured objects?
+	 * **************************************************************
+	 * ~$ 配置对象的依赖性检查要执行吗?
 	 */
 	boolean dependencyCheck() default false;
 	
 	/**
 	 * Are dependencies to be injected prior to the construction of an object?
+	 * ***********************************************************************
+	 * ~$ 是依赖注入前施工对象的吗?
 	 */
 	boolean preConstruction() default false;
 

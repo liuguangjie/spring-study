@@ -27,6 +27,12 @@ import org.springframework.beans.BeansException;
  * {@link org.springframework.context.ApplicationContext} implementations
  * will provide expression support out of the box.
  *
+ * ************************************************************************
+ * ~$ 通过评估策略接口解决价值一个表达式,如果适用.
+ *
+ * <p>生{@link org.springframework.beans.factory.BeanFactory }不包含这一策略的一个默认实现.
+ *    然而,{@link org.springframework.context.ApplicationContext }将提供表达支持的实现.
+ *
  * @author Juergen Hoeller
  * @since 3.0
  */
@@ -35,6 +41,8 @@ public interface BeanExpressionResolver {
 	/**
 	 * Evaluate the given value as an expression, if applicable;
 	 * return the value as-is otherwise.
+	 * *********************************************************
+	 * ~$ 评估给定的值作为一个表达式,如果适用,否则按原样返回值。
 	 * @param value the value to check
 	 * @param evalContext the evaluation context
 	 * @return the resolved value (potentially the given value as-is)
