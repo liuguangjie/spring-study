@@ -23,18 +23,23 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * A container object holding a map of attributes and optionally destruction callbacks. The callbacks will be invoked,
  * if an attribute is being removed or if the holder is cleaned out.
- * 
+ *
+ * *******************************************************************************************************************
+ * ~$ 一个容器对象持有的地图属性和选择性地破坏回调。回调函数将会被调用,如果一个属性被移除或者持有人是清理。
  * @author Micha Kiener
  * @since 3.1
  */
 public class DestructionAwareAttributeHolder implements Serializable {
 
 	/** The map containing the registered attributes. */
+	/** 这个Map包含注册属性.*/
 	private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
 
 	/**
 	 * The optional map having any destruction callbacks registered using the
 	 * name of the bean as the key.
+	 * ***********************************************************************
+	 * ~$  可选的Map有任何破坏回调注册使用bean的名称作为键。
 	 */
 	private Map<String, Runnable> registeredDestructionCallbacks;
 
@@ -44,6 +49,9 @@ public class DestructionAwareAttributeHolder implements Serializable {
 	 * Returns the map representation of the registered attributes directly. Be
 	 * aware to synchronize any invocations to it on the map object itself to
 	 * avoid concurrent modification exceptions.
+	 * ************************************************************************
+	 * ~$ 直接返回注册的地图表示的属性。
+	 *   注意同步地图上的任何调用对象本身,以避免并发修改异常。
 	 *
 	 * @return the attributes as a map representation
 	 */
@@ -54,7 +62,8 @@ public class DestructionAwareAttributeHolder implements Serializable {
 	/**
 	 * Returns the attribute having the specified name, if available,
 	 * <code>null</code> otherwise.
-	 * 
+	 * **************************************************************
+	 * ~$ 返回属性指定名称,如果可用,否则无效。
 	 * @param name
 	 *            the name of the attribute to be returned
 	 * @return the attribute value or <code>null</code> if not available
@@ -67,7 +76,8 @@ public class DestructionAwareAttributeHolder implements Serializable {
 	/**
 	 * Puts the given object with the specified name as an attribute to the
 	 * underlying map.
-	 * 
+	 * ********************************************************************
+	 * ~$ 将给定对象与指定名称作为底层属性映射。
 	 * @param name
 	 *            the name of the attribute
 	 * @param value
@@ -95,7 +105,14 @@ public class DestructionAwareAttributeHolder implements Serializable {
 	 * <b>Note: This is an optional operation.</b> Implementations may throw
 	 * {@link UnsupportedOperationException} if they do not support explicitly
 	 * removing an object.
-	 * 
+	 *
+	 * *********************************************************************
+	 * ~$ 删除的对象名字从底层范围.
+	 * <p>返回null如果没有找到对象;否则返回删除的对象。
+	 * <p>注意,一个实现也应该删除注册破坏指定对象回调,如果任何.
+	 *     然而,它确实不需要执行注册回调在这种情况下,破坏自对象将被调用者(如果合适的话).
+	 * <p>注意:这是一个可选的操作.实现可能会把{@link UnsupportedOperationException }方式,
+	 * 	  如果他们不支持显式地删除一个对象
 	 * @param name
 	 *            the name of the object to remove
 	 * @return the removed object, or <code>null</code> if no object was present
@@ -117,10 +134,13 @@ public class DestructionAwareAttributeHolder implements Serializable {
 	/**
 	 * Clears the map by removing all registered attribute values and invokes
 	 * every destruction callback registered.
+	 * ***********************************************************************
+	 * ~$ 清除Map上通过删除所有注册属性值并调用每一个破坏回调注册。
 	 */
 	public void clear() {
 		synchronized (this) {
 			// step through the attribute map and invoke destruction callbacks,
+			/** 一步通过毁灭属性映射和调用回调, */
 			// if any
 			if (registeredDestructionCallbacks != null) {
 				for (Runnable runnable : registeredDestructionCallbacks.values()) {
@@ -132,6 +152,7 @@ public class DestructionAwareAttributeHolder implements Serializable {
 		}
 
 		// clear out the registered attribute map
+		/** 清除注册属性映射*/
 		attributes.clear();
 	}
 
@@ -155,7 +176,13 @@ public class DestructionAwareAttributeHolder implements Serializable {
 	 * gets removed via this facade's {@link #removeAttribute(String)} method,
 	 * any registered destruction callback should be removed as well, assuming
 	 * that the removed object will be reused or manually destroyed.
-	 * 
+	 *
+	 * *************************************************************************
+	 * ~$ 注册一个回调执行指定对象的破坏范围(或毁灭的整个范围,如果范围不破坏单个对象,而是只有终止全部)。
+	 * <p>注意:这是一个可选的操作。这个方法只会要求与实际破坏范围的bean配置(DisposableBean,销毁方法,DestructionAwareBeanPostProcessor)。
+	 *    实现他们应该尽最大努力去执行一个给定的回调在适当的时候。如果这样的由底层运行时环境不支持回调,回调必须忽略和相应的警告应该被记录。
+	 * <p> 注意,“毁灭”是指自动破坏对象的范围的生命周期,而不是个人作用域的对象已经由应用程序显式地删除.
+	 *     如果一个作用域的对象被删除通过立面的{@link #removeAttribute(String)}的方法,破坏任何注册回调也应该被移除,假设删除对象将被重用或手动销毁。
 	 * @param name
 	 *            the name of the object to execute the destruction callback for
 	 * @param callback
@@ -180,7 +207,8 @@ public class DestructionAwareAttributeHolder implements Serializable {
 	 * Returns the destruction callback, if any registered for the attribute
 	 * with the given name or <code>null</code> if no such callback was
 	 * registered.
-	 * 
+	 * *********************************************************************
+	 * ~$ 返回毁灭的回调,如果任何属性的名称或零如果没有这样的回调注册。
 	 * @param name
 	 *            the name of the registered callback requested
 	 * @param remove

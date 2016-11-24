@@ -38,8 +38,19 @@ import org.springframework.util.Assert;
  * property which directly returns only the one target bean (again, which is
  * typically a prototype bean).
  *
+ * ******************************************************************************
+ * ~$ 一个{@link org.springframework.beans.factory.FactoryBean }实现,
+ *    返回值是一个{@link ObjectFactory}这反过来返回一个bean来自{@link BeanFactory}.
+ *
+ * <p>因此,这可能是用于避免客户端对象直接调用{@link BeanFactory #getBean(String)},
+ *   (通常是原型)bean从{@link BeanFactory },这是违反控制反转的原理.
+ *   相反,使用这个类,客户端对象可以一个{@link ObjectFactory }实例属性直接只返回一个目标bean(再一次,这是典型的原型bean).
+ *
+ *
+ *
  * <p>A sample config in an XML-based
  * {@link BeanFactory} might look as follows:
+ * 一个示例配置在一个基于xml的{@link BeanFactory }可能看起来如下:
  *
  * <pre class="code">&lt;beans&gt;
  *
@@ -59,7 +70,7 @@ import org.springframework.util.Assert;
  *
  * <p>The attendant <code>MyClientBean</code> class implementation might look
  * something like this:
- *
+ *  ~$ 服务员MyClientBean类的实现可能会看起来像这样:
  * <pre class="code">package a.b.c;
  *
  * import org.springframework.beans.factory.ObjectFactory;
@@ -87,6 +98,10 @@ import org.springframework.util.Assert;
  * but has the disadvantage of requiring runtime class generation. Please do
  * consult the {@link ServiceLocatorFactoryBean ServiceLocatorFactoryBean JavaDoc}
  * for a fuller discussion of this issue.
+ * ********************************************************************************
+ * ~$ <p>这个应用程序的另一种方法的对象创建型模式是使用{@link ServiceLocatorFactoryBean }源(prototype)bean.
+ *   {@link ServiceLocatorFactoryBean }方法的优势这一事实并不需要依赖于任何spring特定接口,如{@link ObjectFactory },但缺点是需要运行时类生成.
+ *   请查阅{@link ServiceLocatorFactoryBean ServiceLocatorFactoryBean JavaDoc }更全面的讨论这个问题。
  *
  * @author Colin Sampaleanu
  * @author Juergen Hoeller
@@ -105,6 +120,9 @@ public class ObjectFactoryCreatingFactoryBean extends AbstractFactoryBean<Object
 	 * always will be (because if the target bean were a singleton, then said singleton
 	 * bean could simply be injected straight into the dependent object, thus obviating
 	 * the need for the extra level of indirection afforded by this factory approach).
+	 * *********************************************************************************
+	 * ~$设置目标bean的名称.<p>目标没有单体bean,但realisticially总是会(因为如果目标bean是一个单例对象,
+	 *    单例bean说可以直接注入依赖对象,因而无需本厂提供的额外级别的间接寻址方法).
 	 */
 	public void setTargetBeanName(String targetBeanName) {
 		this.targetBeanName = targetBeanName;
@@ -130,6 +148,8 @@ public class ObjectFactoryCreatingFactoryBean extends AbstractFactoryBean<Object
 
 	/**
 	 * Independent inner class - for serialization purposes.
+	 * *****************************************************
+	 * ~$ 独立的内部类,用于序列化。
 	 */
 	private static class TargetBeanObjectFactory implements ObjectFactory, Serializable {
 

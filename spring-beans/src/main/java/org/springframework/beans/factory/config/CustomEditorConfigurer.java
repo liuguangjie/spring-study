@@ -43,7 +43,14 @@ import org.springframework.util.ClassUtils;
  * desired editor instances on a given
  * {@link PropertyEditorRegistry registry}. Each
  * PropertyEditorRegistrar can register any number of custom editors.
- * 
+ *
+ * ***************************************************************************
+ * ~$ { @link BeanFactoryPostProcessor }实现,允许方便注册自定义{@link PropertyEditor property editors}.
+ * <p>
+ * 如果您想注册{@link PropertyEditor }实例,推荐使用的Spring 2.0是使用自定义{@link PropertyEditorRegistrar }
+ * 这进而实现注册在一个给定的任意编辑器实例 {@link PropertyEditorRegistry registry}.
+ * 每个PropertyEditorRegistrar可以注册任意数量的定制编辑器.
+ *
  * <pre class="code">
  * &lt;bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer"&gt;
  *   &lt;property name="propertyEditorRegistrars"&gt;
@@ -59,7 +66,8 @@ import org.springframework.util.ClassUtils;
  * It's perfectly fine to register {@link PropertyEditor} <em>classes</em> via
  * the {@code customEditors} property. Spring will create fresh instances of
  * them for each editing attempt then:
- * 
+ * ****************************************************************************
+ * ~$ 是很好的注册{@link PropertyEditor }类通过{@code customEditors }属性. Spring将为每个编辑创建新的实例的尝试:
  * <pre class="code">
  * &lt;bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer"&gt;
  *   &lt;property name="customEditors"&gt;
@@ -78,7 +86,7 @@ import org.springframework.util.ClassUtils;
  * attempt. In case you need control over the instantiation process of
  * {@link PropertyEditor}s, use a {@link PropertyEditorRegistrar} to register
  * them.
- * 
+ *
  * <p>
  * Also supports "java.lang.String[]"-style array class names and primitive
  * class names (e.g. "boolean"). Delegates to {@link ClassUtils} for actual
@@ -89,6 +97,13 @@ import org.springframework.util.ClassUtils;
  * be registered on the {@link org.springframework.validation.DataBinder}:
  * Use a common base class or delegate to common PropertyEditorRegistrar
  * implementations to reuse editor registration there.
+ *
+ * **************************************************************************
+ * <p> 注意,您不应该注册{@link PropertyEditor } bean实例通过{@code customEditors }财产{@link PropertyEditor }是有状态和实例将必须为所有的编辑尝试同步。
+ *     如果你需要控制的实例化过程{ @link PropertyEditor }年代,使用{ @link PropertyEditorRegistrar }注册它们。
+ *
+ * <p>还支持"java.lang.String[]"风格的类名称和原始的类名(如。“布尔”)。代表{@link ClassUtils }实际的类名称解析。
+ * <p>注意:自定义属性编辑注册这个配置不适用于数据绑定.自定义编辑数据绑定需要登记在"{@link org.springframework.validation.DataBinder }:使用一个共同的基类或代表共同PropertyEditorRegistrar实现重用编辑注册。
  *
  * @author Juergen Hoeller
  * @since 27.02.2004
@@ -131,6 +146,10 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, BeanCla
 	 * Furthermore, it avoids the need for synchronization on custom editors:
 	 * A <code>PropertyEditorRegistrar</code> will always create fresh editor
 	 * instances for each bean creation attempt.
+	 * ***********************************************************************
+	 * ~$ 指定{ @link PropertyEditorRegistrar PropertyEditorRegistrars }适用于当前应用程序上下文bean中定义。
+	 * <p>这允许共享PropertyEditorRegistrars {@link org.springframework.validation.DataBinder DataBinder }等。
+	 *   此外,它避免了需要同步自定义编辑器:PropertyEditorRegistrar总是为每个bean创建尝试创建新的编辑器实例。
 	 * @see ConfigurableListableBeanFactory#addPropertyEditorRegistrar
 	 */
 	public void setPropertyEditorRegistrars(PropertyEditorRegistrar[] propertyEditorRegistrars) {
@@ -143,6 +162,9 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, BeanCla
 	 * associated {@link PropertyEditor} as value.
 	 * <p>Also supports {@link PropertyEditor} instances as values; however,
 	 * this is deprecated since Spring 2.0.7!
+	 * *********************************************************************
+	 * ~$ 指定自定义编辑注册通过{@link Map},使用所需类型的类名作为密钥和相关的类名{@link PropertyEditor }的值.
+	 *    还支持{@link PropertyEditor }实例值;然而,这是不赞成因为Spring2.0.7 !
 	 * @see ConfigurableListableBeanFactory#registerCustomEditor
 	 */
 	public void setCustomEditors(Map<String, ?> customEditors) {
@@ -156,6 +178,10 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, BeanCla
 	 * class not being found in the classpath. If you expect this to happen in
 	 * some deployments and prefer to simply ignore the affected editors,
 	 * then switch this flag to "true".
+	 * *************************************************************************
+	 * ~$设置是否不肯舍弃编辑应该被忽略.默认是在这种情况下引发一个异常.
+	 * <p>这通常适用于编辑器类或所需类型类在类路径中没有被发现.
+	 *   如果你希望这样的事情发生在某些部署和倾向于简单地忽略影响编辑器,然后切换这个标志"true".
 	 */
 	public void setIgnoreUnresolvableEditors(boolean ignoreUnresolvableEditors) {
 		this.ignoreUnresolvableEditors = ignoreUnresolvableEditors;
@@ -222,6 +248,8 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, BeanCla
 
 	/**
 	 * PropertyEditorRegistrar that registers a (deprecated) shared editor.
+	 * ********************************************************************
+	 * ~$ PropertyEditorRegistrar 注册器(弃用)共享编辑器。
 	 */
 	private static class SharedPropertyEditorRegistrar implements PropertyEditorRegistrar {
 

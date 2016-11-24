@@ -33,6 +33,9 @@ import org.springframework.util.Assert;
  * Wraps a constructor parameter, a method parameter or a field,
  * allowing unified access to their metadata.
  *
+ * ******************************************************************
+ * ~$ 描述符为一个特定的依赖,即将被注入。
+ *    包装一个构造函数参数,方法参数或字段,允许统一访问他们的元数据。
  * @author Juergen Hoeller
  * @since 2.5
  */
@@ -62,6 +65,8 @@ public class DependencyDescriptor implements Serializable {
 	/**
 	 * Create a new descriptor for a method or constructor parameter.
 	 * Considers the dependency as 'eager'.
+	 * **************************************************************
+	 * ~$ 创建一个新的描述符的方法或者构造函数的参数。认为“渴望”的依赖。
 	 * @param methodParameter the MethodParameter to wrap
 	 * @param required whether the dependency is required
 	 */
@@ -71,10 +76,13 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Create a new descriptor for a method or constructor parameter.
+	 * **************************************************************
+	 * ~$ 创建一个新的描述符的方法或者构造函数的参数.
 	 * @param methodParameter the MethodParameter to wrap
 	 * @param required whether the dependency is required
 	 * @param eager whether this dependency is 'eager' in the sense of
 	 * eagerly resolving potential target beans for type matching
+	 *              ~$ 这种依赖性是否“渴望”的急切解决潜在目标bean类型匹配
 	 */
 	public DependencyDescriptor(MethodParameter methodParameter, boolean required, boolean eager) {
 		Assert.notNull(methodParameter, "MethodParameter must not be null");
@@ -95,6 +103,8 @@ public class DependencyDescriptor implements Serializable {
 	/**
 	 * Create a new descriptor for a field.
 	 * Considers the dependency as 'eager'.
+	 * **************************************************
+	 * ~$ 创建一个新的描述符字段.认为“渴望”的依赖.
 	 * @param field the field to wrap
 	 * @param required whether the dependency is required
 	 */
@@ -104,6 +114,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Create a new descriptor for a field.
+	 * ************************************
+	 * ~$ 创建一个新的描述符字段.
 	 * @param field the field to wrap
 	 * @param required whether the dependency is required
 	 * @param eager whether this dependency is 'eager' in the sense of
@@ -122,6 +134,9 @@ public class DependencyDescriptor implements Serializable {
 	/**
 	 * Return the wrapped MethodParameter, if any.
 	 * <p>Note: Either MethodParameter or Field is available.
+	 * ******************************************************
+	 * ~$ 返回包装MethodParameter,如果任何.
+	 * <p>注意:MethodParameter或字段.
 	 * @return the MethodParameter, or <code>null</code> if none
 	 */
 	public MethodParameter getMethodParameter() {
@@ -131,6 +146,9 @@ public class DependencyDescriptor implements Serializable {
 	/**
 	 * Return the wrapped Field, if any.
 	 * <p>Note: Either MethodParameter or Field is available.
+	 * *****************************************************
+	 * ~$ 返回包装领域,如果任何.
+	 * <p>注意:MethodParameter或字段。
 	 * @return the Field, or <code>null</code> if none
 	 */
 	public Field getField() {
@@ -139,6 +157,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Return whether this dependency is required.
+	 * *******************************************
+	 * ~$ 返回是否需要这种依赖性
 	 */
 	public boolean isRequired() {
 		return this.required;
@@ -147,6 +167,8 @@ public class DependencyDescriptor implements Serializable {
 	/**
 	 * Return whether this dependency is 'eager' in the sense of
 	 * eagerly resolving potential target beans for type matching.
+	 * ***********************************************************
+	 * ~$ 返回是否这种依赖性是'eager'的急切地解决潜在目标bean类型匹配.
 	 */
 	public boolean isEager() {
 		return this.eager;
@@ -158,6 +180,10 @@ public class DependencyDescriptor implements Serializable {
 	 * <p>This method does not actually try to retrieve the parameter name at
 	 * this point; it just allows discovery to happen when the application calls
 	 * {@link #getDependencyName()} (if ever).
+	 * *********************************************************************************
+	 * ~$ 初始化参数名称发现的潜在的方法参数,如果任何.
+	 * <p>这个方法并不实际尝试检索参数名称在这一点上,
+	 *    它只允许发现发生在应用程序调用{@link #getDependencyName()}(如果有).
 	 */
 	public void initParameterNameDiscovery(ParameterNameDiscoverer parameterNameDiscoverer) {
 		if (this.methodParameter != null) {
@@ -167,6 +193,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Determine the name of the wrapped parameter/field.
+	 * **************************************************
+	 * ~$ 确定包装的参数/字段的名称.
 	 * @return the declared name (never <code>null</code>)
 	 */
 	public String getDependencyName() {
@@ -175,6 +203,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Determine the declared (non-generic) type of the wrapped parameter/field.
+	 * *************************************************************************
+	 * ~$ 决定宣布(非泛型)类型的包装参数/字段。
 	 * @return the declared type (never <code>null</code>)
 	 */
 	public Class<?> getDependencyType() {
@@ -183,6 +213,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Determine the generic type of the wrapped parameter/field.
+	 * **********************************************************
+	 * ~$ 确定包装的泛型类型参数/字段。
 	 * @return the generic type (never <code>null</code>)
 	 */
 	public Type getGenericDependencyType() {
@@ -191,6 +223,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Determine the generic element type of the wrapped Collection parameter/field, if any.
+	 * *************************************************************************************
+	 * ~$ 确定包装收集参数的通用元素类型/字段,如果任何.
 	 * @return the generic type, or <code>null</code> if none
 	 */
 	public Class<?> getCollectionType() {
@@ -201,6 +235,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Determine the generic key type of the wrapped Map parameter/field, if any.
+	 * **************************************************************************
+	 * ~$ 确定包装的通用密钥类型映射参数/字段,如果任何.
 	 * @return the generic type, or <code>null</code> if none
 	 */
 	public Class<?> getMapKeyType() {
@@ -211,6 +247,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Determine the generic value type of the wrapped Map parameter/field, if any.
+	 * ***************************************************************************
+	 * ~$ 确定包装的通用密钥类型映射参数/字段,如果任何.
 	 * @return the generic type, or <code>null</code> if none
 	 */
 	public Class<?> getMapValueType() {
@@ -221,6 +259,8 @@ public class DependencyDescriptor implements Serializable {
 
 	/**
 	 * Obtain the annotations associated with the wrapped parameter/field, if any.
+	 * ***************************************************************************
+	 * ~$ 获得与包装相关的注解参数/字段,如果任何。
 	 */
 	public Annotation[] getAnnotations() {
 		if (this.field != null) {
@@ -238,12 +278,14 @@ public class DependencyDescriptor implements Serializable {
 	//---------------------------------------------------------------------
 	// Serialization support
 	//---------------------------------------------------------------------
-
+    /** 序列化支持*/
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		// Rely on default serialization; just initialize state after deserialization.
+		/** 依赖于默认的序列化,反序列化后初始化状态。*/
 		ois.defaultReadObject();
 
 		// Restore reflective handles (which are unfortunately not serializable)
+		/** 恢复反射处理(不幸的是不序列化)*/
 		try {
 			if (this.fieldName != null) {
 				this.field = this.declaringClass.getDeclaredField(this.fieldName);

@@ -29,7 +29,8 @@ import org.springframework.beans.factory.InitializingBean;
  *
  * <p>Useful for sharing Log instances among multiple beans instead of using
  * one Log instance per class name, e.g. for common log topics.
- *
+ * *************************************************************************
+ * ~$<p>用于分享日志在多个bean实例,而不是使用一个日志实例/类名称,例如常见的日志主题.
  * @author Juergen Hoeller
  * @since 16.11.2003
  * @see Log

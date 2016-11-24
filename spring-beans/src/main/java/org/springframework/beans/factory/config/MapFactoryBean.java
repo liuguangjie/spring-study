@@ -27,6 +27,8 @@ import org.springframework.core.GenericCollectionTypeResolver;
  * Simple factory for shared Map instances. Allows for central setup
  * of Maps via the "map" element in XML bean definitions.
  *
+ * *****************************************************************
+ * ~$ 简单的共享Map实例的工厂.允许主要设置Maps通过"map"元素在XML bean定义。
  * @author Juergen Hoeller
  * @since 09.12.2003
  * @see SetFactoryBean
@@ -41,6 +43,8 @@ public class MapFactoryBean extends AbstractFactoryBean<Map> {
 
 	/**
 	 * Set the source Map, typically populated via XML "map" elements.
+	 * **************************************************************
+	 * ~$ 设置源Map ,通常通过XML填充"map"元素。
 	 */
 	public void setSourceMap(Map sourceMap) {
 		this.sourceMap = sourceMap;
@@ -50,6 +54,8 @@ public class MapFactoryBean extends AbstractFactoryBean<Map> {
 	 * Set the class to use for the target Map. Can be populated with a fully
 	 * qualified class name when defined in a Spring application context.
 	 * <p>Default is a linked HashMap, keeping the registration order.
+	 * **********************************************************************
+	 * ~$ 设置类用于目标的Map.时可以包含一个完全限定类名中定义一个Spring应用程序上下文。
 	 * @see LinkedHashMap
 	 */
 	public void setTargetMapClass(Class targetMapClass) {

@@ -32,20 +32,25 @@ import org.springframework.util.StringUtils;
  * {@link FactoryBean} which retrieves a static or non-static field value.
  * 
  * <p>Typically used for retrieving public static final constants. Usage example:
- *
+ * ******************************************************************************
+ * ~$ {@link FactoryBean }获取静态和非静态字段值。
+ * <p>通常用于检索公共静态常量。使用的例子:
  * <pre class="code">// standard definition for exposing a static field, specifying the "staticField" property
+ *                   // 公开的标准定义一个静态字段,指定“staticField”属性
  * &lt;bean id="myField" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"&gt;
  *   &lt;property name="staticField" value="java.sql.Connection.TRANSACTION_SERIALIZABLE"/&gt;
  * &lt;/bean&gt;
  *
  * // convenience version that specifies a static field pattern as bean name
+ * // 方便版本指定一个静态字段模式bean的名称
  * &lt;bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
  *       class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/&gt;</pre>
  * </pre>
  * 
  * <p>If you are using Spring 2.0, you can also use the following style of configuration for
  * public static fields.
- * 
+ * ******************************************************************************************
+ * ~$<p>如果您正在使用Spring 2.0中,您还可以使用以下配置公共静态字段的样式。
  * <pre class="code">&lt;util:constant static-field="java.sql.Connection.TRANSACTION_SERIALIZABLE"/&gt;</pre>
  *
  * @author Juergen Hoeller
@@ -68,6 +73,7 @@ public class FieldRetrievingFactoryBean
 	private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
 	// the field we will retrieve
+	/** 我们将检索的字段*/
 	private Field fieldObject;
 
 
@@ -75,6 +81,9 @@ public class FieldRetrievingFactoryBean
 	 * Set the target class on which the field is defined.
 	 * Only necessary when the target field is static; else,
 	 * a target object needs to be specified anyway.
+	 * *****************************************************
+	 * ~$ 设置目标类的字段定义。
+	 *   只有必要时目标字段是静态的;否则,需要指定一个目标对象。
 	 * @see #setTargetObject
 	 * @see #setTargetField
 	 */
@@ -84,6 +93,8 @@ public class FieldRetrievingFactoryBean
 
 	/**
 	 * Return the target class on which the field is defined.
+	 * ******************************************************
+	 * ~$ 返回的目标类字段定义。
 	 */
 	public Class getTargetClass() {
 		return targetClass;
@@ -93,6 +104,8 @@ public class FieldRetrievingFactoryBean
 	 * Set the target object on which the field is defined.
 	 * Only necessary when the target field is not static;
 	 * else, a target class is sufficient.
+	 * ****************************************************
+	 * ~$ 设置的目标对象字段定义.只有必要时目标字段不是静态的,别的,目标类就足够了。
 	 * @see #setTargetClass
 	 * @see #setTargetField
 	 */
@@ -102,6 +115,8 @@ public class FieldRetrievingFactoryBean
 
 	/**
 	 * Return the target object on which the field is defined.
+	 * *******************************************************
+	 * ~$ 返回的目标对象字段定义.
 	 */
 	public Object getTargetObject() {
 		return this.targetObject;
@@ -111,6 +126,8 @@ public class FieldRetrievingFactoryBean
 	 * Set the name of the field to be retrieved.
 	 * Refers to either a static field or a non-static field,
 	 * depending on a target object being set.
+	 * ******************************************************
+	 * ~$ 组检索字段的名称.是指静态字段或非静态字段,根据设定的目标对象。
 	 * @see #setTargetClass
 	 * @see #setTargetObject
 	 */
@@ -120,6 +137,8 @@ public class FieldRetrievingFactoryBean
 
 	/**
 	 * Return the name of the field to be retrieved.
+	 * ********************************************
+	 * ~$ 返回检索字段的名称。
 	 */
 	public String getTargetField() {
 		return this.targetField;
@@ -129,6 +148,8 @@ public class FieldRetrievingFactoryBean
 	 * Set a fully qualified static field name to retrieve,
 	 * e.g. "example.MyExampleClass.MY_EXAMPLE_FIELD".
 	 * Convenient alternative to specifying targetClass and targetField.
+	 * ****************************************************************
+	 * ~$ 设置一个完全限定的静态字段名称检索,如。“example.MyExampleClass.MY_EXAMPLE_FIELD”。指定targetClass和targetField方便的替代品。
 	 * @see #setTargetClass
 	 * @see #setTargetField
 	 */
@@ -141,6 +162,9 @@ public class FieldRetrievingFactoryBean
 	 * as "staticField" pattern, if neither "targetClass" nor "targetObject"
 	 * nor "targetField" have been specified.
 	 * This allows for concise bean definitions with just an id/name.
+	 * *********************************************************************
+	 * ~$ 本FieldRetrievingFactoryBean的bean的名称将被解释为“staticField”模式,
+	 * 如果既不是“targetClass”、“targetObject”、“targetField”已经指定。这允许只有一个id /名称简洁的bean定义。
 	 */
 	public void setBeanName(String beanName) {
 		this.beanName = StringUtils.trimAllWhitespace(BeanFactoryUtils.originalBeanName(beanName));
@@ -163,11 +187,13 @@ public class FieldRetrievingFactoryBean
 			}
 
 			// If no other property specified, consider bean name as static field expression.
+			/** 如果没有指定其他财产,考虑bean名称作为静态字段表达式。*/
 			if (this.staticField == null) {
 				this.staticField = this.beanName;
 			}
 
 			// Try to parse static field into class and field.
+			/** 静态字段解析成类,字段.*/
 			int lastDotIndex = this.staticField.lastIndexOf('.');
 			if (lastDotIndex == -1 || lastDotIndex == this.staticField.length()) {
 				throw new IllegalArgumentException(
@@ -182,10 +208,12 @@ public class FieldRetrievingFactoryBean
 
 		else if (this.targetField == null) {
 			// Either targetClass or targetObject specified.
+			/** targetClass或targetObject指定。*/
 			throw new IllegalArgumentException("targetField is required");
 		}
 
 		// Try to get the exact method first.
+		/** 试着先确切的方法。*/
 		Class targetClass = (this.targetObject != null) ? this.targetObject.getClass() : this.targetClass;
 		this.fieldObject = targetClass.getField(this.targetField);
 	}

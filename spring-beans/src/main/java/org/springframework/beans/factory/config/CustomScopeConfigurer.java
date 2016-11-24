@@ -37,6 +37,14 @@ import org.springframework.util.ClassUtils;
  * Alternatively, consider implementing a custom {@link BeanFactoryPostProcessor}
  * that calls {@link ConfigurableBeanFactory#registerScope} programmatically.
  *
+ * **********************************************************************************
+ * ~$ 简单的{@link BeanFactoryPostProcessor }实现注册自定义{@link Scope Scope(s)} {@link ConfigurableBeanFactory }.
+ *
+ * <p>将注册的所有提供{@link #setScopes(Map) scopes}与{@link ConfigurableListableBeanFactory }
+ *    这是传递到{@link #postProcessBeanFactory(ConfigurableListableBeanFactory)}的方法.
+ *
+ * <p>这个类允许声明注册自定义范围.或者,考虑实现一个自定义{@link BeanFactoryPostProcessor },
+ *    {@link ConfigurableBeanFactory #registerScope }以编程方式.
  * @author Juergen Hoeller
  * @author Rick Evans
  * @since 2.0
@@ -56,6 +64,9 @@ public class CustomScopeConfigurer implements BeanFactoryPostProcessor, BeanClas
 	 * <p>The keys indicate the scope names (of type String); each value
 	 * is expected to be the corresponding custom {@link Scope} instance
 	 * or class name.
+	 * *****************************************************************
+	 * ~$ 指定自定义注册的范围.
+	 * <p>键显示范围名称(类型的字符串),每个值将对应的自定义{@link Scope} 实例或类名。
 	 */
 	public void setScopes(Map<String, Object> scopes) {
 		this.scopes = scopes;

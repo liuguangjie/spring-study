@@ -38,6 +38,17 @@ import org.springframework.beans.factory.SmartFactoryBean;
  * in combination with Spring's {@link PropertyPlaceholderConfigurer}.
  * Thanks to Marcus Bristav for pointing this out!
  *
+ * **********************************************************************************
+ * ~$ FactoryBean暴露任意目标bean在一个不同的名称.
+ *
+ * <p>通常情况下,目标bean将驻留在不同的bean定义文件,使用这个FactoryBean链接它,让它在一个不同的名称.
+ *    实际上,这对应于目标bean的一个别名.
+ *
+ * <p>注意:XML bean定义文件,别名标签可以有效地实现是一样的.
+ *
+ * <p> 特殊功能的启用FactoryBean通过其配置bean定义:"targetBeanName"可以通过一个占位符替换,
+ *     结合Spring的{@link PropertyPlaceholderConfigurer }.
+ *
  * @author Juergen Hoeller
  * @since 1.2
  * @see #setTargetBeanName
@@ -55,6 +66,9 @@ public class BeanReferenceFactoryBean implements SmartFactoryBean, BeanFactoryAw
 	 * <p>This property is required. The value for this property can be
 	 * substituted through a placeholder, in combination with Spring's
 	 * PropertyPlaceholderConfigurer.
+	 * *****************************************************************
+	 * ~$ 设置目标bean的名称.
+	 * <p>这个属性是必需的.这个属性的值可以通过一个占位符替换,结合Spring的PropertyPlaceholderConfigurer.
 	 * @param targetBeanName the name of the target bean
 	 * @see PropertyPlaceholderConfigurer
 	 */

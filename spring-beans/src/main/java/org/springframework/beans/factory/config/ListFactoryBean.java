@@ -27,6 +27,8 @@ import org.springframework.core.GenericCollectionTypeResolver;
  * Simple factory for shared List instances. Allows for central setup
  * of Lists via the "list" element in XML bean definitions.
  *
+ * ******************************************************************
+ * ~$ 简单工厂共享实例列表。允许中央设置通过“列表”列表的元素在XML bean定义.
  * @author Juergen Hoeller
  * @since 09.12.2003
  * @see SetFactoryBean
@@ -41,6 +43,8 @@ public class ListFactoryBean extends AbstractFactoryBean<List> {
 
 	/**
 	 * Set the source List, typically populated via XML "list" elements.
+	 * *****************************************************************
+	 * ~$ 设置源列表,通常通过XML填充"list"元素.
 	 */
 	public void setSourceList(List sourceList) {
 		this.sourceList = sourceList;
@@ -50,6 +54,8 @@ public class ListFactoryBean extends AbstractFactoryBean<List> {
 	 * Set the class to use for the target List. Can be populated with a fully
 	 * qualified class name when defined in a Spring application context.
 	 * <p>Default is a <code>java.util.ArrayList</code>.
+	 * ************************************************************************
+	 * ~$ 设置类用于目标列表。时可以包含一个完全限定类名中定义一个Spring应用程序上下文.
 	 * @see ArrayList
 	 */
 	public void setTargetListClass(Class targetListClass) {

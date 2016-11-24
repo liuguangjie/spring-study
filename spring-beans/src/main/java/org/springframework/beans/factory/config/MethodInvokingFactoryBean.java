@@ -55,9 +55,28 @@ import org.springframework.util.ClassUtils;
  *
  * <p>This class depends on {@link #afterPropertiesSet()} being called once
  * all properties have been set, as per the InitializingBean contract.
- * 
+ *
+ * ****************************************************************************************
+ * ~$ {@link FactoryBean },返回值是一个静态或实例方法调用的结果.
+ *   对于大多数用例最好只使用容器的内建的工厂方法支持同样的目的,因为这是聪明的转换参数.
+ *   这个工厂bean仍然有用尽管当你需要调用一个方法不返回任何值(例如,一个静态类方法迫使一些初始化发生).
+ *   这个用例不支持通过工厂方法,因为需要一个返回值获取bean实例。
+ *
+ * <p>注意,因为它预计将主要用于访问工厂方法,这个工厂默认情况下在单例的方式运营.
+ *   第一个请求的{ @link # getObject }拥有bean工厂将导致一个方法调用,为后续请求的返回值将被缓存.
+ *   内部{@link #setSingleton singleton }属性可以设置为“false”,导致这个工厂调用目标方法每次请求一个对象.
+ *
+ * <p>静态目标方法可能通过设置指定{@link #setTargetMethod targetMethod }属性字符串代表静态方法的名称,
+ *   与{@link #setTargetClass targetClass }指定静态方法的类定义.另外,实例方法可以指定目标,
+ *   通过设置{@link #setTargetObject targetObject }属性为目标对象,和{@link #setTargetMethod targetMethod }属性的名称方法调用目标对象.
+ *   方法调用的参数可能被指定通过设置{@link #setArguments arguments}属性。
+ *
+ * <p>这类取决于{@link #afterPropertiesSet()}被称为一旦所有属性设置,按照InitializingBean合同.
+ *
  * <p>An example (in an XML based bean factory definition) of a bean definition
  * which uses this class to call a static factory method:
+ * ****************************************************************************
+ * ~$<p>一个例子(在一个基于XML bean工厂定义)的bean定义使用这个类来调用静态工厂方法:
  *
  * <pre class="code">
  * &lt;bean id="myObject" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
@@ -66,7 +85,8 @@ import org.springframework.util.ClassUtils;
  *
  * <p>An example of calling a static method then an instance method to get at a
  * Java system property. Somewhat verbose, but it works.
- *
+ * ****************************************************************************
+ * ~$ 然后调用一个静态方法的一个例子一个实例方法在Java系统属性.有些冗长,但它的工作原理.
  * <pre class="code">
  * &lt;bean id="sysProps" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
  *   &lt;property name="targetClass">&lt;value>java.lang.System&lt;/value>&lt;/property>
@@ -99,12 +119,15 @@ public class MethodInvokingFactoryBean extends ArgumentConvertingMethodInvoker
 	private boolean initialized = false;
 
 	/** Method call result in the singleton case */
+	/** 单例方法调用的结果 */
 	private Object singletonObject;
 
 
 	/**
 	 * Set if a singleton should be created, or a new object on each
 	 * request else. Default is "true".
+	 * **************************************************************
+	 * ~$ 设置是否需要创建一个单例,或者针对每个请求一个新对象.默认设置是"true".
 	 */
 	public void setSingleton(boolean singleton) {
 		this.singleton = singleton;
@@ -132,6 +155,8 @@ public class MethodInvokingFactoryBean extends ArgumentConvertingMethodInvoker
 	/**
 	 * Obtain the TypeConverter from the BeanFactory that this bean runs in,
 	 * if possible.
+	 * *********************************************************************
+	 * ~$ 获得的TypeConverter BeanFactory这个bean中运行,如果可能的话.
 	 * @see ConfigurableBeanFactory#getTypeConverter()
 	 */
 	@Override
@@ -156,6 +181,8 @@ public class MethodInvokingFactoryBean extends ArgumentConvertingMethodInvoker
 	/**
 	 * Perform the invocation and convert InvocationTargetException
 	 * into the underlying target exception.
+	 * ************************************************************
+	 * ~$ 执行调用和InvocationTargetException转化为潜在的目标异常.
 	 */
 	private Object doInvoke() throws Exception {
 		try {
@@ -177,6 +204,8 @@ public class MethodInvokingFactoryBean extends ArgumentConvertingMethodInvoker
 	 * Returns the same value each time if the singleton property is set
 	 * to "true", otherwise returns the value returned from invoking the
 	 * specified method on the fly.
+	 * *****************************************************************
+	 * ~$ 每次都返回相同的值,如果单属性设置为"true",否则返回调用指定的方法的返回值.
 	 */
 	public Object getObject() throws Exception {
 		if (this.singleton) {
@@ -184,10 +213,12 @@ public class MethodInvokingFactoryBean extends ArgumentConvertingMethodInvoker
 				throw new FactoryBeanNotInitializedException();
 			}
 			// Singleton: return shared object.
+			/** 单例模式:返回共享对象。*/
 			return this.singletonObject;
 		}
 		else {
 			// Prototype: new object on each call.
+			/** 原型:在每次调用新对象.*/
 			return doInvoke();
 		}
 	}
@@ -195,10 +226,13 @@ public class MethodInvokingFactoryBean extends ArgumentConvertingMethodInvoker
 	/**
 	 * Return the type of object that this FactoryBean creates,
 	 * or <code>null</code> if not known in advance.
+	 * *******************************************************
+	 * ~$ 返回此FactoryBean创建的对象类型,或null如果事先不知道.
 	 */
 	public Class<?> getObjectType() {
 		if (!isPrepared()) {
 			// Not fully initialized yet -> return null to indicate "not known yet".
+			/** 没有完全初始化- >返回null来表示"not known yet". */
 			return null;
 		}
 		return getPreparedMethod().getReturnType();
