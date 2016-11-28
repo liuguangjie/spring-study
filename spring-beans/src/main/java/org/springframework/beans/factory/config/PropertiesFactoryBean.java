@@ -35,7 +35,13 @@ import org.springframework.core.io.support.PropertiesLoaderSupport;
  *
  * <p>Can create a singleton or a new object on each request.
  * Default is a singleton.
+ * ***************************************************************************
+ * ~$ 允许提供从类路径位置属性文件作为bean属性实例工厂.可以用来填充任何通过bean引用bean属性类型的属性.
  *
+ * <p>支持从一个属性文件加载和/或设置在这FactoryBean局部属性
+ *    创建属性实例将被合并的加载和本地值.如果一个位置和局部属性设置,初始化将抛出一个异常.
+ *
+ * <p>可以创建一个单或在每个请求一个新对象.默认是一个单例.
  * @author Juergen Hoeller
  * @see #setLocation
  * @see #setProperties
@@ -54,6 +60,9 @@ public class PropertiesFactoryBean extends PropertiesLoaderSupport
 	 * Set whether a shared 'singleton' Properties instance should be
 	 * created, or rather a new Properties instance on each request.
 	 * <p>Default is "true" (a shared singleton).
+	 * **************************************************************
+	 * ~$ 设置是否应该创建一个共享的单属性实例,或者说是一个新的属性实例在每个请求.
+	 *
 	 */
 	public final void setSingleton(boolean singleton) {
 		this.singleton = singleton;
@@ -90,6 +99,9 @@ public class PropertiesFactoryBean extends PropertiesLoaderSupport
 	 * plain merged Properties instance.
 	 * <p>Invoked on initialization of this FactoryBean in case of a
 	 * shared singleton; else, on each {@link #getObject()} call.
+	 * ********************************************************************
+	 * ~$ 模板方法,子类可以重写构造这个工厂返回的对象.默认实现返回平原合并属性实例.
+	 * <p>调用初始化这个FactoryBean对于共享单例;,在每个{@link #getObject()}
 	 * @return the object returned by this factory
 	 * @throws IOException if an exception occured during properties loading
 	 * @see #mergeProperties()
@@ -104,6 +116,9 @@ public class PropertiesFactoryBean extends PropertiesLoaderSupport
 	 * plain merged Properties instance.
 	 * <p>Invoked on initialization of this FactoryBean in case of a
 	 * shared singleton; else, on each {@link #getObject()} call.
+	 * *********************************************************************
+	 * ~$ 模板方法,子类可以重写构造这个工厂返回的对象.默认实现返回平原合并属性实例.
+	 * <p>上调用初始化这个FactoryBean对于共享单例;,在每个{@link #getObject()}.
 	 * @return the object returned by this factory
 	 * @throws IOException if an exception occured during properties loading
 	 * @deprecated as of Spring 3.0, in favor of {@link #createProperties()}

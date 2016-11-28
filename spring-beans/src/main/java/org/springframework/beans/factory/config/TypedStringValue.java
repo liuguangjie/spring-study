@@ -29,6 +29,10 @@ import org.springframework.util.ObjectUtils;
  * <p>This holder will just store the String value and the target type.
  * The actual conversion will be performed by the bean factory.
  *
+ * ********************************************************************
+ * ~$ 持有人输入字符串值.可以添加到bean定义来显式地指定一个字符串值的目标类型,例如集合的元素.
+ *
+ * <p>这架就会存储字符串值和目标类型.执行实际的转换将bean工厂.
  * @author Juergen Hoeller
  * @since 1.2
  * @see BeanDefinition#getPropertyValues
@@ -149,6 +153,8 @@ public class TypedStringValue implements BeanMetadataElement {
 	 * Determine the type to convert to, resolving it from a specified class name
 	 * if necessary. Will also reload a specified Class from its name when called
 	 * with the target type already resolved.
+	 * **************************************************************************
+	 * ~$ 确定类型转换,解决在必要时从指定的类名.还将重新加载指定的类从它的名字叫做与目标类型已经解决.
 	 * @param classLoader the ClassLoader to use for resolving a (potential) class name
 	 * @return the resolved type to convert to
 	 * @throws ClassNotFoundException if the type cannot be resolved
@@ -166,6 +172,9 @@ public class TypedStringValue implements BeanMetadataElement {
 	/**
 	 * Set the configuration source <code>Object</code> for this metadata element.
 	 * <p>The exact type of the object will depend on the configuration mechanism used.
+	 * ********************************************************************************
+	 * ~$这个元数据元素的配置源对象.
+	 * <p>对象的确切类型将取决于所使用的配置机制.
 	 */
 	public void setSource(Object source) {
 		this.source = source;
@@ -177,6 +186,8 @@ public class TypedStringValue implements BeanMetadataElement {
 
 	/**
 	 * Set the type name as actually specified for this particular value, if any.
+	 * *************************************************************************
+	 * ~$设置类型名称指定为这个特定的值,如果有.
 	 */
 	public void setSpecifiedTypeName(String specifiedTypeName) {
 		this.specifiedTypeName = specifiedTypeName;
@@ -184,6 +195,8 @@ public class TypedStringValue implements BeanMetadataElement {
 
 	/**
 	 * Return the type name as actually specified for this particular value, if any.
+	 * *****************************************************************************
+	 * ~$ 返回指定的类型名称,实际上对于这个特定值,如果有.
 	 */
 	public String getSpecifiedTypeName() {
 		return this.specifiedTypeName;
@@ -192,6 +205,8 @@ public class TypedStringValue implements BeanMetadataElement {
 	/**
 	 * Mark this value as dynamic, i.e. as containing an expression
 	 * and hence not being subject to caching.
+	 * ************************************************************
+	 * ~$ 这个值标记为动态,即包含一个表达式,因此不被缓存.
 	 */
 	public void setDynamic() {
 		this.dynamic = true;
@@ -199,6 +214,8 @@ public class TypedStringValue implements BeanMetadataElement {
 
 	/**
 	 * Return whether this value has been marked as dynamic.
+	 * *****************************************************
+	 * ~$ 返回这个值是否被标记为动态的.
 	 */
 	public boolean isDynamic() {
 		return this.dynamic;

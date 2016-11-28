@@ -23,7 +23,10 @@ import org.springframework.util.Assert;
  * Mainly serves as common argument passed into a {@link ProblemReporter}.
  *
  * <p>May indicate a potentially fatal problem (an error) or just a warning.
+ * *************************************************************************
+ * ~$ 代表一个问题一个bean定义配置.主要是常见的参数传递到一个{@link ProblemReporter }.
  *
+ * <p>可能表明一个潜在的致命的问题(错误)或只是一个警告.
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
@@ -43,7 +46,9 @@ public class Problem {
 	/**
 	 * Create a new instance of the {@link Problem} class.
 	 * @param message	a message detailing the problem
+	 *                  ~$一个消息详细说明这个问题
 	 * @param location the location within a bean configuration source that triggered the error
+	 *                 ~$ 位置在一个bean配置源,引发了错误
 	 */
 	public Problem(String message, Location location) {
 		this(message, location, null, null);
@@ -93,6 +98,8 @@ public class Problem {
 	/**
 	 * Get the description of the bean configuration source that triggered the error,
 	 * as contained within this Problem's Location object.
+	 * *****************************************************************************
+	 * ~$ 得到的描述引发错误的bean配置源,对象包含在这个问题的位置.
 	 * @see #getLocation()
 	 */
 	public String getResourceDescription() {
@@ -101,6 +108,8 @@ public class Problem {
 
 	/**
 	 * Get the {@link ParseState} at the time of the error (may be <code>null</code>).
+	 * *******************************************************************************
+	 * ~$ 得到{@link ParseState }时的错误(可能是null).
 	 */
 	public ParseState getParseState() {
 		return this.parseState;
@@ -108,6 +117,8 @@ public class Problem {
 
 	/**
 	 * Get the underlying expection that caused the error (may be <code>null</code>).
+	 * ******************************************************************************
+	 * ~$ 得到潜在的期望,造成了错误(可能是null).
 	 */
 	public Throwable getRootCause() {
 		return this.rootCause;

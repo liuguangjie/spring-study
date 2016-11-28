@@ -26,6 +26,10 @@ import org.springframework.beans.factory.config.BeanReference;
  * implementation strategy. Also provides default implementations of {@link #getInnerBeanDefinitions}
  * and {@link #getBeanReferences} that return an empty array.
  *
+ * ***************************************************************************************************
+ * ~$ 基本实现的{@link ComponentDefinition },它提供了一个基本实现代表的{@link #getDescription } {@link #getName }.
+ *   还提供了一个基本实现的{@link #toString } {@link #getDescription }代表符合推荐的实现策略.
+ *    还提供了默认的实现{@link #getInnerBeanDefinitions }和{@link #getBeanReferences },返回一个空数组.
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0

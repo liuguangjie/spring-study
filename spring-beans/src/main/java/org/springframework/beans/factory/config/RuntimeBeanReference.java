@@ -22,6 +22,8 @@ import org.springframework.util.Assert;
  * Immutable placeholder class used for a property value object when it's
  * a reference to another bean in the factory, to be resolved at runtime.
  *
+ * ***********************************************************************
+ * ~$ 不可变的占位符类用于属性值对象的时候对另一个bean的引用在工厂,在运行时得到解决.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see BeanDefinition#getPropertyValues()
@@ -40,6 +42,8 @@ public class RuntimeBeanReference implements BeanReference {
 	 * Create a new RuntimeBeanReference to the given bean name,
 	 * without explicitly marking it as reference to a bean in
 	 * the parent factory.
+	 * *********************************************************
+	 * ~$ 创建一个新的RuntimeBeanReference给定的bean名称,没有显式地将它标记为引用bean在父工厂.
 	 * @param beanName name of the target bean
 	 */
 	public RuntimeBeanReference(String beanName) {
@@ -50,6 +54,8 @@ public class RuntimeBeanReference implements BeanReference {
 	 * Create a new RuntimeBeanReference to the given bean name,
 	 * with the option to mark it as reference to a bean in
 	 * the parent factory.
+	 * **********************************************************
+	 * ~$ 创建一个新的RuntimeBeanReference给定的bean名称,选择将它标记为引用bean在父工厂.
 	 * @param beanName name of the target bean
 	 * @param toParent whether this is an explicit reference to
 	 * a bean in the parent factory
@@ -68,6 +74,8 @@ public class RuntimeBeanReference implements BeanReference {
 	/**
 	 * Return whether this is an explicit reference to a bean
 	 * in the parent factory.
+	 * ******************************************************
+	 * ~$ 返回是否这是一个显式引用bean在父工厂.
 	 */
 	public boolean isToParent() {
 		return this.toParent;
@@ -76,6 +84,9 @@ public class RuntimeBeanReference implements BeanReference {
 	/**
 	 * Set the configuration source <code>Object</code> for this metadata element.
 	 * <p>The exact type of the object will depend on the configuration mechanism used.
+	 * ********************************************************************************
+	 * ~$ 这个元数据元素的配置源对象.
+	 * <p>对象的确切类型将取决于所使用的配置机制.
 	 */
 	public void setSource(Object source) {
 		this.source = source;

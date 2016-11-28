@@ -28,7 +28,11 @@ import org.springframework.util.Assert;
  * line 76 of beans.properties has an invalid Class'; another source might
  * be the actual DOM Element from a parsed XML {@link org.w3c.dom.Document};
  * or the source object might simply be <code>null</code>.
+ * **************************************************************************
+ * ~$ 类模型任意位置{@link Resource resource}.
  *
+ * <p> 通常用于跟踪的位置有问题或错误的元数据在XML配置文件中。例如,{@link #getSource() source}位置可能的bean上定义bean的第76行.
+ *     属性无效类的,另一个原因可能是实际的DOM元素从解析XML {@link org.w3c.dom.Document};或源对象可能是null.
  * @author Rob Harrop
  * @since 2.0
  */
@@ -72,6 +76,10 @@ public class Location {
 	 * (may be <code>null</code>).
 	 * <p>See the {@link Location class level javadoc for this class} for examples
 	 * of what the actual type of the returned object may be.
+	 * *****************************************************************************
+	 * ~$ 得到的实际位置相关联的{@link #getResource() resource} (可能是null).
+	 *
+	 * <p> 看到{@link Location class level javadoc for this class}为返回的对象的实际类型的例子.
 	 */
 	public Object getSource() {
 		return this.source;

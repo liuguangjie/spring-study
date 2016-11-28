@@ -25,6 +25,10 @@ import org.springframework.beans.BeanMetadataElement;
  * <p>Concrete implementations are typically based on 'document defaults',
  * for example specified at the root tag level within an XML document.
  *
+ * ***********************************************************************
+ * ~$ 默认值定义的标记接口,扩展BeanMetadataElement继承源接触.
+ *
+ * <p> 具体实现通常是基于文档的默认值,例如在根标记级别进行指定在一个XML文档.
  * @author Juergen Hoeller
  * @since 2.0.2
  * @see org.springframework.beans.factory.xml.DocumentDefaultsDefinition

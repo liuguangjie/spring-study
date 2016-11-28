@@ -44,6 +44,13 @@ import org.springframework.util.ObjectUtils;
  * the {@link #convertPropertyValue} method. For example, encrypted values
  * can be detected and decrypted accordingly before processing them.
  *
+ * ***************************************************************************************
+ * ~$ 允许单个bean属性值从产权配置的资源,即一个属性文件.针对系统管理员用于自定义配置文件覆盖bean属性配置应用程序上下文.
+ *
+ * <p>两个分布提供了具体实现:
+ *     {@link PropertyOverrideConfigurer} for "beanName.property=value" style overriding
+ *     {@link PropertyPlaceholderConfigurer} for replacing "${...}" placeholders
+ *     (值从一个属性文件到bean定义)
  * @author Juergen Hoeller
  * @since 02.10.2003
  * @see PropertyOverrideConfigurer
@@ -57,6 +64,8 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 
 	/**
 	 * Set the order value of this object for sorting purposes.
+	 * ********************************************************
+	 * ~$ 设置该对象的秩序价值排序的目的.
 	 * @see PriorityOrdered
 	 */
 	public void setOrder(int order) {
@@ -71,6 +80,8 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 	/**
 	 * {@linkplain #mergeProperties Merge}, {@linkplain #convertProperties convert} and
 	 * {@linkplain #processProperties process} properties against the given bean factory.
+	 * **********************************************************************************
+	 * ~$ {@linkplain #mergeProperties Merge},{@linkplain #convertProperties convert}和{@linkplain # processProperties process}属性与给定的bean工厂.
 	 * @throws BeanInitializationException if any properties cannot be loaded
 	 */
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
@@ -78,9 +89,11 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 			Properties mergedProps = mergeProperties();
 
 			// Convert the merged properties, if necessary.
+			/** 将合并后的属性,如果必要的.*/
 			convertProperties(mergedProps);
 
 			// Let the subclass process the properties.
+			/** 让子类处理属性。*/
 			processProperties(beanFactory, mergedProps);
 		}
 		catch (IOException ex) {
@@ -93,6 +106,9 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 	 * if necessary. The result will then be processed.
 	 * <p>The default implementation will invoke {@link #convertPropertyValue}
 	 * for each property value, replacing the original with the converted value.
+	 * *************************************************************************
+	 * ~$ 合并转换给定的属性,把属性值,如果必要的.结果将被处理.
+	 * <p>默认实现将调用为每个属性值{@link #convertPropertyValue },替换原有的转换值.
 	 * @param props the Properties to convert
 	 * @see #processProperties
 	 */
@@ -112,6 +128,9 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 	 * Convert the given property from the properties source to the value
 	 * which should be applied.
 	 * <p>The default implementation calls {@link #convertPropertyValue(String)}.
+	 * **************************************************************************
+	 * ~$ 将给定的属性的属性应该应用的价值来源.
+	 * <p>默认实现调用{@link #convertPropertyValue(String)}.
 	 * @param propertyName the name of the property that the value is defined for
 	 * @param propertyValue the original value from the properties source
 	 * @return the converted value, to be used for processing
@@ -127,6 +146,9 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 	 * <p>The default implementation simply returns the original value.
 	 * Can be overridden in subclasses, for example to detect
 	 * encrypted values and decrypt them accordingly.
+	 * *************************************************************************
+	 * ~$ 将给定的属性值的属性应该应用的价值来源.
+	 * <p>默认实现仅返回原来的值.举例来说,可以在子类中覆盖检测并进行相应的解密加密的值.
 	 * @param originalValue the original value from the properties source
 	 * (properties file or local "properties")
 	 * @return the converted value, to be used for processing
@@ -142,6 +164,8 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 
 	/**
 	 * Apply the given Properties to the given BeanFactory.
+	 * ****************************************************
+	 * ~$ 给定的属性应用到给定BeanFactory.
 	 * @param beanFactory the BeanFactory used by the application context
 	 * @param props the Properties to apply
 	 * @throws BeansException in case of errors

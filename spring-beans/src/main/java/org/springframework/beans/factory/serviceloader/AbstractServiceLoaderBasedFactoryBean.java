@@ -26,7 +26,8 @@ import org.springframework.util.ClassUtils;
 /**
  * Abstract base class for FactoryBeans operating on the
  * JDK 1.6 {@link ServiceLoader} facility.
- *
+ * ******************************************************
+ * ~$ 抽象基类FactoryBeans操作在JDK 1.6 {@link ServiceLoader}设施.
  * @author Juergen Hoeller
  * @since 2.5
  * @see ServiceLoader
@@ -41,6 +42,8 @@ public abstract class AbstractServiceLoaderBasedFactoryBean extends AbstractFact
 
 	/**
 	 * Specify the desired service type (typically the service's public API).
+	 * **********************************************************************
+	 * ~$ 指定所需的服务类型(通常服务的公共API).
 	 */
 	public void setServiceType(Class serviceType) {
 		this.serviceType = serviceType;
@@ -72,6 +75,9 @@ public abstract class AbstractServiceLoaderBasedFactoryBean extends AbstractFact
 	/**
 	 * Determine the actual object to expose for the given ServiceLoader.
 	 * <p>Left to concrete subclasses.
+	 * ******************************************************************
+	 * ~$ 确定给定即便ServiceLoader揭露的实际对象.
+	 * <p> 具体的子类.
 	 * @param serviceLoader the ServiceLoader for the configured service class
 	 * @return the object to expose
 	 */

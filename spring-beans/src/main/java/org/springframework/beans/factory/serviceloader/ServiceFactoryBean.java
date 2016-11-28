@@ -25,7 +25,8 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
  * {@link org.springframework.beans.factory.FactoryBean} that exposes the
  * 'primary' service for the configured service class, obtained through
  * the JDK 1.6 {@link ServiceLoader} facility.
- *
+ * ***********************************************************************
+ * ~$ {@link org.springframework.beans.factory.FactoryBean }暴露的'primary'服务配置的服务类,通过JDK 1.6 {@link ServiceLoader}设施.
  * @author Juergen Hoeller
  * @since 2.5
  * @see ServiceLoader

@@ -21,7 +21,8 @@ import org.springframework.util.Assert;
 /**
  * {@link ParseState} entry representing a (possibly indexed)
  * constructor argument.
- *
+ * **********************************************************
+ * ~$ {@link ParseState }条目代表一个(可能索引)构造函数参数。
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
@@ -34,6 +35,8 @@ public class ConstructorArgumentEntry implements ParseState.Entry {
 	/**
 	 * Creates a new instance of the {@link ConstructorArgumentEntry} class
 	 * representing a constructor argument with a (currently) unknown index.
+	 * *********************************************************************
+	 * ~$ 创建一个新的实例{@link ConstructorArgumentEntry }类代表一个构造函数参数(目前)未知的指数.
 	 */
 	public ConstructorArgumentEntry() {
 		this.index = -1;
@@ -42,6 +45,8 @@ public class ConstructorArgumentEntry implements ParseState.Entry {
 	/**
 	 * Creates a new instance of the {@link ConstructorArgumentEntry} class
 	 * representing a constructor argument at the supplied <code>index</code>.
+	 * ***********************************************************************
+	 * ~$ 创建一个新的实例{@link ConstructorArgumentEntry }在提供的指数类代表一个构造函数参数.
 	 * @param index the index of the constructor argument
 	 * @throws IllegalArgumentException if the supplied <code>index</code>
 	 * is less than zero

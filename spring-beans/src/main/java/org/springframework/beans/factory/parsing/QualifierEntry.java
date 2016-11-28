@@ -20,7 +20,8 @@ import org.springframework.util.StringUtils;
 
 /**
  * {@link ParseState} entry representing an autowire candidate qualifier.
- * 
+ * **********************************************************************
+ * ~$ {@link ParseState }条目代表一个自动装配的候选人限定符.
  * @author Mark Fisher
  * @since 2.5
  */

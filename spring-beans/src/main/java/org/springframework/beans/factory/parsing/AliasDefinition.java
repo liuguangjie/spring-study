@@ -22,6 +22,8 @@ import org.springframework.util.Assert;
 /**
  * Representation of an alias that has been registered during the parsing process.
  *
+ * *******************************************************************************
+ * ~$ 表示一个别名解析过程中已经注册.
  * @author Juergen Hoeller
  * @since 2.0
  * @see ReaderEventListener#aliasRegistered(AliasDefinition)

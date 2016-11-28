@@ -21,7 +21,8 @@ import org.springframework.core.io.Resource;
 /**
  * Context that gets passed along a bean definition reading process,
  * encapsulating all relevant configuration as well as state.
- *
+ * ****************************************************************
+ * ~$ 上下文传递bean定义阅读过程,封装所有相关配置以及状态.
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0

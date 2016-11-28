@@ -28,7 +28,8 @@ import org.springframework.beans.factory.config.BeanReference;
 /**
  * ComponentDefinition based on a standard BeanDefinition, exposing the given bean
  * definition as well as inner bean definitions and bean references for the given bean.
- *
+ * ************************************************************************************
+ * ~$ ComponentDefinition基于标准BeanDefinition,暴露出给定的bean定义以及内部的bean定义bean引用给定bean.
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
@@ -127,6 +128,8 @@ public class BeanComponentDefinition extends BeanDefinitionHolder implements Com
 	/**
 	 * This implementations expects the other object to be of type BeanComponentDefinition
 	 * as well, in addition to the superclass's equality requirements.
+	 * ************************************************************************************
+	 * ~$ 这个实现预计其他对象类型的BeanComponentDefinition,除了超类的平等要求.
 	 */
 	@Override
 	public boolean equals(Object other) {

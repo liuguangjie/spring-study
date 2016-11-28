@@ -34,6 +34,11 @@ import org.springframework.util.Assert;
  * constructor argument of type <code>javax.inject.Provider</code>, as an
  * alternative to JSR-330's <code>@Inject</code> annotation-driven approach.
  *
+ * *************************************************************************
+ * ~$一个{@link org.springframework.beans.factory.FactoryBean }实现返回一个值是jsr-330{@link Provider}这反过来返回一个bean来自{@link BeanFactory }.
+ * <p> 这基本上是一个Spring的美好的jsr-330兼容的变体{@link ObjectFactoryCreatingFactoryBean }.
+ *     它可用于传统的外部依赖项注入配置目标属性或javax.inject.Provider类型的构造函数参数.作为替代jsr-330的@inject注解驱动的方法.
+ *
  * @author Juergen Hoeller
  * @since 3.0.2
  * @see Provider
@@ -50,6 +55,9 @@ public class ProviderCreatingFactoryBean extends AbstractFactoryBean<Provider> {
 	 * always will be (because if the target bean were a singleton, then said singleton
 	 * bean could simply be injected straight into the dependent object, thus obviating
 	 * the need for the extra level of indirection afforded by this factory approach).
+	 * *********************************************************************************
+	 * ~$ 设置目标bean的名称.
+	 * <p>目标没有单体bean,但realisticially总是会(因为如果目标bean是一个单例对象,单例bean说可以直接注入依赖对象,因而无需本厂提供的额外级别的间接寻址方法).
 	 */
 	public void setTargetBeanName(String targetBeanName) {
 		this.targetBeanName = targetBeanName;
@@ -75,6 +83,8 @@ public class ProviderCreatingFactoryBean extends AbstractFactoryBean<Provider> {
 
 	/**
 	 * Independent inner class - for serialization purposes.
+	 * *****************************************************
+	 * ~$ 独立的内部类,用于序列化.
 	 */
 	private static class TargetBeanProvider implements Provider, Serializable {
 

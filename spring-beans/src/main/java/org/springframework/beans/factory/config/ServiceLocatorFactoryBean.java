@@ -72,6 +72,27 @@ import org.springframework.util.StringUtils;
  * <p>By way of an example, consider the following service locator interface.
  * Note that this interface is not dependant on any Spring APIs.
  *
+ * **************************************************************************
+ * ~$ 需要一个{@link FactoryBean }实现一个接口,它必须有一个或多个方法的签名MyType xxx()或MyType xxx(MyIdType id)
+ *  (通常,MyService getService()或MyService getService(String id))并创建一个动态代理实现了这个接口,委托给一个潜在的{@link BeanFactory }.
+ *
+ * <p>这样的服务定位器允许的调用代码解耦{@link BeanFactory } API,通过使用一个适当的定制定位器接口.
+ * 它们通常被用于原型beans,例如工厂方法应该返回一个新实例为每个调用.
+ * 客户端收到服务定位器的引用通过setter或构造函数注入,能够根据需要调用定位器的工厂方法.
+ * 单例bean,直接目标bean的setter或构造函数注入是可取的.
+ *
+ * <p>不带参数调用工厂方法,或single-arg工厂方法的字符串id null或空字符串,
+ *  如果一个bean在工厂与工厂方法的返回类型,bean返回,否则{@link org.springframework.beans.factory.NoSuchBeanDefinitionException }.
+ *
+ * <p>在single-arg调用工厂方法与非空(非空)参数,代理返回的结果{@link BeanFactory #getBean(String)}调用,
+ *    使用传入的stringified版本id作为bean的名字.
+ *
+ * <p>工厂方法参数通常会是一个字符串,但也可以是一个整数或一个自定义的枚举类型,例如,通过toString stringified.
+ * 由此产生的字符串按原样可以作为bean的名字,只要相应的bean中定义bean工厂.
+ * 另外,{@link #setServiceMappings(Properties) a custom mapping}之间可以定义服务id和bean名称.
+ *
+ * <p>通过一个例子,考虑下面的服务定位器接口。注意,这个接口是不依赖任何Spring api.
+ *
  * <pre class="code">package a.b.c;
  *
  *public interface ServiceFactory {
@@ -179,7 +200,8 @@ import org.springframework.util.StringUtils;
  *}</pre>
  *
  * <p>See {@link ObjectFactoryCreatingFactoryBean} for an alternate approach.
- *
+ * **************************************************************************
+ * ~$ 看{@link ObjectFactoryCreatingFactoryBean } 另一种方法
  * @author Colin Sampaleanu
  * @author Juergen Hoeller
  * @since 1.1.4
@@ -206,6 +228,10 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 	 * (typically, <code>MyService getService()</code> or <code>MyService getService(String id)</code>).
 	 * See the {@link ServiceLocatorFactoryBean class-level Javadoc} for
 	 * information on the semantics of such methods.
+	 * **************************************************************************************************
+	 * ~$ 设置服务定位器接口使用,它必须有一个或多个方法的签名MyType xxx()或MyType xxx(MyIdType id)
+	 *    (通常,MyService getService()或MyService getService(字符串id)).
+	 *   看到{@link ServiceLocatorFactoryBean class-level Javadoc} 等语义信息的方法.
 	 */
 	public void setServiceLocatorInterface(Class interfaceType) {
 		this.serviceLocatorInterface = interfaceType;
@@ -220,6 +246,11 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 	 * for example NoSuchBeanDefinitionException. As those are unchecked, the
 	 * caller does not need to handle them, so it might be acceptable that
 	 * Spring exceptions get thrown as long as they are just handled generically.
+	 * ****************************************************************************
+	 * ~$ 设置服务定位器应该抛出的异常类如果服务查找失败了.
+	 *    指定的异常类必须有一个构造函数的参数类型:(String,Throwable)或(Throwable)或(String).
+	 * <p>如果不指定,Spring的BeansException将抛出的子类,例如NoSuchBeanDefinitionException.
+	 *   那些未经检查的,调用者不需要处理它们,所以它可能是可接受的,Spring异常被只要他们只是一般处理.
 	 * @see #determineServiceLocatorExceptionConstructor
 	 * @see #createServiceLocatorException
 	 */
@@ -239,6 +270,9 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 	 * <p>The empty string as service id key defines the mapping for <code>null</code> and
 	 * empty string, and for factory methods without parameter. If not defined,
 	 * a single matching bean will be retrieved from the bean factory.
+	 * *************************************************************************************
+	 * ~$ 设置服务id之间的映射(传递到服务定位器)和bean名称(bean工厂).这里没有定义的服务id将被视为bean名称按原样.
+	 * <p>空字符串作为服务id关键定义了零的映射和空字符串,和工厂方法没有参数.如果没有定义,一个匹配将从bean检索bean工厂.
 	 * @param serviceMappings mappings between service ids and bean names,
 	 * with service ids as keys as bean names as values
 	 */
@@ -260,6 +294,7 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 		}
 
 		// Create service locator proxy.
+		/** 创建服务定位器代理.*/
 		this.proxy = Proxy.newProxyInstance(
 				this.serviceLocatorInterface.getClassLoader(),
 				new Class[] {this.serviceLocatorInterface},
@@ -273,6 +308,9 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 	 * <p>The default implementation looks for a constructor with one of the
 	 * following parameter types: <code>(String, Throwable)</code>
 	 * or <code>(Throwable)</code> or <code>(String)</code>.
+	 * *************************************************************************
+	 * ~$ 确定给定的服务定位器的构造函数使用异常类.只叫一个自定义的服务定位器异常.
+	 * <p>默认实现查找一个构造函数的参数类型:(String,Throwable)或(Throwable)或(String).
 	 * @param exceptionClass the exception class
 	 * @return the constructor to use
 	 * @see #setServiceLocatorExceptionClass
@@ -303,9 +341,12 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 	 * Only called in case of a custom service locator exception.
 	 * <p>The default implementation can handle all variations of
 	 * message and exception arguments.
-	 * @param exceptionConstructor the constructor to use
-	 * @param cause the cause of the service lookup failure
-	 * @return the service locator exception to throw
+	 * ***********************************************************
+	 * ~$ 创建一个服务定位器异常为给定的事业.只叫一个自定义的服务定位器异常.
+	 * <p>默认的实现可以处理所有消息和异常参数的变化.
+	 * @param exceptionConstructor the constructor to use  ~$ 构造函数使用
+	 * @param cause the cause of the service lookup failure ~$ 服务查找失败的原因
+	 * @return the service locator exception to throw ~$ 服务定位器异常抛出
 	 * @see #setServiceLocatorExceptionClass
 	 */
 	protected Exception createServiceLocatorException(Constructor exceptionConstructor, BeansException cause) {
@@ -338,16 +379,20 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 
 	/**
 	 * Invocation handler that delegates service locator calls to the bean factory.
+	 * ****************************************************************************
+	 * ~$ 调用处理程序,代表服务定位器调用bean工厂.
 	 */
 	private class ServiceLocatorInvocationHandler implements InvocationHandler {
 
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			if (ReflectionUtils.isEqualsMethod(method)) {
 				// Only consider equal when proxies are identical.
+				/** 时只考虑平等的代理都是相同的。*/
 				return (proxy == args[0]);
 			}
 			else if (ReflectionUtils.isHashCodeMethod(method)) {
 				// Use hashCode of service locator proxy.
+				/** 使用服务定位器的hashCode代理.*/
 				return System.identityHashCode(proxy);
 			}
 			else if (ReflectionUtils.isToStringMethod(method)) {
@@ -365,10 +410,12 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 				String beanName = tryGetBeanName(args);
 				if (StringUtils.hasLength(beanName)) {
 					// Service locator for a specific bean name.
+					/** 服务定位器为一个特定的bean的名称*/
 					return beanFactory.getBean(beanName, serviceLocatorMethodReturnType);
 				}
 				else {
 					// Service locator for a bean type.
+					/** 服务定位器bean类型.*/
 					return BeanFactoryUtils.beanOfTypeIncludingAncestors(beanFactory, serviceLocatorMethodReturnType);
 				}
 			}
@@ -382,6 +429,8 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 
 		/**
 		 * Check whether a service id was passed in.
+		 * *****************************************
+		 * ~$ 检查是否通过服务id.
 		 */
 		private String tryGetBeanName(Object[] args) {
 			String beanName = "";
@@ -389,6 +438,7 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 				beanName = args[0].toString();
 			}
 			// Look for explicit serviceId-to-beanName mappings.
+			/** 寻找明确serviceId-to-beanName映射 */
 			if (serviceMappings != null) {
 				String mappedName = serviceMappings.getProperty(beanName);
 				if (mappedName != null) {
@@ -404,6 +454,7 @@ public class ServiceLocatorFactoryBean implements FactoryBean<Object>, BeanFacto
 			Class serviceLocatorReturnType = interfaceMethod.getReturnType();
 
 			// Check whether the method is a valid service locator.
+			/** 检查方法是否有效的服务定位器.*/
 			if (paramTypes.length > 1 || void.class.equals(serviceLocatorReturnType)) {
 				throw new UnsupportedOperationException(
 						"May only call methods with signature '<type> xxx()' or '<type> xxx(<idtype> id)' " +

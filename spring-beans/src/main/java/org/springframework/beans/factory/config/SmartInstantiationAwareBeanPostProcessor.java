@@ -29,7 +29,11 @@ import org.springframework.beans.BeansException;
  * post-processors should simply implement the plain {@link BeanPostProcessor}
  * interface or derive from the {@link InstantiationAwareBeanPostProcessorAdapter}
  * class. New methods might be added to this interface even in point releases.
+ * ********************************************************************************
+ * ~$ 扩展的{@link InstantiationAwareBeanPostProcessor }接口,为预测的最终类型添加一个回调处理bean.
  *
+ * <p>注:此接口是一个专用的接口,主要是框架内供内部使用.一般来说,内部后处理器应该简单地实现纯{@link BeanPostProcessor }接口
+ *  或源自{@link InstantiationAwareBeanPostProcessorAdapter }类.新方法甚至可能被添加到这个接口的版本.
  * @author Juergen Hoeller
  * @since 2.0.3
  * @see InstantiationAwareBeanPostProcessorAdapter
@@ -39,6 +43,8 @@ public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationA
 	/**
 	 * Predict the type of the bean to be eventually returned from this
 	 * processor's {@link #postProcessBeforeInstantiation} callback.
+	 * *****************************************************************
+	 * ~$预测的类型返回的bean是最终从这个处理器的{@link #postProcessBeforeInstantiation }回调.
 	 * @param beanClass the raw class of the bean
 	 * @param beanName the name of the bean
 	 * @return the type of the bean, or <code>null</code> if not predictable
@@ -48,6 +54,8 @@ public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationA
 
 	/**
 	 * Determine the candidate constructors to use for the given bean.
+	 * ***************************************************************
+	 * ~$ 确定候选人构造函数用于给定的bean.
 	 * @param beanClass the raw class of the bean (never <code>null</code>)
 	 * @param beanName the name of the bean
 	 * @return the candidate constructors, or <code>null</code> if none specified
@@ -69,6 +77,11 @@ public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationA
 	 * return the raw bean instance from those subsequent callbacks (if the wrapper
 	 * for the affected bean has been built for a call to this method already,
 	 * it will be exposes as final bean reference by default).
+	 * ************************************************************************************
+	 * ~$获得一个参考早期访问指定的bean,通常为了解决循环引用.
+	 * <p>这个回调使后处理器有机会提前暴露一个包装器—也就是说,在目标bean实例完全初始化.暴露对象应该相当于{@link #postProcessBeforeInitialization }
+	 *  { @link # postProcessAfterInitialization }将暴露.注意,此方法返回的对象将被用作bean引用,除非后处理器返回一个不同的包装说后处理回调.
+	 *  换句话说:后处理回调可以最终暴露或者相同的参考从这些后续的回调返回原始的bean实例(如果包装器为受影响的bean是建立调用这个方法,它将作为最终使bean引用默认情况下)
 	 * @param bean the raw bean instance
 	 * @param beanName the name of the bean
 	 * @return the object to expose as bean reference

@@ -52,6 +52,18 @@ import org.springframework.util.StringValueResolver;
  * registration of {@code PropertyPlaceholderConfigurer} through the namespace, even if using Spring 3.1;
  * simply do not update your {@code xsi:schemaLocation} and continue using the 3.0 XSD.
  *
+ * ********************************************************************************************************************
+ * ~$ {@link PlaceholderConfigurerSupport }子类解决$ {…}占位符反对{@link #setLocation}
+ *    {@link #setProperties properties}和/或系统属性和环境变量.
+ *
+ * <p>Spring 3.1,{@link org.springframework.context.support.PropertySourcesPlaceholderConfigurer PropertySourcesPlaceholderConfigurer }
+ *    应该优先使用此实现;通过利用更加灵活的{@link org.springframework.core.env.Environment }和
+ *    {@link org.springframework.core.env.PropertySource PropertySource }机制也在Spring 3.1中可用.
+ *
+ * <p>{ @link PropertyPlaceholderConfigurer }仍然是适合使用时:
+ * {@link org.springframework.context spring-context } 模块不可用(即.一个是使用Spring的{@code BeanFactory } API而不是{@code ApplicationContext }).
+ * 现有的配置利用{@link #setSystemPropertiesMode(int)“systemPropertiesMode”}和/或{@link #setSystemPropertiesModeName(String) "systemPropertiesModeName"}属性.
+ * 鼓励用户使用这些设置离开,而配置属性源搜索顺序通过容器{@code Environment};然而,确切的保护功能可能会被继续保持用{@code PropertyPlaceholderConfigurer }.
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 02.10.2003
@@ -63,17 +75,22 @@ import org.springframework.util.StringValueResolver;
 public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport {
 
 	/** Never check system properties. */
+	/** 从来没有检查系统属性.*/
 	public static final int SYSTEM_PROPERTIES_MODE_NEVER = 0;
 
 	/**
 	 * Check system properties if not resolvable in the specified properties.
 	 * This is the default.
+	 * **********************************************************************
+	 * ~$ 检查系统属性如果无法在指定的属性.这是默认的.
 	 */
 	public static final int SYSTEM_PROPERTIES_MODE_FALLBACK = 1;
 
 	/**
 	 * Check system properties first, before trying the specified properties.
 	 * This allows system properties to override any other property source.
+	 * *********************************************************************
+	 * ~$ 首先检查系统属性,之前指定的属性.这允许系统属性覆盖任何其他属性来源.
 	 */
 	public static final int SYSTEM_PROPERTIES_MODE_OVERRIDE = 2;
 
@@ -88,6 +105,8 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	/**
 	 * Set the system property mode by the name of the corresponding constant,
 	 * e.g. "SYSTEM_PROPERTIES_MODE_OVERRIDE".
+	 * ***********************************************************************
+	 * ~$ 设置系统属性模式的相应的常数,比如 "SYSTEM_PROPERTIES_MODE_OVERRIDE".
 	 * @param constantName name of the constant
 	 * @throws IllegalArgumentException if an invalid constant was specified
 	 * @see #setSystemPropertiesMode
@@ -103,6 +122,9 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	 * with the specified properties, a system property will be tried.
 	 * "override" will check for a system property first, before trying the
 	 * specified properties. "never" will not check system properties at all.
+	 * ************************************************************************
+	 * ~$ 如何检查设置系统属性:作为后备,覆盖,或没有.
+	 * 例如,将解决${user.dir}."user.dir"系统属性.
 	 * @see #SYSTEM_PROPERTIES_MODE_NEVER
 	 * @see #SYSTEM_PROPERTIES_MODE_FALLBACK
 	 * @see #SYSTEM_PROPERTIES_MODE_OVERRIDE
@@ -126,6 +148,13 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	 * disabled - before it eventually got re-enabled for the Sun VM 1.5.
 	 * Please upgrade to 1.5 (or higher) if you intend to rely on the
 	 * environment variable support.
+	 * ***************************************************************************
+	 * ~$ 设置是否寻找一个匹配的系统环境变量如果没有匹配的系统属性被发现.
+	 *    只适用于"systemPropertyMode"(i.e. "fallback" or "override"),后检查JVM系统属性.
+	 * <p>默认为"true".关掉这个设置不会解决占位符对系统环境变量.
+	 *    请注意,一般建议通过外部值在JVM系统属性:这可以很容易地实现一个启动脚本,甚至对现有环境变量.
+	 * <p>注:访问环境变量不工作在Sun VM 1.4,相应的{@link System#getenv} 支持有缺陷的——终于重新启用之前1.5 Sun VM.
+	 *    请升级到1.5(或更高版本)如果您打算依赖环境变量的支持.
 	 * @see #setSystemPropertiesMode
 	 * @see System#getProperty(String)
 	 * @see System#getenv(String)
@@ -141,6 +170,10 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	 * (placeholder, props)</code> before/after the system properties check.
 	 * <p>Subclasses can override this for custom resolution strategies,
 	 * including customized points for the system properties check.
+	 * *********************************************************************
+	 * ~$ 使用给定的属性解决给定的占位符,执行一个系统属性检查根据给定的模式.
+	 * <p>默认实现代表resolvePlaceholder(占位符、道具)系统属性检查之前/之后.
+	 * <p>子类可以重写这个定制的解决策略,包括系统属性定制点检查.
 	 * @param placeholder the placeholder to resolve
 	 * @param props the merged properties of this configurer
 	 * @param systemPropertiesMode the system properties mode,
@@ -172,6 +205,10 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	 * as fallback.
 	 * <p>Note that system properties will still be checked before respectively
 	 * after this method is invoked, according to the system properties mode.
+	 * **************************************************************************
+	 * ~$ 解决给定的占位符使用给定的属性.默认实现只检查一个相应的属性键.
+	 * <p>子类可以重写这个定制placeholder-to-key映射或自定义解决策略,可能只是使用给定的属性作为候选.
+	 * <p>注意,系统属性仍将之前检查分别调用该方法后,根据系统属性模式.
 	 * @param placeholder the placeholder to resolve
 	 * @param props the merged properties of this configurer
 	 * @return the resolved value, of <code>null</code> if none
@@ -184,6 +221,8 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	/**
 	 * Resolve the given key as JVM system property, and optionally also as
 	 * system environment variable if no matching system property has been found.
+	 * **************************************************************************
+	 * ~$ 解决给定的关键是JVM系统属性,选择也是系统环境变量如果没有找到匹配的系统属性.
 	 * @param key the placeholder to resolve as system property key
 	 * @return the system property value, or <code>null</code> if not found
 	 * @see #setSearchSystemEnvironment
@@ -210,6 +249,8 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	/**
 	 * Visit each bean definition in the given bean factory and attempt to replace ${...} property
 	 * placeholders with values from the given properties.
+	 * ********************************************************************************************
+	 * ~$ 在给定的访问每个bean定义bean工厂和试图取代$ {…}属性占位符从给定的属性值.
 	 */
 	@Override
 	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess, Properties props)
@@ -222,13 +263,17 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 
 	/**
 	 * Parse the given String value for placeholder resolution.
-	 * @param strVal the String value to parse
-	 * @param props the Properties to resolve placeholders against
+	 * ********************************************************
+	 * ~$ 解析给定的字符串值占位符的决议.
+	 * @param strVal the String value to parse   ~$ 解析的字符串值
+	 * @param props the Properties to resolve placeholders against ~$ 属性来解决占位符
 	 * @param visitedPlaceholders the placeholders that have already been visited
 	 * during the current resolution attempt (ignored in this version of the code)
+	 *                            ~$ 已经访问过的占位符 在当前 试图解决
 	 * @deprecated as of Spring 3.0, in favor of using {@link #resolvePlaceholder}
 	 * with {@link PropertyPlaceholderHelper}.
 	 * Only retained for compatibility with Spring 2.5 extensions.
+	 *  ~$ 在spring3.0 中 使用  {@link #resolvePlaceholder} 在 {@link PropertyPlaceholderHelper}.
 	 */
 	@Deprecated
 	protected String parseStringValue(String strVal, Properties props, Set<?> visitedPlaceholders) {

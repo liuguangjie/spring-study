@@ -26,7 +26,11 @@ import java.util.Stack;
  * <p>Calling {@link #toString()} will render a tree-style view of the current logical
  * position in the parse phase. This representation is intended for use in
  * error messages.
+ * ************************************************************************************
+ * ~$ 简单的{@link Stack}的结构解析过程中跟踪逻辑位置.
+ *    {@link Entry entries}被添加到堆栈每一点在解析阶段reader-specific的方式.
  *
+ * <p> 调用{@link #toString()}将呈现一个样式视图解析当前逻辑位置的阶段.这表示是用于错误消息.
  * @author Rob Harrop
  * @since 2.0
  */
@@ -34,11 +38,15 @@ public final class ParseState {
 
 	/**
 	 * Tab character used when rendering the tree-style representation.
+	 * ****************************************************************
+	 * ~$ 制表符时使用呈现样式表示.
 	 */
 	private static final char TAB = '\t';
 
 	/**
 	 * Internal {@link Stack} storage.
+	 * *******************************
+	 * ~$ 内部{@link Stack }存储.
 	 */
 	private final Stack state;
 
@@ -76,6 +84,8 @@ public final class ParseState {
 	/**
 	 * Return the {@link Entry} currently at the top of the {@link Stack} or
 	 * <code>null</code> if the {@link Stack} is empty.
+	 * *********************************************************************
+	 * ~$ 返回顶部的{@link Entry}目前{@link Stack}或null如果{@link Stack}是空的.
 	 */
 	public Entry peek() {
 		return (Entry) (this.state.empty() ? null : this.state.peek());
@@ -84,6 +94,8 @@ public final class ParseState {
 	/**
 	 * Create a new instance of {@link ParseState} which is an independent snapshot
 	 * of this instance.
+	 * ****************************************************************************
+	 * ~$ 创建一个新的实例,{@link ParseState }这是一个独立的快照实例
 	 */
 	public ParseState snapshot() {
 		return new ParseState(this);
@@ -92,6 +104,8 @@ public final class ParseState {
 
 	/**
 	 * Returns a tree-style representation of the current <code>ParseState</code>.
+	 * ***************************************
+	 * ~$ 返回当前ParseState样式表示.
 	 */
 	@Override
 	public String toString() {
@@ -112,6 +126,8 @@ public final class ParseState {
 
 	/**
 	 * Marker interface for entries into the {@link ParseState}.
+	 * *********************************************************
+	 * ~$ 标记接口条目到{@link ParseState }.
 	 */
 	public interface Entry {
 

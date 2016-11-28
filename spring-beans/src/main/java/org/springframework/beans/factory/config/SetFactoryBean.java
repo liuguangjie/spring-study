@@ -27,6 +27,8 @@ import org.springframework.core.GenericCollectionTypeResolver;
  * Simple factory for shared Set instances. Allows for central setup
  * of Sets via the "set" element in XML bean definitions.
  *
+ * ******************************************************************
+ * ~$ 简单的共享设置实例的工厂.允许中央设置集通过"set"元素在XML bean定义.
  * @author Juergen Hoeller
  * @since 09.12.2003
  * @see ListFactoryBean
@@ -41,6 +43,8 @@ public class SetFactoryBean extends AbstractFactoryBean<Set> {
 
 	/**
 	 * Set the source Set, typically populated via XML "set" elements.
+	 * ***************************************************************
+	 * ~$ 源集合,通常通过XML填充"set"元素。
 	 */
 	public void setSourceSet(Set sourceSet) {
 		this.sourceSet = sourceSet;
@@ -50,6 +54,9 @@ public class SetFactoryBean extends AbstractFactoryBean<Set> {
 	 * Set the class to use for the target Set. Can be populated with a fully
 	 * qualified class name when defined in a Spring application context.
 	 * <p>Default is a linked HashSet, keeping the registration order.
+	 * **********************************************************************
+	 * ~$ 目标设置类使用.可以填充完全限定类名,在Spring应用程序上下文中定义的.
+	 * <p>默认是一个 LinkedHashSet,保持注册排序。
 	 * @see LinkedHashSet
 	 */
 	public void setTargetSetClass(Class targetSetClass) {

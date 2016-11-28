@@ -56,6 +56,19 @@ import org.springframework.beans.factory.BeanInitializationException;
  * the <code>convertPropertyValue</code> method. For example, encrypted values
  * can be detected and decrypted accordingly before processing them.
  *
+ * ************************************************************************************************
+ * ~$ 属性资源配置覆盖应用程序上下文中的bean属性值的定义.它将值从一个属性文件到bean定义.
+ *
+ *    PropertyPlaceholderConfigurer相比,最初的定义可以有默认值或任何值bean属性.
+ *    如果一个压倒一切的属性文件没有一定的条目bean属性,使用默认的上下文定义.
+ *
+ * <p>注意上下文定义不知道被覆盖,所以这不是明显在查看XML定义文件.
+ *    此外,请注意,覆盖指定的值总是文字值;他们不译成bean的引用.
+ *    这也适用于当XML bean定义的原始值指定bean引用.
+ *
+ * <p>如果多个PropertyOverrideConfigurers定义不同的值相同的bean属性,最后一个将赢得(由于覆盖机制).
+ *
+ * <p>属性值可以转换在阅读它们,通过覆盖convertPropertyValue方法.例如,可以检测并解密加密的值相应的前处理.
  * @author Juergen Hoeller
  * @author Rod Johnson
  * @since 12.03.2003
@@ -72,12 +85,16 @@ public class PropertyOverrideConfigurer extends PropertyResourceConfigurer {
 	private boolean ignoreInvalidKeys = false;
 
 	/** Contains names of beans that have overrides */
+	/** 包含bean的名字,但都覆盖*/
 	private Set<String> beanNames = Collections.synchronizedSet(new HashSet<String>());
 
 
 	/**
 	 * Set the separator to expect between bean name and property path.
 	 * Default is a dot (".").
+	 * ****************************************************************
+	 * ~$ 设置分隔符之间的期望bean名称和属性路径.
+	 *     默认是一个点(".").
 	 */
 	public void setBeanNameSeparator(String beanNameSeparator) {
 		this.beanNameSeparator = beanNameSeparator;
@@ -88,6 +105,10 @@ public class PropertyOverrideConfigurer extends PropertyResourceConfigurer {
 	 * <p>If you ignore invalid keys, keys that do not follow the 'beanName.property' format
 	 * (or refer to invalid bean names or properties) will just be logged at debug level.
 	 * This allows one to have arbitrary other keys in a properties file.
+	 * **************************************************************************************
+	 * ~$ 是否忽略无效的键集.默认设置是"false".
+	 * <p>如果你忽略无效的键,键不遵循'beanName.property'格式(或引用无效的bean的名称或属性)就会被记录在调试水平.
+	 *    这允许一个任意其他键属性文件.
 	 */
 	public void setIgnoreInvalidKeys(boolean ignoreInvalidKeys) {
 		this.ignoreInvalidKeys = ignoreInvalidKeys;
@@ -117,6 +138,8 @@ public class PropertyOverrideConfigurer extends PropertyResourceConfigurer {
 
 	/**
 	 * Process the given key as 'beanName.property' entry.
+	 * ***************************************************
+	 * ~$ 给予处理 'beanName.property' 条目
 	 */
 	protected void processKey(ConfigurableListableBeanFactory factory, String key, String value)
 			throws BeansException {
@@ -137,6 +160,8 @@ public class PropertyOverrideConfigurer extends PropertyResourceConfigurer {
 
 	/**
 	 * Apply the given property value to the corresponding bean.
+	 * *********************************************************
+	 * ~$ 给定属性值适用于相应的bean.
 	 */
 	protected void applyPropertyValue(
 			ConfigurableListableBeanFactory factory, String beanName, String property, String value) {
@@ -154,6 +179,8 @@ public class PropertyOverrideConfigurer extends PropertyResourceConfigurer {
 	/**
 	 * Were there overrides for this bean?
 	 * Only valid after processing has occurred at least once.
+	 * *******************************************************
+	 * ~$ 这个bean有覆盖? 只有有效的处理后至少发生一次.
 	 * @param beanName name of the bean to query status for
 	 * @return whether there were property overrides for
 	 * the named bean

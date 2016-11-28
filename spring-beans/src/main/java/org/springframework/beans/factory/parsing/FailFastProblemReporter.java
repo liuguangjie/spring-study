@@ -28,7 +28,11 @@ import org.apache.commons.logging.LogFactory;
  *
  * <p>Warnings are written to
  * {@link #setLogger(Log) the log} for this class.
+ * **********************************************************************************
+ * ~$ 简单的{@link ProblemReporter }实现展品快速失败当遇到错误的行为.
+ * <p> 结果在遇到第一个错误{@link BeanDefinitionParsingException }抛出.
  *
+ * <p>警告被写入{@link #setLogger(Log) the log}这个类.
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Rick Evans
@@ -43,6 +47,9 @@ public class FailFastProblemReporter implements ProblemReporter {
 	 * Set the {@link Log logger} that is to be used to report warnings.
 	 * <p>If set to <code>null</code> then a default {@link Log logger} set to
 	 * the name of the instance class will be used.
+	 * ************************************************************************
+	 * ~$ 设置{@link Log logger} 也被用于报告警告.
+	 * <p>如果设置为null,那么默认 {@link Log logger} 设置为将使用实例类的名称.
 	 * @param logger the {@link Log logger} that is to be used to report warnings
 	 */
 	public void setLogger(Log logger) {
@@ -53,6 +60,8 @@ public class FailFastProblemReporter implements ProblemReporter {
 	/**
 	 * Throws a {@link BeanDefinitionParsingException} detailing the error
 	 * that has occurred.
+	 * *******************************************************************
+	 * ~$ 抛出一个{@link BeanDefinitionParsingException }详细的错误发生.
 	 * @param problem the source of the error
 	 */
 	public void fatal(Problem problem) {
@@ -62,6 +71,8 @@ public class FailFastProblemReporter implements ProblemReporter {
 	/**
 	 * Throws a {@link BeanDefinitionParsingException} detailing the error
 	 * that has occurred.
+	 * *******************************************************************
+	 * ~$ 抛出一个{ @link BeanDefinitionParsingException }详细的错误发生.
 	 * @param problem the source of the error
 	 */
 	public void error(Problem problem) {
@@ -70,6 +81,8 @@ public class FailFastProblemReporter implements ProblemReporter {
 
 	/**
 	 * Writes the supplied {@link Problem} to the {@link Log} at <code>WARN</code> level.
+	 * **********************************************************************************
+	 * ~$ 写提供{@link Problem} {@link Log}在警告级别.
 	 * @param problem the source of the warning
 	 */
 	public void warning(Problem problem) {
