@@ -34,7 +34,8 @@ import org.springframework.util.ClassUtils;
 /**
  * Utility class that contains various methods useful for
  * the implementation of autowire-capable bean factories.
- *
+ * ******************************************************
+ * ~$ 实用工具类,它包含各种方法用于autowire-capable bean的实现工厂.
  * @author Juergen Hoeller
  * @author Mark Fisher
  * @since 1.1.2
@@ -47,6 +48,9 @@ abstract class AutowireUtils {
 	 * a maximum number of arguments. The result will contain public constructors first,
 	 * with decreasing number of arguments, then non-public constructors, again with
 	 * decreasing number of arguments.
+	 * ***********************************************************************************
+	 * ~$给定的构造函数,而是公共构造函数和"greedy"的最大数量的参数.
+	 *   结果将包含公共构造函数首先,减少数量的参数,然后再内幕构造函数,减少数量的参数.
 	 * @param constructors the constructor array to sort
 	 */
 	public static void sortConstructors(Constructor[] constructors) {
@@ -69,6 +73,9 @@ abstract class AutowireUtils {
 	 * with a maximum of arguments. The result will contain public methods first,
 	 * with decreasing number of arguments, then non-public methods, again with
 	 * decreasing number of arguments.
+	 * ****************************************************************************
+	 * ~$ 给定的工厂方法,而是公共方法和"greedy"的最大的参数.
+	 *    结果将包含公共方法首先,减少数量的参数,然后再非公开的方法,以减少数量的参数.
 	 * @param factoryMethods the factory method array to sort
 	 */
 	public static void sortFactoryMethods(Method[] factoryMethods) {
@@ -89,6 +96,9 @@ abstract class AutowireUtils {
 	/**
 	 * Determine whether the given bean property is excluded from dependency checks.
 	 * <p>This implementation excludes properties defined by CGLIB.
+	 * ******************************************************************************
+	 * ~$ 确定给定的bean属性依赖项检查排除在外.
+	 * <p>这个实现不包括属性定义为CGLIB.
 	 * @param pd the PropertyDescriptor of the bean property
 	 * @return whether the bean property is excluded
 	 */
@@ -99,10 +109,13 @@ abstract class AutowireUtils {
 		}
 		if (!wm.getDeclaringClass().getName().contains("$$")) {
 			// Not a CGLIB method so it's OK.
+			/** 不是CGLIB方法所以没关系.*/
 			return false;
 		}
 		// It was declared by CGLIB, but we might still want to autowire it
+		/** 被CGLIB宣布,但我们可能还想自动装配 */
 		// if it was actually declared by the superclass.
+		/** 如果它是超类声明的.*/
 		Class superclass = wm.getDeclaringClass().getSuperclass();
 		return !ClassUtils.hasMethod(superclass, wm.getName(), wm.getParameterTypes());
 	}
@@ -110,6 +123,8 @@ abstract class AutowireUtils {
 	/**
 	 * Return whether the setter method of the given bean property is defined
 	 * in any of the given interfaces.
+	 * ***********************************************************************
+	 * ~$ 返回给定的bean属性的setter方法是否在任何给定接口的定义.
 	 * @param pd the PropertyDescriptor of the bean property
 	 * @param interfaces the Set of interfaces (Class objects)
 	 * @return whether the setter method is defined by an interface
@@ -131,6 +146,9 @@ abstract class AutowireUtils {
 	/**
 	 * Resolve the given autowiring value against the given required type,
 	 * e.g. an {@link ObjectFactory} value to its actual object result.
+	 * ******************************************************************
+	 * ~$ 解决给定的自动装配所需值对给定的类型,
+	 *    例如一个{@link ObjectFactory }其实际价值对象的结果.
 	 * @param autowiringValue the value to resolve
 	 * @param requiredType the type to assign the result to
 	 * @return the resolved value
@@ -152,6 +170,8 @@ abstract class AutowireUtils {
 
 	/**
 	 * Reflective InvocationHandler for lazy access to the current target object.
+	 * **************************************************************************
+	 * ~$ 反射的InvocationHandler懒惰访问当前的目标对象.
 	 */
 	private static class ObjectFactoryDelegatingInvocationHandler implements InvocationHandler, Serializable {
 
@@ -165,10 +185,12 @@ abstract class AutowireUtils {
 			String methodName = method.getName();
 			if (methodName.equals("equals")) {
 				// Only consider equal when proxies are identical.
+				/** 时只考虑平等的代理都是相同的.*/
 				return (proxy == args[0]);
 			}
 			else if (methodName.equals("hashCode")) {
 				// Use hashCode of proxy.
+				/** 使用hashCode代理.*/
 				return System.identityHashCode(proxy);
 			}
 			else if (methodName.equals("toString")) {

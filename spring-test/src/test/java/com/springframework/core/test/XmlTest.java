@@ -40,6 +40,7 @@ public class XmlTest {
 
         Object object=beanFactory.getBean("ss");
         System.out.println(object);
+        System.out.println("ooooooooooooooooooo");
     }
 
     @Test

@@ -46,7 +46,10 @@ import org.springframework.util.ReflectionUtils;
  * <li>the bean implementing DisposableBean itself;
  * <li>a custom destroy method specified on the bean definition.
  * </ul>
- *
+ * ***********************************************************************************
+ * ~$ 适配器实现{@link DisposableBean}和{@link Runnable}接口给定bean实例上执行各种破坏的步骤:
+ *    DestructionAwareBeanPostProcessors; bean实现DisposableBean本身;
+ *    一个定制的销毁方法上指定的bean定义.
  * @author Juergen Hoeller
  * @author Costin Leau
  * @since 2.0
@@ -79,6 +82,8 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 
 	/**
 	 * Create a new DisposableBeanAdapter for the given bean.
+	 * ******************************************************
+	 * ~$ 创建一个新的DisposableBeanAdapter给定bean.
 	 * @param bean the bean instance (never <code>null</code>)
 	 * @param beanName the name of the bean
 	 * @param beanDefinition the merged bean definition
@@ -132,6 +137,10 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 	 * {@code @Bean#destroyMethod} attribute and the value of the constant may also be
 	 * used in XML within the {@code <bean destroy-method="">} or {@code
 	 * <beans default-destroy-method="">} attributes.
+	 * ***********************************************************************************
+	 * ~$ 如果给定的当前值beanDefinition destroyMethodName属性是{@link AbstractBeanDefinition#INFER_METHOD },然后试图推断出一个销毁方法.
+	 *    候选人目前有限的公共方法,不带参数的方法命名为“关闭”(无论是本地声明或继承).
+	 *    鉴于beanDefinition destroyMethodName更新是null如果没有找到这样的方法,否则将推断方法的名称.
 	 */
 	private void inferDestroyMethodIfNecessary(RootBeanDefinition beanDefinition) {
 		if ("(inferred)".equals(beanDefinition.getDestroyMethodName())) {
@@ -142,6 +151,7 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 				}
 			} catch (NoSuchMethodException ex) {
 				// no candidate destroy method found
+				/** 没有候选人销毁方法 */
 				beanDefinition.setDestroyMethodName(null);
 			}
 		}
@@ -149,6 +159,8 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 
 	/**
 	 * Create a new DisposableBeanAdapter for the given bean.
+	 * ******************************************************
+	 * ~$ 创建一个新的DisposableBeanAdapter给定bean.
 	 */
 	private DisposableBeanAdapter(Object bean, String beanName, boolean invokeDisposableBean,
 			boolean nonPublicAccessAllowed, String destroyMethodName,
@@ -166,6 +178,8 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 
 	/**
 	 * Search for all DestructionAwareBeanPostProcessors in the List.
+	 * **************************************************************
+	 * ~$ 搜索所有DestructionAwareBeanPostProcessors在列表中.
 	 * @param postProcessors the List to search
 	 * @return the filtered List of DestructionAwareBeanPostProcessors
 	 */
@@ -264,6 +278,10 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 	 * <p>This implementation invokes a no-arg method if found, else checking
 	 * for a method with a single boolean argument (passing in "true",
 	 * assuming a "force" parameter), else logging an error.
+	 * **********************************************************************
+	 * ~$ 调用指定的定制的销毁方法给定的bean.
+	 * <p>如果发现这个实现不带参数调用一个方法,其他检查方法用一个布尔参数
+	 *     (通过在"true",假设一个"force"参数),其他日志记录一个错误.
 	 */
 	private void invokeCustomDestroyMethod(final Method destroyMethod) {
 		Class<?>[] paramTypes = destroyMethod.getParameterTypes();
@@ -320,6 +338,8 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 	/**
 	 * Serializes a copy of the state of this class,
 	 * filtering out non-serializable BeanPostProcessors.
+	 * **************************************************
+	 * ~$ 这个类的序列化状态的副本,过滤掉non-serializable BeanPostProcessors.
 	 */
 	protected Object writeReplace() {
 		List<DestructionAwareBeanPostProcessor> serializablePostProcessors = null;

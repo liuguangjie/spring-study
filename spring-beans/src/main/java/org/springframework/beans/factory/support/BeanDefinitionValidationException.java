@@ -20,7 +20,8 @@ import org.springframework.beans.FatalBeanException;
 
 /**
  * Exception thrown when the validation of a bean definition failed.
- *
+ * *****************************************************************
+ * ~$ 异常抛出当bean定义的验证失败.
  * @author Juergen Hoeller
  * @since 21.11.2003
  * @see AbstractBeanDefinition#validate()
@@ -29,6 +30,8 @@ public class BeanDefinitionValidationException extends FatalBeanException {
 
 	/**
 	 * Create a new BeanDefinitionValidationException with the specified message.
+	 * **************************************************************************
+	 * ~$ 创建一个新的BeanDefinitionValidationException与指定的消息.
 	 * @param msg the detail message
 	 */
 	public BeanDefinitionValidationException(String msg) {
@@ -38,6 +41,8 @@ public class BeanDefinitionValidationException extends FatalBeanException {
 	/**
 	 * Create a new BeanDefinitionValidationException with the specified message
 	 * and root cause.
+	 * *************************************************************************
+	 * ~$ 创建一个新的BeanDefinitionValidationException指定的消息和根源.
 	 * @param msg the detail message
 	 * @param cause the root cause
 	 */
