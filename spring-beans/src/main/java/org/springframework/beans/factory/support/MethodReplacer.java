@@ -25,7 +25,9 @@ import java.lang.reflect.Method;
  *
  * <p>Such methods may be (but need not be) abstract, in which case the
  * container will create a concrete subclass to instantiate.
- *
+ * ***********************************************************************
+ * ~$接口实现类可以重装任何方法IoC-managed对象:依赖注入的方法注入形式.
+ * <p>这些方法可能抽象(但不需要),在这种情况下,容器将创建一个具体子类实例化.
  * @author Rod Johnson
  * @since 1.1
  */
@@ -33,6 +35,8 @@ public interface MethodReplacer {
 	
 	/**
 	 * Reimplement the given method.
+	 * *****************************
+	 * ~$ 重新实现给定的方法.
 	 * @param obj the instance we're reimplementing the method for
 	 * @param method the method to reimplement
 	 * @param args arguments to the method

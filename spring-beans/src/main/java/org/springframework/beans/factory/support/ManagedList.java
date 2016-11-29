@@ -25,7 +25,8 @@ import org.springframework.beans.Mergeable;
 /**
  * Tag collection class used to hold managed List elements, which may
  * include runtime bean references (to be resolved into bean objects).
- *
+ * *******************************************************************
+ * ~$ 标签集合类用于保存管理列表元素,其中可能包括运行时bean引用(解决到bean对象).
  * @author Rod Johnson
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -51,6 +52,9 @@ public class ManagedList<E> extends ArrayList<E> implements Mergeable, BeanMetad
 	/**
 	 * Set the configuration source <code>Object</code> for this metadata element.
 	 * <p>The exact type of the object will depend on the configuration mechanism used.
+	 * ********************************************************************************
+	 * ~$ 这个元数据元素的配置源对象.
+	 * <p>对象的确切类型将取决于所使用的配置机制.
 	 */
 	public void setSource(Object source) {
 		this.source = source;
@@ -62,6 +66,8 @@ public class ManagedList<E> extends ArrayList<E> implements Mergeable, BeanMetad
 
 	/**
 	 * Set the default element type name (class name) to be used for this list.
+	 * ************************************************************************
+	 * ~$ 设置默认的元素类型名(类名)用于这个列表.
 	 */
 	public void setElementTypeName(String elementTypeName) {
 		this.elementTypeName = elementTypeName;
@@ -69,6 +75,8 @@ public class ManagedList<E> extends ArrayList<E> implements Mergeable, BeanMetad
 
 	/**
 	 * Return the default element type name (class name) to be used for this list.
+	 * ***************************************************************************
+	 * ~$ 返回默认的元素类型名(类名)用于这个列表.
 	 */
 	public String getElementTypeName() {
 		return this.elementTypeName;
@@ -77,6 +85,8 @@ public class ManagedList<E> extends ArrayList<E> implements Mergeable, BeanMetad
 	/**
 	 * Set whether merging should be enabled for this collection,
 	 * in case of a 'parent' collection value being present.
+	 * **********************************************************
+	 * ~$ 设置是否应该支持这个集合合并,以防'parent'收藏价值的礼物.
 	 */
 	public void setMergeEnabled(boolean mergeEnabled) {
 		this.mergeEnabled = mergeEnabled;

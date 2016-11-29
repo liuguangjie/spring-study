@@ -28,7 +28,10 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>Note that the override mechanism is <i>not</i> intended as a
  * generic means of inserting crosscutting code: use AOP for that.
+ * ***************************************************************
+ * ~$对象代表一个方法覆盖的IoC容器的管理对象.
  *
+ * <p>注意覆盖机制并不打算作为一个通用的方法插入横切代码:使用AOP.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1
@@ -44,6 +47,8 @@ public abstract class MethodOverride implements BeanMetadataElement {
 
 	/**
 	 * Construct a new override for the given method.
+	 * ***********************************************
+	 * ~$构造一个新的覆盖给定方法.
 	 * @param methodName the name of the method to override
 	 */
 	protected MethodOverride(String methodName) {
@@ -53,6 +58,8 @@ public abstract class MethodOverride implements BeanMetadataElement {
 
 	/**
 	 * Return the name of the method to be overridden.
+	 * ***********************************************
+	 * ~$ 返回被覆盖的方法的名称.
 	 */
 	public String getMethodName() {
 		return this.methodName;
@@ -62,6 +69,9 @@ public abstract class MethodOverride implements BeanMetadataElement {
 	 * Set whether the overridden method has to be considered as overloaded
 	 * (that is, whether arg type matching has to happen).
 	 * <p>Default is "true"; can be switched to "false" to optimize runtime performance.
+	 * *********************************************************************************
+	 * ~$ 重写方法必须考虑是否设置为重载(也就是说,是否参数类型匹配发生).
+	 * <p>Default is "true"; 可以切换到"false"优化运行时性能.
 	 */
 	protected void setOverloaded(boolean overloaded) {
 		this.overloaded = overloaded;
@@ -70,6 +80,8 @@ public abstract class MethodOverride implements BeanMetadataElement {
 	/**
 	 * Return whether the overridden method has to be considered as overloaded
 	 * (that is, whether arg type matching has to happen).
+	 * ***********************************************************************
+	 * ~$ 返回是否覆盖方法必须被视为超载(也就是说,是否参数类型匹配发生).
 	 */
 	protected boolean isOverloaded() {
 		return this.overloaded;
@@ -78,6 +90,9 @@ public abstract class MethodOverride implements BeanMetadataElement {
 	/**
 	 * Set the configuration source <code>Object</code> for this metadata element.
 	 * <p>The exact type of the object will depend on the configuration mechanism used.
+	 * ********************************************************************************
+	 * ~$ 这个元数据元素的配置源对象.
+	 * <p>对象的确切类型将取决于所使用的配置机制.
 	 */
 	public void setSource(Object source) {
 		this.source = source;
@@ -92,6 +107,8 @@ public abstract class MethodOverride implements BeanMetadataElement {
 	 * Subclasses must override this to indicate whether they match
 	 * the given method. This allows for argument list checking
 	 * as well as method name checking.
+	 * ************************************************************
+	 * ~$ 子类必须覆盖这个指示是否匹配给定的方法.这允许参数列表检查以及检查方法的名字.
 	 * @param method the method to check
 	 * @return whether this override matches the given method
 	 */

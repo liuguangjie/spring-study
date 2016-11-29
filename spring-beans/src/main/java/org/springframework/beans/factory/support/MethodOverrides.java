@@ -26,7 +26,9 @@ import java.util.Set;
  *
  * <p>The currently supported {@link MethodOverride} variants are
  * {@link LookupOverride} and {@link ReplaceOverride}.
- *
+ * *****************************************************************
+ * ~$ 重写的方法,确定哪些(如果有的话),管理对象上的方法Spring IoC容器在运行时将会覆盖.
+ * <p> 目前支持{@link MethodOverride }变异{@link LookupOverride }和{@link ReplaceOverride }.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1
@@ -53,6 +55,8 @@ public class MethodOverrides {
 
 	/**
 	 * Copy all given method overrides into this object.
+	 * *************************************************
+	 * ~$复制所有给定的方法覆盖到这个对象.
 	 */
 	public void addOverrides(MethodOverrides other) {
 		if (other != null) {
@@ -69,6 +73,8 @@ public class MethodOverrides {
 
 	/**
 	 * Return all method overrides contained by this object.
+	 * ****************************************************
+	 * ~$返回所有方法覆盖包含的对象.
 	 * @return Set of MethodOverride objects
 	 * @see MethodOverride
 	 */
@@ -78,6 +84,8 @@ public class MethodOverrides {
 
 	/**
 	 * Return whether the set of method overrides is empty.
+	 * ****************************************************
+	 * ~$ 返回的集合是否方法重写是空的.
 	 */
 	public boolean isEmpty() {
 		return this.overrides.isEmpty();
@@ -85,6 +93,8 @@ public class MethodOverrides {
 	
 	/**
 	 * Return the override for the given method, if any.
+	 * *************************************************
+	 * ~$ 返回给定方法的覆盖,如果任何.
 	 * @param method method to check for overrides for
 	 * @return the method override, or <code>null</code> if none
 	 */

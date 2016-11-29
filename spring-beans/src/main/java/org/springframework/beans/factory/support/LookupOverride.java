@@ -25,7 +25,9 @@ import org.springframework.util.ObjectUtils;
  * Represents an override of a method that looks up an object in the same IoC context.
  *
  * <p>Methods eligible for lookup override must not have arguments.
- *
+ * ***********************************************************************************
+ * ~$ 代表了一个覆盖的方法,查找一个对象在同一IoC上下文.
+ * <p>查询重写方法必须没有参数。
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1
@@ -37,8 +39,11 @@ public class LookupOverride extends MethodOverride {
 
 	/**
 	 * Construct a new LookupOverride.
+	 * *******************************
+	 * ~$ 构造一个新的LookupOverride.
 	 * @param methodName the name of the method to override.
 	 * This method must have no arguments.
+	 * 			~$ 覆盖的方法的名称.这个方法肯定没有参数.
 	 * @param beanName name of the bean in the current BeanFactory
 	 * that the overriden method should return
 	 */
@@ -50,6 +55,8 @@ public class LookupOverride extends MethodOverride {
 
 	/**
 	 * Return the name of the bean that should be returned by this method.
+	 * ******************************************************************
+	 * ~$ 返回的bean的名称,用这种方法应该返回.
 	 */
 	public String getBeanName() {
 		return this.beanName;
@@ -58,6 +65,8 @@ public class LookupOverride extends MethodOverride {
 
 	/**
 	 * Match method of the given name, with no parameters.
+	 * ***************************************************
+	 * ~$ 给定名称的匹配方法,没有参数.
 	 */
 	@Override
 	public boolean matches(Method method) {
