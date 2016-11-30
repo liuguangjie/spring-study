@@ -28,8 +28,12 @@ import org.springframework.util.StringUtils;
  * {@link java.beans.PropertyEditor property editor} for <code>char</code>!
  * {@link org.springframework.beans.BeanWrapperImpl} will register this
  * editor by default.
- * 
+ * ************************************************************************
+ * ~$ 编辑{ @link字符},填充属性类型的字符或字符的字符串值.
+ *
+ * <p>注意,JDK不包含一个默认的{@link java.beans.PropertyEditor property editor}为char  !{@link org.springframework.beans.BeanWrapperImpl }将注册这个编辑器.
  * <p>Also supports conversion from a Unicode character sequence; e.g.
+ * 		~$ 还支持从一个Unicode字符序列转换;例如
  * <code>u0041</code> ('A').
  *
  * @author Juergen Hoeller
@@ -43,11 +47,15 @@ public class CharacterEditor extends PropertyEditorSupport {
 
 	/**
 	 * The prefix that identifies a string as being a Unicode character sequence.
+	 * **************************************************************************
+	 * ~$ 标识一个字符串的前缀是一个Unicode字符序列.
 	 */
 	private static final String UNICODE_PREFIX = "\\u";
 
 	/**
 	 * The length of a Unicode character sequence.
+	 * *******************************************
+	 * ~$ Unicode字符序列的长度.
 	 */
 	private static final int UNICODE_LENGTH = 6;
 
@@ -62,6 +70,11 @@ public class CharacterEditor extends PropertyEditorSupport {
 	 * value when {@link #setAsText(String) text is being converted}. If
 	 * <code>false</code>, an {@link IllegalArgumentException} will be thrown
 	 * at that time.
+	 * **********************************************************************
+	 * ~$创建一个新的CharacterEditor实例.
+	 * <p>“allowEmpty”参数控制是否被允许在一个空字符串解析,
+	 *    即被视为null值的时候{ @link # setAsText文本(字符串)被转化成}.
+	 *    如果错误,就会抛出一个{ @link的IllegalArgumentException }.
 	 * @param allowEmpty if empty strings are to be allowed
 	 */
 	public CharacterEditor(boolean allowEmpty) {
@@ -73,6 +86,7 @@ public class CharacterEditor extends PropertyEditorSupport {
 	public void setAsText(String text) throws IllegalArgumentException {
 		if (this.allowEmpty && !StringUtils.hasLength(text)) {
 			// Treat empty String as null value.
+			/** 把空字符串作为null值.*/
 			setValue(null);
 		}
 		else if (text == null) {

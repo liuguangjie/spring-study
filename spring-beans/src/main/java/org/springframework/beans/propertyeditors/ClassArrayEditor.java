@@ -29,6 +29,11 @@ import org.springframework.util.StringUtils;
  *
  * <p>Also supports "java.lang.String[]"-style array class names, in contrast
  * to the standard {@link Class#forName(String)} method.
+ * ***************************************************************************
+ * ~$ 属性编辑器的一个数组{@link Class Classes},
+ *    使直接Class[]属性,而无需使用一个字符串类名称属性作为桥梁.
+ *
+ * <p>还支持"java.lang.String[]"风格的数组类名,与标准的{@link Class#forName(String)}的方法.
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -42,6 +47,8 @@ public class ClassArrayEditor extends PropertyEditorSupport {
 	/**
 	 * Create a default <code>ClassEditor</code>, using the thread
 	 * context <code>ClassLoader</code>.
+	 * ***********************************************************
+	 * ~$ 创建一个默认ClassEditor,使用线程上下文类加载器.
 	 */
 	public ClassArrayEditor() {
 		this(null);
@@ -50,6 +57,8 @@ public class ClassArrayEditor extends PropertyEditorSupport {
 	/**
 	 * Create a default <code>ClassArrayEditor</code>, using the given
 	 * <code>ClassLoader</code>.
+	 * ****************************************************************
+	 * ~$ 创建一个默认ClassArrayEditor,使用给定的类加载器.
 	 * @param classLoader the <code>ClassLoader</code> to use
 	 * (or pass <code>null</code> for the thread context <code>ClassLoader</code>)
 	 */

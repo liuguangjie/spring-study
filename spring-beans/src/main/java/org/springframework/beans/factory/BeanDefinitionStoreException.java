@@ -21,7 +21,8 @@ import org.springframework.beans.FatalBeanException;
 /**
  * Exception thrown when a BeanFactory encounters an invalid bean definition:
  * e.g. in case of incomplete or contradictory bean metadata.
- *
+ * **************************************************************************
+ * ~$ 异常抛出当BeanFactory遇到一个无效的bean定义:如不完整或矛盾的bean元数据.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop

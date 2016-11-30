@@ -30,7 +30,13 @@ import org.springframework.beans.BeansException;
  * {@link BeanFactory}, while implementations of this class are normally meant
  * to be fed as an API to other beans (through injection). As such, the
  * <code>getObject()</code> method has different exception handling behavior.
+ * ****************************************************************************
+ * ~$ 定义了一个工厂,可以返回一个对象实例调用时(可能是共享或独立).
  *
+ * <p>通常使用这个接口来封装一个返回一个新实例的通用工厂(原型)的一些目标对象在每次调用.
+ *
+ * <p>这个接口类似于{ @link FactoryBean },但后者的实现通常意味着被定义为SPI实例在{@link BeanFactory },
+ *    而实现这个类的通常意味着美联储作为其他bean API(通过注射).因此,getObject()方法有不同的异常处理的行为.
  * @author Colin Sampaleanu
  * @since 1.0.2
  * @see FactoryBean
@@ -40,6 +46,8 @@ public interface ObjectFactory<T> {
 	/**
 	 * Return an instance (possibly shared or independent)
 	 * of the object managed by this factory.
+	 * ***************************************************
+	 * ~$ 返回一个实例对象的(可能共享或独立)由这个工厂管理.
 	 * @return an instance of the bean (should never be <code>null</code>)
 	 * @throws BeansException in case of creation errors
 	 */

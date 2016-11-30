@@ -19,7 +19,8 @@ package org.springframework.beans.factory;
 /**
  * Exception thrown when a bean instance has been requested for
  * a bean definition which has been marked as abstract.
- *
+ * ************************************************************
+ * ~$ 异常时抛出一个bean实例请求已经被标记为抽象的bean定义.
  * @author Juergen Hoeller
  * @since 1.1
  * @see org.springframework.beans.factory.support.AbstractBeanDefinition#setAbstract

@@ -23,7 +23,8 @@ import org.springframework.util.ClassUtils;
  * Exception thrown when a bean depends on other beans or simple properties
  * that were not specified in the bean factory definition, although
  * dependency checking was enabled.
- *
+ * ************************************************************************
+ * ~$ 异常时抛出一个bean取决于其他bean或简单的属性,没有工厂bean定义中指定,尽管依赖检查启用.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 03.09.2003
@@ -33,9 +34,12 @@ public class UnsatisfiedDependencyException extends BeanCreationException {
 	/**
 	 * Create a new UnsatisfiedDependencyException.
 	 * @param resourceDescription description of the resource that the bean definition came from
+	 *                            ~$ 描述资源的bean定义
 	 * @param beanName the name of the bean requested
 	 * @param propertyName the name of the bean property that couldn't be satisfied
+	 *                     ~$bean的名称属性无法满足
 	 * @param msg the detail message
+	 *            ~$ 详细的消息
 	 */
 	public UnsatisfiedDependencyException(
 			String resourceDescription, String beanName, String propertyName, String msg) {
@@ -51,6 +55,7 @@ public class UnsatisfiedDependencyException extends BeanCreationException {
 	 * @param beanName the name of the bean requested
 	 * @param propertyName the name of the bean property that couldn't be satisfied
 	 * @param ex the bean creation exception that indicated the unsatisfied dependency
+	 *           ~$ 表示不满意依赖性的bean创建例外
 	 */
 	public UnsatisfiedDependencyException(
 			String resourceDescription, String beanName, String propertyName, BeansException ex) {
@@ -64,7 +69,9 @@ public class UnsatisfiedDependencyException extends BeanCreationException {
 	 * @param resourceDescription description of the resource that the bean definition came from
 	 * @param beanName the name of the bean requested
 	 * @param ctorArgIndex the index of the constructor argument that couldn't be satisfied
+	 *                     ~$ 该指数的构造函数参数无法满足
 	 * @param ctorArgType the type of the constructor argument that couldn't be satisfied
+	 *                    ~$ 构造函数参数的类型,无法满足
 	 * @param msg the detail message
 	 */
 	public UnsatisfiedDependencyException(
@@ -79,6 +86,7 @@ public class UnsatisfiedDependencyException extends BeanCreationException {
 	/**
 	 * Create a new UnsatisfiedDependencyException.
 	 * @param resourceDescription description of the resource that the bean definition came from
+	 *                            ~$ 描述资源的bean定义
 	 * @param beanName the name of the bean requested
 	 * @param ctorArgIndex the index of the constructor argument that couldn't be satisfied
 	 * @param ctorArgType the type of the constructor argument that couldn't be satisfied

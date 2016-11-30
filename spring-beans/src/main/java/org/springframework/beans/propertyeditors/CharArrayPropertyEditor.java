@@ -21,7 +21,8 @@ import java.beans.PropertyEditorSupport;
 /**
  * Editor for char arrays. Strings will simply be converted to
  * their corresponding char representations.
- *
+ * ***********************************************************
+ * ~$ 编辑字符数组.字符串会被转换成相应的字符表示.
  * @author Juergen Hoeller
  * @since 1.2.8
  * @see String#toCharArray()

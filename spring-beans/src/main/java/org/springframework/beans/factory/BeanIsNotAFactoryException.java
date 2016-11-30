@@ -20,7 +20,9 @@ package org.springframework.beans.factory;
  * Exception thrown when a bean is not a factory, but a user tries to get
  * at the factory for the given bean name. Whether a bean is a factory is
  * determined by whether it implements the FactoryBean interface.
- *
+ * **********************************************************************
+ * ~$ 异常时抛出一个bean不是一个工厂,但是一个用户试图在工厂为给定的bean的名称.
+ *    是否工厂bean是由它是否实现了FactoryBean接口.
  * @author Rod Johnson
  * @since 10.03.2003
  * @see FactoryBean

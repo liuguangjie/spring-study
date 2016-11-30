@@ -27,7 +27,13 @@ package org.springframework.beans.factory;
  *
  * <p>For a list of all bean lifecycle methods, see the
  * {@link BeanFactory BeanFactory javadocs}.
+ * ***************************************************************************
+ * ~$ 回调,允许一个bean需要注意的bean类装入器{@link ClassLoader class loader};
+ *    也就是说,目前所使用的类加载器加载bean工厂bean类.
  *
+ * <p>这主要是为了实现的框架类必须自己挑选应用程序类的名字,尽管可能被从一个共享类加载器加载.
+ *
+ * <p>所有bean生命周期方法的列表,请参阅的{@link BeanFactory BeanFactory javadocs }.
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 2.0
@@ -45,9 +51,14 @@ public interface BeanClassLoaderAware extends Aware {
 	 * {@link InitializingBean InitializingBean's}
 	 * {@link InitializingBean#afterPropertiesSet()}
 	 * method or a custom init-method.
+	 * ********************************************************************
+	 * ~$ 回调提供bean类装入器{@link ClassLoader class loader} bean实例.
+	 * <p>调用后正常的bean属性的人口但是在一个初始化的回调如{@link InitializingBean InitializingBean's}
+	 *    {@link InitializingBean # afterPropertiesSet()}方法或一个定制的init方法.
 	 * @param classLoader the owning class loader; may be <code>null</code> in
 	 * which case a default <code>ClassLoader</code> must be used, for example
 	 * the <code>ClassLoader</code> obtained via
+	 *                    ~$ 拥有类装入器;可能是零在这种情况下,必须使用一个默认的类加载器,例如通过获得的类加载器
 	 * {@link org.springframework.util.ClassUtils#getDefaultClassLoader()}
 	 */
 	void setBeanClassLoader(ClassLoader classLoader);

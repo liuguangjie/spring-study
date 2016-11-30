@@ -29,7 +29,12 @@ import org.springframework.beans.FatalBeanException;
  * return the created bean, while only <i>specific</i> normal beans need
  * to be initialized - that is, if a collaborating bean actually invokes
  * them on initialization instead of just storing the reference.
+ * ******************************************************************************
+ * ~$ 异常被抛出从FactoryBean getObject()方法,如果bean尚未完全初始化,例如,因为它涉及一个循环引用.
  *
+ * <p> 注意:一个循环引用FactoryBean急切地缓存解决不了单例实例和正常的bean.
+ *     原因是每个FactoryBean需要完全初始化才能返回创建的bean,而只有特定的普通咖啡豆需要初始化——也就是说,
+ *     如果合作bean调用初始化而不是存储的参考.
  * @author Juergen Hoeller
  * @since 30.10.2003
  * @see FactoryBean#getObject()

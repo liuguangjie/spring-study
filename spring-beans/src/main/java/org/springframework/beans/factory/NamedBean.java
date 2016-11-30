@@ -21,7 +21,10 @@ package org.springframework.beans.factory;
  *
  * <p>This interface can be introduced to avoid a brittle dependence
  * on bean name in objects used with Spring IoC and Spring AOP.
+ * *****************************************************************
+ * ~$ BeanNameAware同行.返回对象的bean的名称.
  *
+ * <p>这个接口可以介绍避免脆性依赖在对象使用Spring IoC bean的名字和Spring AOP.
  * @author Rod Johnson
  * @since 2.0
  * @see BeanNameAware

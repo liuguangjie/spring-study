@@ -20,13 +20,15 @@ import org.springframework.beans.BeansException;
 
 /**
  * Thrown when a bean doesn't match the expected type.
- *
+ * ***************************************************
+ * ~$ 时抛出一个bean不匹配预期的类型.
  * @author Rod Johnson
  * @author Juergen Hoeller
  */
 public class BeanNotOfRequiredTypeException extends BeansException {
 
 	/** The name of the instance that was of the wrong type */
+	/** 实例的名称是错误的类型 */
 	private String beanName;
 
 	/** The required type */

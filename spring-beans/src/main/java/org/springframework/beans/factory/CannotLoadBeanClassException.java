@@ -21,7 +21,8 @@ import org.springframework.beans.FatalBeanException;
 /**
  * Exception thrown when the BeanFactory cannot load the specified class
  * of a given bean.
- *
+ * *********************************************************************
+ * ~$ 异常抛出当BeanFactory无法加载给定的bean指定的类.
  * @author Juergen Hoeller
  * @since 2.0
  */
@@ -74,6 +75,8 @@ public class CannotLoadBeanClassException extends FatalBeanException {
 	/**
 	 * Return the description of the resource that the bean
 	 * definition came from.
+	 * ****************************************************
+	 * ~$ 返回的bean定义的资源的描述.
 	 */
 	public String getResourceDescription() {
 		return this.resourceDescription;

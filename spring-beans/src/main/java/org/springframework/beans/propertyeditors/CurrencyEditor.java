@@ -22,7 +22,9 @@ import java.util.Currency;
 /**
  * Editor for <code>java.util.Currency</code>, translating currency codes into Currency
  * objects. Exposes the currency code as text representation of a Currency object.
- *
+ * ************************************************************************************
+ * ~$ 编辑java.util.Currency,货币代码翻译成货币对象.
+ *    公开一种货币的货币代码为文本表示对象.
  * @author Juergen Hoeller
  * @since 3.0
  * @see Currency

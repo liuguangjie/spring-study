@@ -27,7 +27,8 @@ import org.springframework.core.NestedRuntimeException;
 /**
  * Exception thrown when a BeanFactory encounters an error when
  * attempting to create a bean from a bean definition.
- *
+ * ************************************************************
+ * ~$ 异常抛出时BeanFactory遇到错误当试图创建一个从bean定义bean.
  * @author Juergen Hoeller
  */
 public class BeanCreationException extends FatalBeanException {
@@ -41,6 +42,8 @@ public class BeanCreationException extends FatalBeanException {
 
 	/**
 	 * Create a new BeanCreationException.
+     * **********************************
+     * ~$ 创建一个新的BeanCreationException.
 	 * @param msg the detail message
 	 */
 	public BeanCreationException(String msg) {
@@ -107,6 +110,8 @@ public class BeanCreationException extends FatalBeanException {
 
 	/**
 	 * Return the name of the bean requested, if any.
+     * **********************************************
+     * ~$ 返回所请求bean的名称,如果有的话。
 	 */
 	public String getBeanName() {
 		return this.beanName;
@@ -115,6 +120,8 @@ public class BeanCreationException extends FatalBeanException {
 	/**
 	 * Return the description of the resource that the bean
 	 * definition came from, if any.
+     * ****************************************************
+     * ~$ 返回的bean定义的资源的描述来自于,如果任何.
 	 */
 	public String getResourceDescription() {
 		return this.resourceDescription;
@@ -124,6 +131,9 @@ public class BeanCreationException extends FatalBeanException {
 	 * Add a related cause to this bean creation exception,
 	 * not being a direct cause of the failure but having occured
 	 * earlier in the creation of the same bean instance.
+     * **********************************************************
+     * ~$ 添加这个bean创建异常相关的原因,不是失败的直接原因,
+     *    但早些时候发生在相同的bean实例的创建.
 	 * @param ex the related cause to add
 	 */
 	public void addRelatedCause(Throwable ex) {
@@ -135,6 +145,8 @@ public class BeanCreationException extends FatalBeanException {
 
 	/**
 	 * Return the related causes, if any.
+     * **********************************
+     * ~$ 返回相关的原因,如果有.
 	 * @return the array of related causes, or <code>null</code> if none
 	 */
 	public Throwable[] getRelatedCauses() {

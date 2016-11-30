@@ -22,16 +22,19 @@ import org.springframework.util.StringUtils;
 /**
  * Exception thrown when a BeanFactory is asked for a bean
  * instance name for which it cannot find a definition.
- *
+ * *******************************************************
+ * ~$ 异常抛出BeanFactory时要求bean实例名称它无法找到一个定义.
  * @author Rod Johnson
  * @author Juergen Hoeller
  */
 public class NoSuchBeanDefinitionException extends BeansException {
 
 	/** Name of the missing bean */
+	/** 失踪的bean的名称 */
 	private String beanName;
 
 	/** Required bean type */
+	/** 需要bean类型 */
 	private Class beanType;
 
 

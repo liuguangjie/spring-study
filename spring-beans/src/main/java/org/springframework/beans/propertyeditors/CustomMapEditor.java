@@ -25,7 +25,8 @@ import java.util.TreeMap;
 /**
  * Property editor for Maps, converting any source Map
  * to a given target Map type.
- *
+ * ***************************************************
+ * ~$ 属性编辑Maps,将任何源映射到一个给定的目标Map类型。
  * @author Juergen Hoeller
  * @since 2.0.1
  * @see Map
@@ -41,6 +42,8 @@ public class CustomMapEditor extends PropertyEditorSupport {
 	/**
 	 * Create a new CustomMapEditor for the given target type,
 	 * keeping an incoming <code>null</code> as-is.
+	 * *******************************************************
+	 * ~$ 创建一个新的CustomMapEditor给定目标类型,按原样保持传入null.
 	 * @param mapType the target type, which needs to be a
 	 * sub-interface of Map or a concrete Map class
 	 * @see Map
@@ -61,6 +64,11 @@ public class CustomMapEditor extends PropertyEditorSupport {
 	 * value will be created.
 	 * <p>The default Map implementations are: TreeMap for SortedMap,
 	 * and LinkedHashMap for Map.
+	 * *********************************************************************
+	 * ~$ 创建一个新的CustomMapEditor给定目标类型.
+	 * <p>如果传入的值为给定的类型,它将按原样使用.如果它是一个不同的地图类型或数组,
+	 *    它将会被转化为一个给定的地图类型的默认实现.如果该值是什么,目标将创建与单值映射.
+	 * <p>默认的映射实现:TreeMap SortedMap,LinkedHashMap的地图.
 	 * @param mapType the target type, which needs to be a
 	 * sub-interface of Map or a concrete Map class
 	 * @param nullAsEmptyMap ap whether to convert an incoming <code>null</code>
@@ -84,6 +92,8 @@ public class CustomMapEditor extends PropertyEditorSupport {
 
 	/**
 	 * Convert the given text value to a Map with a single element.
+	 * ************************************************************
+	 * ~$ 将给定的文本值转换为单个元素的Map.
 	 */
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
@@ -92,6 +102,8 @@ public class CustomMapEditor extends PropertyEditorSupport {
 
 	/**
 	 * Convert the given value to a Map of the target type.
+	 * ****************************************************
+	 * ~$ 将给定的值转换成目标类型的Map.
 	 */
 	@Override
 	public void setValue(Object value) {
@@ -100,10 +112,12 @@ public class CustomMapEditor extends PropertyEditorSupport {
 		}
 		else if (value == null || (this.mapType.isInstance(value) && !alwaysCreateNewMap())) {
 			// Use the source value as-is, as it matches the target type.
+			/** 按原样使用源值,因为它匹配目标类型.*/
 			super.setValue(value);
 		}
 		else if (value instanceof Map) {
 			// Convert Map elements.
+			/** 转换 Map  元素*/
 			Map<?, ?> source = (Map) value;
 			Map target = createMap(this.mapType, source.size());
 			for (Map.Entry entry : source.entrySet()) {
@@ -119,6 +133,8 @@ public class CustomMapEditor extends PropertyEditorSupport {
 	/**
 	 * Create a Map of the given type, with the given
 	 * initial capacity (if supported by the Map type).
+	 * ************************************************
+	 * ~$ 创建一个指定类型的Map,用给定的初始容量(如果支持的Map类型).
 	 * @param mapType a sub-interface of Map
 	 * @param initialCapacity the initial capacity
 	 * @return the new Map instance
@@ -146,6 +162,9 @@ public class CustomMapEditor extends PropertyEditorSupport {
 	 * even if the type of the passed-in Map already matches.
 	 * <p>Default is "false"; can be overridden to enforce creation of a
 	 * new Map, for example to convert elements in any case.
+	 * ******************************************************************
+	 * ~$ 返回是否总是创建一个新的Map,即使已经传入Map的类型匹配.
+	 * <p>Default is "false"; 可以覆盖执行创建一个新的映射,例如将元素在任何情况下.
 	 * @see #convertKey
 	 * @see #convertValue
 	 */
@@ -162,6 +181,11 @@ public class CustomMapEditor extends PropertyEditorSupport {
 	 * This is by default not the case if the type of the passed-in Map
 	 * already matches. Override {@link #alwaysCreateNewMap()} to
 	 * enforce creating a new Map in every case.
+	 * *******************************************************************
+	 * ~$ 钩将每个遇到Map键.默认实现简单地按原样返回传入的关键.
+	 * <p>可以覆盖执行某些键的转换,例如从字符串到整数.
+	 * <p>只叫如果真正创建一个新的Map!这是默认情况下不会出现这种情况如果已经传入Map的类型匹配.
+	 *    覆盖{@link #alwaysCreateNewMap()}执行创建一个新的Map在任何情况下.
 	 * @param key the source key
 	 * @return the key to be used in the target Map
 	 * @see #alwaysCreateNewMap
@@ -191,6 +215,8 @@ public class CustomMapEditor extends PropertyEditorSupport {
 	/**
 	 * This implementation returns <code>null</code> to indicate that
 	 * there is no appropriate text representation.
+	 * ***************************************************************
+	 * ~$ 这个实现返回null,表明没有适当的文本表示.
 	 */
 	@Override
 	public String getAsText() {

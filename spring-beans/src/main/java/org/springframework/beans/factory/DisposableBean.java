@@ -25,7 +25,9 @@ package org.springframework.beans.factory;
  * <p>An alternative to implementing DisposableBean is specifying a custom
  * destroy-method, for example in an XML bean definition.
  * For a list of all bean lifecycle methods, see the BeanFactory javadocs.
- *
+ * ***********************************************************************
+ * ~$ 接口由bean实现,想释放资源的破坏.BeanFactory应该调用销毁方法如果处理缓存的单例.
+ *    一个应用程序上下文应该处理它的所有单件上接近.
  * @author Juergen Hoeller
  * @since 12.08.2003
  * @see org.springframework.beans.factory.support.RootBeanDefinition#getDestroyMethodName
@@ -35,6 +37,8 @@ public interface DisposableBean {
 
 	/**
 	 * Invoked by a BeanFactory on destruction of a singleton.
+	 * *******************************************************
+	 * ~$ 调用一个BeanFactory销毁一个单例.
 	 * @throws Exception in case of shutdown errors.
 	 * Exceptions will get logged but not rethrown to allow
 	 * other beans to release their resources too.

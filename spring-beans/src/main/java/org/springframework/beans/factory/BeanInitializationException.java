@@ -25,7 +25,10 @@ import org.springframework.beans.FatalBeanException;
  *
  * <p>Note that non-factory-aware initialization methods like afterPropertiesSet()
  * or a custom "init-method" can throw any exception.
- *
+ * *******************************************************************************
+ * ~$ 例外一个bean实现建议,如果自己factory-aware初始化代码失败.
+ *    BeansExceptions bean工厂方法抛出的自己应该只是原有传播.
+ * <p>注意,non-factory-aware初始化方法如afterPropertiesSet()或一个定制的“init方法”可以抛出任何异常.
  * @author Juergen Hoeller
  * @since 13.11.2003
  * @see BeanFactoryAware#setBeanFactory

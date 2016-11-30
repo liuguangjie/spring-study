@@ -27,7 +27,10 @@ import org.springframework.util.StringUtils;
  *
  * <p>Expects the same syntax as Charset's {@link Charset#name()},
  * e.g. <code>UTF-8</code>, <code>ISO-8859-16</code>, etc.
+ * ********************************************************************
+ * ~$ 编辑java.nio.charset.字符集,将字符集字符串表示转换为字符集对象和回来.
  *
+ * <p>预计相同的语法的字符集{@link Charset#name()},如utf-8.iso-8859-16等.
  * @author Arjen Poutsma
  * @since 2.5.4
  * @see Charset

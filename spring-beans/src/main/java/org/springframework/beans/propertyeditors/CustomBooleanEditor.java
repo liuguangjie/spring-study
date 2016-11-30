@@ -31,7 +31,13 @@ import org.springframework.util.StringUtils;
  * <p>In web MVC code, this editor will typically be registered with
  * <code>binder.registerCustomEditor</code> calls in an implementation
  * of BaseCommandController's <code>initBinder</code> method.
+ * **********************************************************************
+ * ~$ 布尔/布尔属性的属性编辑器.
  *
+ * <p>这并不是意味着作为系统PropertyEditor而是特定于地区的布尔在自定义控制器代码编辑器,
+ *    UI-caused布尔值的字符串解析成布尔属性UI bean并检查他们的形式.
+ *
+ * <p>在web MVC代码,这个编辑器通常是注册绑定.registerCustomEditor调用BaseCommandController initBinder方法的一个实现.
  * @author Juergen Hoeller
  * @since 10.06.2003
  * @see org.springframework.validation.DataBinder#registerCustomEditor
@@ -65,6 +71,10 @@ public class CustomBooleanEditor extends PropertyEditorSupport {
 	 * <p>The "allowEmpty" parameter states if an empty String should
 	 * be allowed for parsing, i.e. get interpreted as null value.
 	 * Else, an IllegalArgumentException gets thrown in that case.
+	 * *****************************************************************
+	 * ~$ 创建一个新的CustomBooleanEditor实例,与“真正的”/“”/“是的”和“假”/“关闭”/“不”作为公认的字符串值.
+	 * <p>“allowEmpty”参数状态如果应该允许空字符串解析,即得到解释为空值.
+	 *     别的,却是IllegalArgumentException被扔在这种情况下.
 	 * @param allowEmpty if empty strings should be allowed
 	 */
 	public CustomBooleanEditor(boolean allowEmpty) {
@@ -77,6 +87,10 @@ public class CustomBooleanEditor extends PropertyEditorSupport {
 	 * <p>The "allowEmpty" parameter states if an empty String should
 	 * be allowed for parsing, i.e. get interpreted as null value.
 	 * Else, an IllegalArgumentException gets thrown in that case.
+	 * ***************************************************************
+	 * ~$ 创建一个新的CustomBooleanEditor实例,真和假的可配置的字符串值.
+	 * <p> “allowEmpty”参数状态如果应该允许空字符串解析,即得到解释为空值.
+	 *      别的,却是IllegalArgumentException被扔在这种情况下.
 	 * @param trueString the String value that represents true:
 	 * for example, "true" (VALUE_TRUE), "on" (VALUE_ON),
 	 * "yes" (VALUE_YES) or some custom value
@@ -102,6 +116,7 @@ public class CustomBooleanEditor extends PropertyEditorSupport {
 		String input = (text != null ? text.trim() : null);
 		if (this.allowEmpty && !StringUtils.hasLength(input)) {
 			// Treat empty String as null value.
+			/** 把空字符串作为null值.*/
 			setValue(null);
 		}
 		else if (this.trueString != null && input.equalsIgnoreCase(this.trueString)) {

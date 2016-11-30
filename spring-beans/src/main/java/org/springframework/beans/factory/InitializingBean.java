@@ -24,7 +24,12 @@ package org.springframework.beans.factory;
  * <p>An alternative to implementing InitializingBean is specifying a custom
  * init-method, for example in an XML bean definition.
  * For a list of all bean lifecycle methods, see the BeanFactory javadocs.
+ * ******************************************************************************
+ * ~$ 接口由bean实现,需要反应一旦所有的属性设置了一个BeanFactory:
+ *    例如,执行自定义初始化,或者仅仅是检查所有强制性属性设置.
  *
+ * <p>另一种实现InitializingBean是指定一个自定义的init方法,例如在一个XML bean定义.
+ *    所有bean生命周期方法的列表,请参阅BeanFactory javadocs.
  * @author Rod Johnson
  * @see BeanNameAware
  * @see BeanFactoryAware
@@ -40,6 +45,9 @@ public interface InitializingBean {
 	 * <p>This method allows the bean instance to perform initialization only
 	 * possible when all bean properties have been set and to throw an
 	 * exception in the event of misconfiguration.
+	 * **********************************************************************
+	 * ~$ 调用一组BeanFactory后所有bean属性(和满意BeanFactoryAware ApplicationContextAware)提供.
+	 * <p>这种方法允许bean实例执行初始化只能当所有bean属性被设置和抛出异常事件的错误配置.
 	 * @throws Exception in the event of misconfiguration (such
 	 * as failure to set an essential property) or if initialization fails.
 	 */

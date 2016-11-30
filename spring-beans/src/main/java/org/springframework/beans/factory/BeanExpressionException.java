@@ -20,7 +20,8 @@ import org.springframework.beans.FatalBeanException;
 
 /**
  * Exception that indicates an expression evaluation attempt having failed.
- *
+ * ***********************************************************************
+ * ~$ 异常,表明一个表达式求值尝试已经失败了.
  * @author Juergen Hoeller
  * @since 3.0
  */
@@ -37,6 +38,8 @@ public class BeanExpressionException extends FatalBeanException {
 	/**
 	 * Create a new BeanExpressionException with the specified message
 	 * and root cause.
+	 * ***************************************************************
+	 * ~$ 创建一个新的BeanExpressionException指定的消息和根源.
 	 * @param msg the detail message
 	 * @param cause the root cause
 	 */
