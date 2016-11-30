@@ -37,6 +37,12 @@ import org.springframework.util.xml.XmlValidationModeDetector;
  * load documents, then one strategy is to define a corresponding Java system property
  * when starting your JVM. For example, to use the Oracle {@link DocumentBuilder},
  * you might start your application like as follows:
+ * ************************************************************************************
+ * ~$ Spring's 的默认{ @link DocumentLoader }的实现.
+ *
+ * <p>简单加载} { @link文档文件使用标准的JAXP-configured XML解析器.
+ *    如果你想改变的{@link DocumentBuilder }用于加载文档,然后一个策略是定义一个对应的Java系统属性,当你开始JVM.
+ *    例如,使用Oracle {@link DocumentBuilder },你可能开始应用程序如下:
  *
  * <pre code="class">java -Djavax.xml.parsers.DocumentBuilderFactory=oracle.xml.jaxp.JXDocumentBuilderFactory MyMainClass</pre>
  *
@@ -48,11 +54,15 @@ public class DefaultDocumentLoader implements DocumentLoader {
 
 	/**
 	 * JAXP attribute used to configure the schema language for validation.
+	 * ********************************************************************
+	 * ~$ JAXP属性用于配置模式语言进行验证.
 	 */
 	private static final String SCHEMA_LANGUAGE_ATTRIBUTE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 
 	/**
 	 * JAXP attribute value indicating the XSD schema language.
+	 * ********************************************************
+	 * ~$ JAXP属性值表示XSD模式语言.
 	 */
 	private static final String XSD_SCHEMA_LANGUAGE = "http://www.w3.org/2001/XMLSchema";
 
@@ -63,6 +73,8 @@ public class DefaultDocumentLoader implements DocumentLoader {
 	/**
 	 * Load the {@link Document} at the supplied {@link InputSource} using the standard JAXP-configured
 	 * XML parser.
+	 * *************************************************************************************************
+	 * ~$ 提供负载的{@link Document} {@link InputSource }使用标准JAXP-configured XML解析器.
 	 */
 	public Document loadDocument(InputSource inputSource, EntityResolver entityResolver,
 			ErrorHandler errorHandler, int validationMode, boolean namespaceAware) throws Exception {
@@ -116,6 +128,10 @@ public class DefaultDocumentLoader implements DocumentLoader {
 	 * Create a JAXP DocumentBuilder that this bean definition reader
 	 * will use for parsing XML documents. Can be overridden in subclasses,
 	 * adding further initialization of the builder.
+	 * ********************************************************************
+	 * ~$ 创建这个bean定义的JAXP DocumentBuilder读者会用于解析XML文档.
+	 *    可以在子类中覆盖,进一步构建器的初始化.
+	 *
 	 * @param factory the JAXP DocumentBuilderFactory that the DocumentBuilder
 	 * should be created with
 	 * @param entityResolver the SAX EntityResolver to use

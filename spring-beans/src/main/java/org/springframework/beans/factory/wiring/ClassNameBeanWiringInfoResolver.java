@@ -24,7 +24,9 @@ import org.springframework.util.ClassUtils;
  * looking for a bean with the same name as the fully-qualified class name.
  * This matches the default name of the bean in a Spring XML file if the
  * bean tag's "id" attribute is not used.
- *
+ * ******************************************************************************
+ * ~$ 简单的默认实现{@link BeanWiringInfoResolver }接口,寻找一个bean名称相同的完全限定类名.
+ *    这比赛默认bean的名称在Spring XML文件如果bean标记的“id”属性是不习惯.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0

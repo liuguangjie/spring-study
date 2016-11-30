@@ -25,7 +25,11 @@ package org.springframework.beans.factory.wiring;
  * <p>Metadata resolution strategy can be pluggable. A good default is
  * {@link ClassNameBeanWiringInfoResolver}, which uses the fully-qualified
  * class name as bean name.
- *
+ * *************************************************************************
+ * ~$策略由对象实现的接口比能解决bean名称信息,新bean实例化对象.
+ *   {@link #resolveWiringInfo }方法调用此接口将由AspectJ切入点在相关的具体方面.
+ * <p>可以可插入的元数据解决策略.一个好的默认是{@link ClassNameBeanWiringInfoResolver },
+ *    使用完全限定类名作为bean的名称。
  * @author Rod Johnson
  * @since 2.0
  * @see BeanWiringInfo
@@ -36,6 +40,8 @@ public interface BeanWiringInfoResolver {
 
 	/**
 	 * Resolve the BeanWiringInfo for the given bean instance.
+	 * *******************************************************
+	 * ~$解决BeanWiringInfo给定bean实例.
 	 * @param beanInstance the bean instance to resolve info for
 	 * @return the BeanWiringInfo, or <code>null</code> if not found
 	 */

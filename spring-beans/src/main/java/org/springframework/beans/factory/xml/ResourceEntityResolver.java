@@ -44,7 +44,12 @@ import org.springframework.core.io.ResourceLoader;
  * <p>Note: In addition to relative paths, every URL that specifies a
  * file in the current system root, i.e. the JVM working directory,
  * will be interpreted relative to the application context too.
+ * *****************************************************************************
+ * ~$ EntityResolver实现,试图解决实体引用通过{@link ResourceLoader}(通常情况下,相对于ApplicationContext)的资源基础,如果适用的话.
+ *    扩展了{ @link DelegatingEntityResolver }还提供DTD和XSD查找.
  *
+ * <P>允许使用标准XML实体包括XML片段转换为一个应用程序上下文定义,例如大型XML文件分割成不同的模块.
+ *    包括路径可以相对于应用程序上下文的资源基础和往常一样,而不是相对于JVM工作目录(XML解析器的默认).
  * @author Juergen Hoeller
  * @since 31.07.2003
  * @see ResourceLoader
@@ -60,6 +65,8 @@ public class ResourceEntityResolver extends DelegatingEntityResolver {
 	/**
 	 * Create a ResourceEntityResolver for the specified ResourceLoader
 	 * (usually, an ApplicationContext).
+	 * ****************************************************************
+	 * ~$ 创建一个指定ResourceLoader ResourceEntityResolver(通常情况下,一个ApplicationContext).
 	 * @param resourceLoader the ResourceLoader (or ApplicationContext)
 	 * to load XML entity includes with
 	 */
@@ -79,16 +86,19 @@ public class ResourceEntityResolver extends DelegatingEntityResolver {
 				String givenUrl = new URL(decodedSystemId).toString();
 				String systemRootUrl = new File("").toURL().toString();
 				// Try relative to resource base if currently in system root.
+				/** 尝试相对于资源基础如果目前在系统根.*/
 				if (givenUrl.startsWith(systemRootUrl)) {
 					resourcePath = givenUrl.substring(systemRootUrl.length());
 				}
 			}
 			catch (Exception ex) {
 				// Typically a MalformedURLException or AccessControlException.
+				/** 通常MalformedURLException或AccessControlException.*/
 				if (logger.isDebugEnabled()) {
 					logger.debug("Could not resolve XML entity [" + systemId + "] against system root URL", ex);
 				}
 				// No URL (or no resolvable URL) -> try relative to resource base.
+				/** 没有URL(或没有可解析URL) -> 尝试相对于资源基础.*/
 				resourcePath = systemId;
 			}
 			if (resourcePath != null) {

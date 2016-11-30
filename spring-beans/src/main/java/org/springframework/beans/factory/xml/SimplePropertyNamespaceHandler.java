@@ -42,7 +42,15 @@ import org.springframework.core.Conventions;
  * attributes corresponds to the '<code>spouse</code>' property and, rather
  * than being the concrete value, it contains the name of the bean that will
  * be injected into that property.
+ * ***********************************************************************************************************
+ * ~$ 简单的NamespaceHandler实现映射自定义属性直接通过bean属性.
+ *   很重要的一点要注意的是,这NamespaceHandler没有相应的模式,因为没有办法提前知道所有可能的属性名称.
  *
+ *   一个例子使用的NamespaceHandler如下所示:
+ *   <bean id="rob" class="..TestBean" p:name="Rob Harrop" p:spouse-ref="sally"/>
+ *
+ *   这里的“p:名字”直接对应“TestBean”“名称”属性类.
+ *   p:spouse-ref的属性对应于配偶的财产,而不是具体的值,它包含bean的名称将被注入到property.
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0

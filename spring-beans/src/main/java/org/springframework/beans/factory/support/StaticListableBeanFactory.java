@@ -48,7 +48,9 @@ import org.springframework.util.StringUtils;
  *
  * <p>For a full-fledged factory based on bean definitions, have a look
  * at {@link DefaultListableBeanFactory}.
- *
+ * ******************************************************************************
+ * ~$静态{@link org.springframework.beans.factory.BeanFactory }
+ *   以编程方式实现允许登记现有单例实例.没有支持原型bean或别名.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 06.01.2003
@@ -57,12 +59,15 @@ import org.springframework.util.StringUtils;
 public class StaticListableBeanFactory implements ListableBeanFactory {
 
 	/** Map from bean name to bean instance */
+	/** 从bean名称Map到bean实例 */
 	private final Map<String, Object> beans = new HashMap<String, Object>();
 
 
 	/**
 	 * Add a new singleton bean.
 	 * Will overwrite any existing instance for the given name.
+	 * ********************************************************
+	 * ~$添加一个新的单例bean.名字将覆盖任何现有的实例.
 	 * @param name the name of the bean
 	 * @param bean the bean instance
 	 */
@@ -74,7 +79,7 @@ public class StaticListableBeanFactory implements ListableBeanFactory {
 	//---------------------------------------------------------------------
 	// Implementation of BeanFactory interface
 	//---------------------------------------------------------------------
-
+	/** BeanFactory接口的实现*/
 	public Object getBean(String name) throws BeansException {
 		String beanName = BeanFactoryUtils.transformedBeanName(name);
 		Object bean = this.beans.get(beanName);
@@ -85,7 +90,9 @@ public class StaticListableBeanFactory implements ListableBeanFactory {
 		}
 
 		// Don't let calling code try to dereference the
+		/** 不要让调用代码试图废弃 */
 		// bean factory if the bean isn't a factory
+		/** 如果bean不是工厂bean工厂*/
 		if (BeanFactoryUtils.isFactoryDereference(name) && !(bean instanceof FactoryBean)) {
 			throw new BeanIsNotAFactoryException(beanName, bean.getClass());
 		}
@@ -137,12 +144,14 @@ public class StaticListableBeanFactory implements ListableBeanFactory {
 	public boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
 		Object bean = getBean(name);
 		// In case of FactoryBean, return singleton status of created object.
+		/** FactoryBean,返回单例的状态创建对象.*/
 		return (bean instanceof FactoryBean && ((FactoryBean) bean).isSingleton());
 	}
 
 	public boolean isPrototype(String name) throws NoSuchBeanDefinitionException {
 		Object bean = getBean(name);
 		// In case of FactoryBean, return prototype status of created object.
+		/** FactoryBean,返回原型创建的对象的状态.*/
 		return ((bean instanceof SmartFactoryBean && ((SmartFactoryBean) bean).isPrototype()) ||
 				(bean instanceof FactoryBean && !((FactoryBean) bean).isSingleton()));
 	}
@@ -163,6 +172,7 @@ public class StaticListableBeanFactory implements ListableBeanFactory {
 
 		if (bean instanceof FactoryBean && !BeanFactoryUtils.isFactoryDereference(name)) {
 			// If it's a FactoryBean, we want to look at what it creates, not the factory class.
+			/** 如果是FactoryBean,我们想看看它创建,而不是工厂类.*/
 			return ((FactoryBean) bean).getObjectType();
 		}
 		return bean.getClass();
@@ -176,7 +186,7 @@ public class StaticListableBeanFactory implements ListableBeanFactory {
 	//---------------------------------------------------------------------
 	// Implementation of ListableBeanFactory interface
 	//---------------------------------------------------------------------
-
+	/** ListableBeanFactory接口的实现 */
 	public boolean containsBeanDefinition(String name) {
 		return this.beans.containsKey(name);
 	}
@@ -233,6 +243,7 @@ public class StaticListableBeanFactory implements ListableBeanFactory {
 			if (beanInstance instanceof FactoryBean && !isFactoryType) {
 				if (includeFactoryBeans) {
 					// Match object created by FactoryBean.
+					/** FactoryBean创建的匹配对象.*/
 					FactoryBean factory = (FactoryBean) beanInstance;
 					Class objectType = factory.getObjectType();
 					if ((includeNonSingletons || factory.isSingleton()) &&
@@ -244,7 +255,9 @@ public class StaticListableBeanFactory implements ListableBeanFactory {
 			else {
 				if (type == null || type.isInstance(beanInstance)) {
 					// If type to match is FactoryBean, return FactoryBean itself.
+					/** 如果FactoryBean类型匹配,返回FactoryBean本身.*/
 					// Else, return bean instance.
+					/** 否则,返回bean实例.*/
 					if (isFactoryType) {
 						beanName = FACTORY_BEAN_PREFIX + beanName;
 					}

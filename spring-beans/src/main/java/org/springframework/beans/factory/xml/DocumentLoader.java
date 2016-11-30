@@ -23,7 +23,8 @@ import org.xml.sax.InputSource;
 
 /**
  * Strategy interface for loading an XML {@link Document}.
- *
+ * *******************************************************
+ * ~$ 战略界面加载XML{@link Document}.
  * @author Rob Harrop
  * @since 2.0
  * @see DefaultDocumentLoader
@@ -32,9 +33,14 @@ public interface DocumentLoader {
 
 	/**
 	 * Load a {@link Document document} from the supplied {@link InputSource source}.
+	 * ******************************************************************************
+	 * ~$ 加载一个{@link Document document} 从提供的   {@link InputSource source}.
 	 * @param inputSource the source of the document that is to be loaded
+	 *                    ~$源文件的加载
 	 * @param entityResolver the resolver that is to be used to resolve any entities
+	 *                       ~$ 解析器是用于解决任何实体
 	 * @param errorHandler used to report any errors during document loading
+	 *                     ~$ 用于报告文档加载过程中出现的错误
 	 * @param validationMode the type of validation
 	 * {@link org.springframework.util.xml.XmlValidationModeDetector#VALIDATION_DTD DTD}
 	 * or {@link org.springframework.util.xml.XmlValidationModeDetector#VALIDATION_XSD XSD})

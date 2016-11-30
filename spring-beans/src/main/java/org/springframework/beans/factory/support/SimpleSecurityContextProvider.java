@@ -34,6 +34,9 @@ public class SimpleSecurityContextProvider implements SecurityContextProvider {
 	 * Construct a new <code>SimpleSecurityContextProvider</code> instance.
 	 * <p>The security context will be retrieved on each call from the current
 	 * thread.
+	 * ***********************************************************************
+	 * ~$ onstruct新的SimpleSecurityContextProvider实例.
+	 *    安全上下文将在每次调用检索当前线程.
 	 */
 	public SimpleSecurityContextProvider() {
 		this(null);
@@ -43,6 +46,9 @@ public class SimpleSecurityContextProvider implements SecurityContextProvider {
 	 * Construct a new <code>SimpleSecurityContextProvider</code> instance.
 	 * <p>If the given control context is null, the security context will be
 	 * retrieved on each call from the current thread.
+	 * *********************************************************************
+	 * ~$构造一个新的SimpleSecurityContextProvider实例.
+	 *   如果给定的控制环境是null,将安全上下文检索当前线程的每个调用.
 	 * @param acc access control context (can be <code>null</code>)
 	 * @see AccessController#getContext()
 	 */

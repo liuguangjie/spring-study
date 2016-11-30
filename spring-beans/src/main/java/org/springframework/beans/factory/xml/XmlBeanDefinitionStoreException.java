@@ -25,7 +25,9 @@ import org.springframework.beans.factory.BeanDefinitionStoreException;
  * XML-specific BeanDefinitionStoreException subclass that wraps a
  * {@link SAXException}, typically a {@link SAXParseException}
  * which contains information about the error location.
- *
+ * ****************************************************************
+ * ~$ 特定于xml的BeanDefinitionStoreException子类包装{@link SAXException },
+ * 通常一个{@link SAXParseException}都抛出SAXParseException异常,其中包含的信息错误的位置.
  * @author Juergen Hoeller
  * @since 2.0.2
  * @see #getLineNumber()
@@ -36,7 +38,9 @@ public class XmlBeanDefinitionStoreException extends BeanDefinitionStoreExceptio
 	/**
 	 * Create a new XmlBeanDefinitionStoreException.
 	 * @param resourceDescription description of the resource that the bean definition came from
+	 *                            ~$ 描述资源的bean定义
 	 * @param msg the detail message (used as exception message as-is)
+	 *            ~$ 详细信息(按原样作为异常消息)
 	 * @param cause the SAXException (typically a SAXParseException) root cause
 	 * @see SAXParseException
 	 */
@@ -46,6 +50,8 @@ public class XmlBeanDefinitionStoreException extends BeanDefinitionStoreExceptio
 
 	/**
 	 * Return the line number in the XML resource that failed.
+	 * *******************************************************
+	 * ~$ 返回行号在XML资源失败了.
 	 * @return the line number if available (in case of a SAXParseException); -1 else
 	 * @see SAXParseException#getLineNumber()
 	 */

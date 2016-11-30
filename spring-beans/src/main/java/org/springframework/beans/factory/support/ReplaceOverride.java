@@ -29,7 +29,9 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>Any non-final method can be overridden, irrespective of its
  * parameters and return types.
- *
+ * ***************************************************************
+ * ~$ 延长MethodOverride表示任意覆盖的IoC容器的方法.
+ * <p>任何最后可以被重写的方法,不管它的参数和返回类型.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1
@@ -43,6 +45,8 @@ public class ReplaceOverride extends MethodOverride {
 
 	/**
 	 * Construct a new ReplaceOverride.
+	 * ********************************
+	 * ~$构造一个新的ReplaceOverride.
 	 * @param methodName the name of the method to override
 	 * @param methodReplacerBeanName the bean name of the MethodReplacer
 	 */
@@ -54,6 +58,8 @@ public class ReplaceOverride extends MethodOverride {
 
 	/**
 	 * Return the name of the bean implementing MethodReplacer.
+	 * ********************************************************
+	 * ~$实现MethodReplacer返回bean的名称.
 	 */
 	public String getMethodReplacerBeanName() {
 		return this.methodReplacerBeanName;
@@ -62,6 +68,8 @@ public class ReplaceOverride extends MethodOverride {
 	/**
 	 * Add a fragment of a class string, like "Exception"
 	 * or "java.lang.Exc", to identify a parameter type.
+	 * **************************************************
+	 * ~$ 添加一个片段类的字符串,如"Exception"或"java.lang.Exc",来确定一个参数类型.
 	 * @param identifier a substring of the fully qualified class name
 	 */
 	public void addTypeIdentifier(String identifier) {
@@ -79,10 +87,12 @@ public class ReplaceOverride extends MethodOverride {
 		
 		if (!isOverloaded()) {
 			// No overloaded: don't worry about arg type matching.
+			/** 没有重载:不要担心参数类型匹配.*/
 			return true;
 		}
 		
 		// If we get to here, we need to insist on precise argument matching.
+		/** 如果我们到达这里,我们需要坚持精确参数匹配.*/
 		if (this.typeIdentifiers.size() != method.getParameterTypes().length) {
 			return false;
 		}
@@ -90,6 +100,7 @@ public class ReplaceOverride extends MethodOverride {
 			String identifier = this.typeIdentifiers.get(i);
 			if (!method.getParameterTypes()[i].getName().contains(identifier)) {
 				// This parameter cannot match.
+				/** 这个参数不匹配.*/
 				return false;
 			}
 		}

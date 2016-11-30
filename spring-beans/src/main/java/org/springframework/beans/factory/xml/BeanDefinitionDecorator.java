@@ -49,6 +49,26 @@ import org.springframework.beans.factory.config.BeanDefinitionHolder;
  *
  * <p>The parser locates a {@link BeanDefinitionDecorator} from the
  * {@link NamespaceHandler} for the namespace in which the custom tag resides.
+ * *****************************************************************************************
+ * ~$ 接口使用{@link DefaultBeanDefinitionDocumentReader }来处理自定义,嵌套(直属bean)标签.
+ *
+ * <p>装饰也可能出现基于自定义属性应用到bean标记.实现可以自由定制标记的元数据变成许多
+ *   {@link org.springframework.beans.factory.config.BeanDefinition BeanDefinition }根据需要,
+ *   变换{ @link org.springframework.beans.factory.config.BeanDefinition }包含bean的标签,
+ *   甚至可能返回一个完全不同的{@link org.springframework.beans.factory.config.BeanDefinition }替换原来的.
+ *
+ * <p>{ @link BeanDefinitionDecorator BeanDefinitionDecorators }应该意识到他们可能是链的一部分.
+ *   特别是,{ @link BeanDefinitionDecorator }应该意识到前一个{ @link BeanDefinitionDecorator }
+ *    可能取代原{ @link org.springframework.beans.factory.config。BeanDefinition }与
+ *    {@link org.springframework.aop.framework.ProxyFactoryBean }定义允许自定义
+ *    {@link org.springframework.beans.factory.config.BeanDefinition }.
+ *
+ *
+ * <p>{@link BeanDefinitionDecorator BeanDefinitionDecorators }希望添加一个拦截器的封闭bean应该扩展
+ *    {@link org.springframework.aop.config.AbstractInterceptorDrivenBeanDefinitionDecorator }
+ *    负责创建链接确保只有一个代理,它包含所有的拦截器链.
+ *
+ * <p>解析器定位一个{@link BeanDefinitionDecorator } {@link NamespaceHandler }的名称空间定义标记所在.
  *
  * @author Rob Harrop
  * @since 2.0
@@ -66,6 +86,12 @@ public interface BeanDefinitionDecorator {
 	 * {@link org.springframework.beans.factory.BeanFactory}.
 	 * <p>The supplied {@link ParserContext} can be used to register any additional
 	 * beans needed to support the main definition.
+	 * *********************************************************************************
+	 * ~$ 解析指定的{@link Node} (元素或属性)和装饰提供
+	 *   {@link org.springframework.beans.factory.config.BeanDefinition },把装饰的定义.
+	 *
+	 * <p>实现可以选择返回一个全新的定义,它将替换原来的定义在结果{@link org.springframework.beans.factory.BeanFactory }.
+	 * <p>提供的{@link ParserContext }可以用来注册任何额外的bean需要支持的主要定义.
 	 */
 	BeanDefinitionHolder decorate(Node node, BeanDefinitionHolder definition, ParserContext parserContext);
 

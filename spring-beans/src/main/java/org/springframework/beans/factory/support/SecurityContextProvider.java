@@ -20,7 +20,8 @@ import java.security.AccessControlContext;
 
 /**
  * Provider of the security context of the code running inside the bean factory.
- *
+ * ****************************************************************************
+ * ~$ 提供者中运行的代码的安全上下文bean工厂.
  * @author Costin Leau
  * @since 3.0
  */
@@ -28,6 +29,8 @@ public interface SecurityContextProvider {
 
 	/**
 	 * Provides a security access control context relevant to a bean factory.
+	 * **********************************************************************
+	 * ~$ 提供了一个安全访问控制上下文bean相关工厂.
 	 * @return bean factory security control context
 	 */
 	AccessControlContext getAccessControlContext();

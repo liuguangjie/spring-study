@@ -35,7 +35,8 @@ import org.springframework.core.io.Resource;
  * "/org/springframework/beans/factory/xml/spring-beans-2.0.dtd",
  * no matter whether specified as some local URL that includes "spring-beans"
  * in the DTD name or as "http://www.springframework.org/dtd/spring-beans-2.0.dtd".
- *
+ * ********************************************************************************
+ * ~$ EntityResolver实现Spring bean DTD,加载Spring类路径的DTD(或JAR文件).
  * @author Juergen Hoeller
  * @author Colin Sampaleanu
  * @since 04.06.2003

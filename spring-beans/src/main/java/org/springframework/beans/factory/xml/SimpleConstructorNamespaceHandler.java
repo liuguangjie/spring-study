@@ -50,7 +50,16 @@ import org.w3c.dom.Node;
  * <b>Note</b>: This implementation supports only named parameters - there is no
  * support for indexes or types. Further more, the names are used as hints by
  * the container which, by default, does type introspection.
- * 
+ * ******************************************************************************************
+ * ~$ 简单的NamespaceHandler实现映射自定义属性直接通过bean属性.
+ *    很重要的一点要注意的是,这NamespaceHandler没有相应的模式,因为没有办法提前知道所有可能的属性名称.
+ *    一个例子使用的NamespaceHandler如下所示:
+ *   <bean id="author" class="..TestBean" c:name="Enescu" c:work-ref="compositions"/>
+ *  这里的“c:name”直接对应名称的参数声明在类的构造函数“TestBean”.
+ *   “c:work-ref”属性对应的‘工作’的论点,而不是具体的值,它包含bean的名称,这将被视为一个参数。
+ *
+ *  注意:这个实现只支持命名参数,不支持索引或类型.此外,名字是由容器作为提示,默认情况下,内省型.
+ *
  * @see SimplePropertyNamespaceHandler
  * @author Costin Leau
  */

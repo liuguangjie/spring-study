@@ -27,7 +27,8 @@ import org.springframework.util.Assert;
 /**
  * {@link EntityResolver} implementation that delegates to a {@link BeansDtdResolver}
  * and a {@link PluggableSchemaResolver} for DTDs and XML schemas, respectively.
- *
+ * **********************************************************************************
+ * ~$ {@link EntityResolver} 实现代表一个{@link BeansDtdResolver }和{@link PluggableSchemaResolver } dtd和XML模式,分别.
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Rick Evans
@@ -38,9 +39,11 @@ import org.springframework.util.Assert;
 public class DelegatingEntityResolver implements EntityResolver {
 
 	/** Suffix for DTD files */
+	/** 对于DTD文件后缀 */
 	public static final String DTD_SUFFIX = ".dtd";
 
 	/** Suffix for schema definition files */
+	/** 模式定义文件后缀 */
 	public static final String XSD_SUFFIX = ".xsd";
 
 
@@ -54,6 +57,10 @@ public class DelegatingEntityResolver implements EntityResolver {
 	 * a default {@link BeansDtdResolver} and a default {@link PluggableSchemaResolver}.
 	 * <p>Configures the {@link PluggableSchemaResolver} with the supplied
 	 * {@link ClassLoader}.
+	 * *********************************************************************************
+	 * ~$ 创建一个新的DelegatingEntityResolver,代表一个默认{@link BeansDtdResolver }和一个默认{@link PluggableSchemaResolver }.
+	 *     配置{@link PluggableSchemaResolver }与{@link ClassLoader}提供.
+	 * <p>配置{@link PluggableSchemaResolver }与{@link ClassLoader}.
 	 * @param classLoader the ClassLoader to use for loading
 	 * (can be <code>null</code>) to use the default ClassLoader)
 	 */
@@ -65,6 +72,8 @@ public class DelegatingEntityResolver implements EntityResolver {
 	/**
 	 * Create a new DelegatingEntityResolver that delegates to
 	 * the given {@link EntityResolver EntityResolvers}.
+	 * ********************************************************
+	 * ~$ 创建一个新的DelegatingEntityResolver代表的{@link EntityResolver EntityResolvers}.
 	 * @param dtdResolver the EntityResolver to resolve DTDs with
 	 * @param schemaResolver the EntityResolver to resolve XML schemas with
 	 */

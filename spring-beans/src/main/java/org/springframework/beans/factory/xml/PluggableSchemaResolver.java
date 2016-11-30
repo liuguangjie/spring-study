@@ -49,7 +49,16 @@ import org.springframework.util.CollectionUtils;
  *
  * <p>The pattern for the mapping files can be overidden using the
  * {@link #PluggableSchemaResolver(ClassLoader, String)} constructor
+ * *****************************************************************************************
+ * ~${@link EntityResolver} ,试图解决模式的url到当地{@link ClassPathResource classpath resources}使用一组映射文件.
  *
+ * <P>默认情况下,这个类将寻找映射文件在类路径中使用模式:meta-inf/spring.
+ *    模式允许多个文件在类路径中存在在任何时候.
+ *
+ *    meta-inf/spring的格式.模式是一个属性文件,每一行应该是表单的systemId =模式位置模式位置应该也是一个模式文件在类路径中.
+ *    自从systemId通常是一个URL,必须小心避免任何‘:’字符作为分隔符的属性文件.
+ *
+ * <P>映射文件的模式可以overidden使用{@link #PluggableSchemaResolver(ClassLoader, String)}构造函数
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
@@ -59,6 +68,8 @@ public class PluggableSchemaResolver implements EntityResolver {
 	/**
 	 * The location of the file that defines schema mappings.
 	 * Can be present in multiple JAR files.
+	 * ******************************************************
+	 * ~$ 定义模式映射的文件的位置.可以出现在多个JAR文件.
 	 */
 	public static final String DEFAULT_SCHEMA_MAPPINGS_LOCATION = "META-INF/spring.schemas";
 
@@ -70,12 +81,15 @@ public class PluggableSchemaResolver implements EntityResolver {
 	private final String schemaMappingsLocation;
 
 	/** Stores the mapping of schema URL -> local schema path */
+	/** 商店的映射模式 -> 本地URL路径 */
 	private volatile Map<String, String> schemaMappings;
 
 
 	/**
 	 * Loads the schema URL -> schema file location mappings using the default
 	 * mapping file pattern "META-INF/spring.schemas".
+	 * ***********************************************************************
+	 * ~$ 加载模式的URL->文件位置使用默认映射文件映射模式"meta-inf/spring.schemas".
 	 * @param classLoader the ClassLoader to use for loading
 	 * (can be <code>null</code>) to use the default ClassLoader)
 	 * @see PropertiesLoaderUtils#loadAllProperties(String, ClassLoader)
@@ -88,6 +102,8 @@ public class PluggableSchemaResolver implements EntityResolver {
 	/**
 	 * Loads the schema URL -> schema file location mappings using the given
 	 * mapping file pattern.
+	 * *********************************************************************
+	 * ~$ 加载模式的URL -> 文件位置使用映射文件映射模式.
 	 * @param classLoader the ClassLoader to use for loading
 	 * (can be <code>null</code>) to use the default ClassLoader)
 	 * @param schemaMappingsLocation the location of the file that defines schema mappings
@@ -131,6 +147,8 @@ public class PluggableSchemaResolver implements EntityResolver {
 
 	/**
 	 * Load the specified schema mappings lazily.
+	 * *******************************************
+	 * ~$ 延迟加载指定的模式映射.
 	 */
 	private Map<String, String> getSchemaMappings() {
 		if (this.schemaMappings == null) {

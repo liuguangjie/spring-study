@@ -38,7 +38,12 @@ import org.springframework.util.ClassUtils;
  * for a bean with the same name as the fully-qualified class name. (This is
  * the default name of the bean in a Spring XML file if the '<code>id</code>'
  * attribute is not used.)
-
+ * **********************************************************************************
+ * ~$ configurers能够进行方便的基类对象的依赖项注入(不过他们可能被创建).
+ *    通常由AspectJ方面从它派生出子类.
+ *
+ * <p>子类可能还需要一个定制的元数据解决策略,在{@link BeanWiringInfoResolver }接口.
+ *    默认实现查找bean名称相同的完全限定类名.(这是默认的bean的名称在Spring XML文件如果不使用的id属性).
  * @author Rob Harrop
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -61,6 +66,9 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 	 * Set the {@link BeanWiringInfoResolver} to use.
 	 * <p>The default behavior is to look for a bean with the same name as the class.
 	 * As an alternative, consider using annotation-driven bean wiring.
+	 * ******************************************************************************
+	 * ~$ 使用设置{@link BeanWiringInfoResolver }.默认行为是寻找一个具有相同名称的bean类.
+	 *    作为一种替代方法,考虑使用注解驱动的bean连接.
 	 * @see ClassNameBeanWiringInfoResolver
 	 * @see org.springframework.beans.factory.annotation.AnnotationBeanWiringInfoResolver
 	 */
@@ -71,6 +79,8 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 
 	/**
 	 * Set the {@link BeanFactory} in which this aspect must configure beans.
+	 * **********************************************************************
+	 * ~$设置{@link BeanFactory }这方面必须配置bean.
 	 */
 	public void setBeanFactory(BeanFactory beanFactory) {
 		if (!(beanFactory instanceof ConfigurableListableBeanFactory)) {
@@ -87,6 +97,9 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 	 * Create the default BeanWiringInfoResolver to be used if none was
 	 * specified explicitly.
 	 * <p>The default implementation builds a {@link ClassNameBeanWiringInfoResolver}.
+	 * ********************************************************************************
+	 * ~$ 创建默认使用BeanWiringInfoResolver如果没有显式地指定.
+	 * <p>默认实现构建一个{@link ClassNameBeanWiringInfoResolver }.
 	 * @return the default BeanWiringInfoResolver (never <code>null</code>)
 	 */
 	protected BeanWiringInfoResolver createDefaultBeanWiringInfoResolver() {
@@ -95,6 +108,8 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 
 	/**
 	 * Check that a {@link BeanFactory} has been set.
+	 * **********************************************
+	 * ~$检查一个{@link BeanFactory }已设置.
 	 */
 	public void afterPropertiesSet() {
 		Assert.notNull(this.beanFactory, "BeanFactory must be set");
@@ -103,6 +118,8 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 	/**
 	 * Release references to the {@link BeanFactory} and
 	 * {@link BeanWiringInfoResolver} when the container is destroyed.
+	 * ****************************************************************
+	 * ~$释放引用{@link BeanFactory }和{@link BeanWiringInfoResolver }当容器被摧毁.
 	 */
 	public void destroy() {
 		this.beanFactory = null;
@@ -115,6 +132,8 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 	 * <p>Subclasses can override this to provide custom configuration logic.
 	 * Typically called by an aspect, for all bean instances matched by a
 	 * pointcut.
+	 * **********************************************************************
+	 * ~$配置bean实例.子类可以重写这个提供自定义配置逻辑.通常通过一个方面,呼吁所有bean实例匹配切入点.
 	 * @param beanInstance the bean instance to configure (must <b>not</b> be <code>null</code>)
 	 */
 	public void configureBean(Object beanInstance) {
@@ -130,6 +149,7 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 		BeanWiringInfo bwi = this.beanWiringInfoResolver.resolveWiringInfo(beanInstance);
 		if (bwi == null) {
 			// Skip the bean if no wiring info given.
+			/** 跳过bean如果没有布线信息. */
 			return;
 		}
 
@@ -137,12 +157,14 @@ public class BeanConfigurerSupport implements BeanFactoryAware, InitializingBean
 			if (bwi.indicatesAutowiring() ||
 					(bwi.isDefaultBeanName() && !this.beanFactory.containsBean(bwi.getBeanName()))) {
 				// Perform autowiring (also applying standard factory / post-processor callbacks).
+				/** 执行自动装配(也应用标准 factory/post-processor 回调). */
 				this.beanFactory.autowireBeanProperties(beanInstance, bwi.getAutowireMode(), bwi.getDependencyCheck());
 				Object result = this.beanFactory.initializeBean(beanInstance, bwi.getBeanName());
 				checkExposedObject(result, beanInstance);
 			}
 			else {
 				// Perform explicit wiring based on the specified bean definition.
+				/** 执行显式布线根据指定的bean定义.*/
 				Object result = this.beanFactory.configureBean(beanInstance, bwi.getBeanName());
 				checkExposedObject(result, beanInstance);
 			}
