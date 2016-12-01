@@ -19,7 +19,8 @@ package org.springframework.beans;
 /**
  * Utility methods for classes that perform bean property access
  * according to the {@link PropertyAccessor} interface.
- *
+ * *************************************************************
+ * ~$ 实用程序类的方法执行bean属性访问根据{@link PropertyAccessor }接口.
  * @author Juergen Hoeller
  * @since 1.2.6
  */
@@ -27,6 +28,8 @@ public abstract class PropertyAccessorUtils {
 
 	/**
 	 * Return the actual property name for the given property path.
+	 * ************************************************************
+	 * ~$ 返回给定属性的实际属性名的路径.
 	 * @param propertyPath the property path to determine the property name
 	 * for (can include property keys, for example for specifying a map entry)
 	 * @return the actual property name, without any key elements
@@ -39,6 +42,8 @@ public abstract class PropertyAccessorUtils {
 
 	/**
 	 * Check whether the given property path indicates an indexed or nested property.
+	 * ******************************************************************************
+	 * ~$ 检查给定属性的路径是否表明索引或嵌套的属性.
 	 * @param propertyPath the property path to check
 	 * @return whether the path indicates an indexed or nested property
 	 */
@@ -59,6 +64,8 @@ public abstract class PropertyAccessorUtils {
 	/**
 	 * Determine the first nested property separator in the
 	 * given property path, ignoring dots in keys (like "map[my.key]").
+	 * ****************************************************************
+	 * ~$ 确定第一个嵌套的属性在给定属性路径分隔符,忽略点钥匙(like "map[my.key]").
 	 * @param propertyPath the property path to check
 	 * @return the index of the nested property separator, or -1 if none
 	 */
@@ -69,6 +76,8 @@ public abstract class PropertyAccessorUtils {
 	/**
 	 * Determine the first nested property separator in the
 	 * given property path, ignoring dots in keys (like "map[my.key]").
+	 * ****************************************************************
+	 * ~$ 确定第一个嵌套的属性在给定属性路径分隔符,忽略点钥匙(like "map[my.key]").
 	 * @param propertyPath the property path to check
 	 * @return the index of the nested property separator, or -1 if none
 	 */
@@ -111,6 +120,8 @@ public abstract class PropertyAccessorUtils {
 	/**
 	 * Determine whether the given registered path matches the given property path,
 	 * either indicating the property itself or an indexed element of the property.
+	 * ****************************************************************************
+	 * ~$ 确定给定的路径匹配给定属性路径注册,表明property 本身或索引元素的属性.
 	 * @param propertyPath the property path (typically without index)
 	 * @param registeredPath the registered path (potentially with index)
 	 * @return whether the paths match
@@ -134,6 +145,9 @@ public abstract class PropertyAccessorUtils {
 	 * Removes surrounding quotes from map keys:<br>
 	 * <code>map['key']</code> -> <code>map[key]</code><br>
 	 * <code>map["key"]</code> -> <code>map[key]</code>
+	 * *********************************************************
+	 * ~$ 确定给定属性路径的规范名称.
+	 *    删除周围引用映射键:
 	 * @param propertyName the bean property path
 	 * @return the canonical representation of the property path
 	 */

@@ -22,7 +22,9 @@ package org.springframework.beans;
  *
  * <p>For example, navigating "spouse.age" could fail because the
  * spouse property of the target object has a null value.
- *
+ * **************************************************************
+ * ~$ 导航时抛出异常的有效嵌套属性路径遇到一个NullPointerException.
+ * <p> 例如,导航 "spouse.age" 的配偶财产可能会失败,因为目标对象有一个空值.
  * @author Rod Johnson
  */
 public class NullValueInNestedPathException extends InvalidPropertyException {

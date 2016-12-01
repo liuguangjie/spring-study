@@ -23,7 +23,8 @@ import org.springframework.util.StringUtils;
 /**
  * Mutable implementation of the {@link SortDefinition} interface.
  * Supports toggling the ascending value on setting the same property again.
- *
+ * *************************************************************************
+ * ~$ 可变的实现{@link SortDefinition }接口.支持切换设置相同的属性提升价值.
  * @author Juergen Hoeller
  * @author Jean-Pierre Pawlak
  * @since 26.05.2003
@@ -43,6 +44,8 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 	/**
 	 * Create an empty MutableSortDefinition,
 	 * to be populated via its bean properties.
+	 * ****************************************
+	 * ~$ 创建一个空MutableSortDefinition,通过其填充bean属性.
 	 * @see #setProperty
 	 * @see #setIgnoreCase
 	 * @see #setAscending
@@ -53,6 +56,8 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 	/**
 	 * Copy constructor: create a new MutableSortDefinition
 	 * that mirrors the given sort definition.
+	 * ****************************************************
+	 * ~$ 拷贝构造函数:创建一个新的MutableSortDefinition镜子给定的类定义.
 	 * @param source the original sort definition
 	 */
 	public MutableSortDefinition(SortDefinition source) {
@@ -63,6 +68,8 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 
 	/**
 	 * Create a MutableSortDefinition for the given settings.
+	 * *******************************************************
+	 * ~$ 创建一个MutableSortDefinition给定设置.
 	 * @param property the property to compare
 	 * @param ignoreCase whether upper and lower case in String values should be ignored
 	 * @param ascending whether to sort ascending (true) or descending (false)
@@ -88,6 +95,9 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 	 * Set the property to compare.
 	 * <p>If the property was the same as the current, the sort is reversed if
 	 * "toggleAscendingOnProperty" is activated, else simply ignored.
+	 * ***********************************************************************
+	 * ~$ 将属性设置为比较.
+	 * <p>如果属性是一样的,那种是逆转如果"toggleAscendingOnProperty"被激活,完全不理会.
 	 * @see #setToggleAscendingOnProperty
 	 */
 	public void setProperty(String property) {
@@ -96,6 +106,7 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 		}
 		else {
 			// Implicit toggling of ascending?
+			/** 隐式切换的提升? */
 			if (isToggleAscendingOnProperty()) {
 				this.ascending = (!property.equals(this.property) || !this.ascending);
 			}
@@ -109,6 +120,8 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 
 	/**
 	 * Set whether upper and lower case in String values should be ignored.
+	 * ********************************************************************
+	 * ~$ 设置大写和小写的字符串值是否应该被忽略.
 	 */
 	public void setIgnoreCase(boolean ignoreCase) {
 		this.ignoreCase = ignoreCase;
@@ -120,6 +133,8 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 
 	/**
 	 * Set whether to sort ascending (true) or descending (false).
+	 * **********************************************************
+	 * ~$ 设置是否升序(真正的)或降序(假).
 	 */
 	public void setAscending(boolean ascending) {
 		this.ascending = ascending;
@@ -135,6 +150,11 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 	 * <p>This is particularly useful for parameter binding through a web request,
 	 * where clicking on the field header again might be supposed to trigger a
 	 * resort for the same field but opposite order.
+	 * *********************************************************************************
+	 * ~$ 设置是否切换升国旗,如果同样的属性被设置
+	 *    (也就是说,{@link #setProperty }调用已经设置和属性名).
+	 * <p>来说,这是特别有用的参数通过web请求绑定,
+	 *    再次单击字段标题会在哪里应该触发一个度假村为同一领域,但相反的顺序.
 	 */
 	public void setToggleAscendingOnProperty(boolean toggleAscendingOnProperty) {
 		this.toggleAscendingOnProperty = toggleAscendingOnProperty;
@@ -143,6 +163,8 @@ public class MutableSortDefinition implements SortDefinition, Serializable {
 	/**
 	 * Return whether to toggle the ascending flag if the same property gets set again
 	 * (that is, {@link #setProperty} gets called with already set property name again).
+	 * *********************************************************************************
+	 * ~$ 返回是否切换升国旗,如果同样的属性被设置(也就是说,{@link #setProperty }调用已经设置和属性名).
 	 */
 	public boolean isToggleAscendingOnProperty() {
 		return this.toggleAscendingOnProperty;

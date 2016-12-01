@@ -20,7 +20,8 @@ import java.beans.PropertyChangeEvent;
 
 /**
  * Exception thrown when no suitable editor or converter can be found for a bean property.
- *
+ * ***************************************************************************************
+ * ~$ 异常抛出时没有合适的编辑器或转换器可以找到一个bean属性.
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @since 3.0
@@ -30,7 +31,9 @@ public class ConversionNotSupportedException extends TypeMismatchException {
 	/**
 	 * Create a new ConversionNotSupportedException.
 	 * @param propertyChangeEvent the PropertyChangeEvent that resulted in the problem
+	 *                            ~$ 他PropertyChangeEvent导致问题
 	 * @param requiredType the required target type (or <code>null</code> if not known)
+	 *                     ~$ 所需的目标类型(或null如果不清楚)
 	 * @param cause the root cause (may be <code>null</code>)
 	 */
 	public ConversionNotSupportedException(PropertyChangeEvent propertyChangeEvent, Class requiredType, Throwable cause) {

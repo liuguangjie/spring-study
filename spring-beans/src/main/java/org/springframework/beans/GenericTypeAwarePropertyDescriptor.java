@@ -34,7 +34,8 @@ import org.springframework.util.StringUtils;
  * Extension of the standard JavaBeans PropertyDescriptor class,
  * overriding <code>getPropertyType()</code> such that a generically
  * declared type will be resolved against the containing bean class.
- *
+ * *****************************************************************
+ * ~$ 扩展的标准JavaBeans PropertyDescriptor类,重写getPropertyType()这样一个一般声明类型将解决包含bean类.
  * @author Juergen Hoeller
  * @since 2.5.2
  */
@@ -67,8 +68,11 @@ class GenericTypeAwarePropertyDescriptor extends PropertyDescriptor {
 		Method writeMethodToUse = BridgeMethodResolver.findBridgedMethod(writeMethod);
 		if (writeMethodToUse == null && readMethodToUse != null) {
 			// Fallback: Original JavaBeans introspection might not have found matching setter
+			/** 回退:原始javabean内省可能没有发现匹配的setter*/
 			// method due to lack of bridge method resolution, in case of the getter using a
+			/** 由于缺乏桥方法分辨率,吸气剂使用 */
 			// covariant return type whereas the setter is defined for the concrete property type.
+			/** 协变返回类型而具体属性的setter定义类型.*/
 			writeMethodToUse = ClassUtils.getMethodIfAvailable(this.beanClass,
 					"set" + StringUtils.capitalize(getName()), readMethodToUse.getReturnType());
 		}
@@ -77,8 +81,11 @@ class GenericTypeAwarePropertyDescriptor extends PropertyDescriptor {
 
 		if (this.writeMethod != null && this.readMethod == null) {
 			// Write method not matched against read method: potentially ambiguous through
+			/** 写方法不匹配阅读方法:可能模棱两可的 */
 			// several overloaded variants, in which case an arbitrary winner has been chosen
+			/** 几个重载的变体,在这种情况下,任意选择赢家 */
 			// by the JDK's JavaBeans Introspector...
+			/** JDK的javabean内省...*/
 			Set<Method> ambiguousCandidates = new HashSet<Method>();
 			for (Method method : beanClass.getMethods()) {
 				if (method.getName().equals(writeMethodToUse.getName()) &&

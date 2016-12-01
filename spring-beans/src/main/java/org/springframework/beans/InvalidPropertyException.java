@@ -19,7 +19,8 @@ package org.springframework.beans;
 /**
  * Exception thrown when referring to an invalid bean property.
  * Carries the offending bean class and property name.
- *
+ * ************************************************************
+ * ~$ 异常抛出时指的是一个无效的bean属性.携带的bean类和属性名.
  * @author Juergen Hoeller
  * @since 1.0.2
  */
@@ -55,6 +56,8 @@ public class InvalidPropertyException extends FatalBeanException {
 
 	/**
 	 * Return the offending bean class.
+	 * ********************************
+	 * ~$ 返回的bean类.
 	 */
 	public Class getBeanClass() {
 		return beanClass;
@@ -62,6 +65,8 @@ public class InvalidPropertyException extends FatalBeanException {
 
 	/**
 	 * Return the name of the offending property.
+	 * ******************************************
+	 * ~$ 返回侵犯财产的名称.
 	 */
 	public String getPropertyName() {
 		return propertyName;

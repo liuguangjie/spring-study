@@ -25,7 +25,10 @@ import org.springframework.util.StringUtils;
  *
  * <p>Optionally allows transforming an empty string into a <code>null</code> value.
  * Needs to be explicitly registered, e.g. for command binding.
+ * *********************************************************************************
+ * ~$ 属性编辑器,修剪字符串.
  *
+ * <p>选择允许将一个空字符串转换为空值.需要明确注册,例如命令绑定.
  * @author Juergen Hoeller
  * @see org.springframework.validation.DataBinder#registerCustomEditor
  * @see org.springframework.web.servlet.mvc.BaseCommandController#initBinder
@@ -52,6 +55,8 @@ public class StringTrimmerEditor extends PropertyEditorSupport {
 	 * @param charsToDelete a set of characters to delete, in addition to
 	 * trimming an input String. Useful for deleting unwanted line breaks:
 	 * e.g. "\r\n\f" will delete all new lines and line feeds in a String.
+	 *                      ~$一组字符删除,除了修剪一个输入字符串.
+	 *                         用于删除多余的换行符:例如"\r \n \f"将删除所有字符串的新线路和换行.
 	 * @param emptyAsNull <code>true</code> if an empty String is to be
 	 * transformed into <code>null</code>
 	 */

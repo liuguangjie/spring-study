@@ -72,7 +72,19 @@ import org.springframework.util.StringUtils;
  * internal class.</b> It is just public in order to allow for access from
  * other framework packages. For standard application access purposes, use the
  * {@link PropertyAccessorFactory#forBeanPropertyAccess} factory method instead.
+ * ******************************************************************************
+ * ~$ 默认{@link BeanWrapper }实现应该满足所有典型的用例.缓存内省的结果效率.
  *
+ * <p>注意:从org.springframework.beans Auto-registers默认属性编辑器.propertyeditors包,它适用于除了propertyeditors JDK的标准.
+ *     应用程序可以调用{@link #registerCustomEditor(Class,java.beans.PropertyEditor)}方法来注册一个特定实例编辑器(即不跨应用程序共享).
+ *      详情见基类{@link PropertyEditorRegistrySupport }.
+ *
+ * <p>BeanWrapperImpl将集合和数组的值转换为相应的目标集合或数组,如果必要的.
+ *    自定义属性编辑器处理集合或数组可以是书面通过PropertyEditor setValue,
+ *    或通过setAsText对一个用逗号分隔的字符串,字符串数组转换的格式如果数组本身不是可转让的.
+ *
+ * <p>注意:Spring 2.5,这是几乎所有的目的 - 一个内部类.这只是公共为了允许访问来自其他框架包.
+ *    标准应用程序访问的目的,使用{@link PropertyAccessorFactory#forBeanPropertyAccess }工厂方法代替.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop
@@ -104,17 +116,23 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * The security context used for invoking the property methods
+	 * ***********************************************************
+	 * ~$ 安全上下文用于调用属性的方法
 	 */
 	private AccessControlContext acc;
 
 	/**
 	 * Cached introspections results for this object, to prevent encountering
 	 * the cost of JavaBeans introspection every time.
+	 * **********************************************************************
+	 * ~$ 这个对象缓存的反思结果,防止遇到javabean内省每次的成本.
 	 */
 	private CachedIntrospectionResults cachedIntrospectionResults;
 
 	/**
 	 * Map with cached nested BeanWrappers: nested path -> BeanWrapper instance.
+	 * *************************************************************************
+	 * ~$ Map缓存嵌套BeanWrappers:嵌套路径- > BeanWrapper实例.
 	 */
 	private Map<String, BeanWrapperImpl> nestedBeanWrappers;
 
@@ -126,6 +144,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Create new empty BeanWrapperImpl. Wrapped instance needs to be set afterwards.
 	 * Registers default editors.
+	 * ******************************************************************************
+	 * ~$ 创建新的空BeanWrapperImpl.包装实例需要设置.寄存器的默认编辑器.
 	 * @see #setWrappedInstance
 	 */
 	public BeanWrapperImpl() {
@@ -134,6 +154,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Create new empty BeanWrapperImpl. Wrapped instance needs to be set afterwards.
+	 * ******************************************************************************
+	 * ~$ 创建新的空BeanWrapperImpl.包装实例需要设置.
 	 * @param registerDefaultEditors whether to register default editors
 	 * (can be suppressed if the BeanWrapper won't need any type conversion)
 	 * @see #setWrappedInstance
@@ -147,6 +169,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Create new BeanWrapperImpl for the given object.
+	 * ************************************************
+	 * ~$ 创建新的BeanWrapperImpl给定对象.
 	 * @param object object wrapped by this BeanWrapper
 	 */
 	public BeanWrapperImpl(Object object) {
@@ -156,6 +180,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Create new BeanWrapperImpl, wrapping a new instance of the specified class.
+	 * ***************************************************************************
+	 * ~$ 创建新的BeanWrapperImpl,包装指定的类的一个新实例.
 	 * @param clazz class to instantiate and wrap
 	 */
 	public BeanWrapperImpl(Class<?> clazz) {
@@ -166,6 +192,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Create new BeanWrapperImpl for the given object,
 	 * registering a nested path that the object is in.
+	 * ************************************************
+	 * ~$ 创建新的BeanWrapperImpl给定对象,注册一个嵌套对象的路径.
 	 * @param object object wrapped by this BeanWrapper
 	 * @param nestedPath the nested path of the object
 	 * @param rootObject the root object at the top of the path
@@ -178,6 +206,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Create new BeanWrapperImpl for the given object,
 	 * registering a nested path that the object is in.
+	 * ************************************************
+	 * ~$ 创建新的BeanWrapperImpl给定对象,注册一个嵌套对象的路径.
 	 * @param object object wrapped by this BeanWrapper
 	 * @param nestedPath the nested path of the object
 	 * @param superBw the containing BeanWrapper (must not be <code>null</code>)
@@ -195,10 +225,12 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	//---------------------------------------------------------------------
 	// Implementation of BeanWrapper interface
 	//---------------------------------------------------------------------
-
+    /** BeanWrapper接口的实现 */
 	/**
 	 * Switch the target object, replacing the cached introspection results only
 	 * if the class of the new object is different to that of the replaced object.
+	 * ***************************************************************************
+	 * ~$ 切换目标对象,替换缓存的内省的结果只有新对象的类是不同的对象所取代.
 	 * @param object the new target object
 	 */
 	public void setWrappedInstance(Object object) {
@@ -208,6 +240,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Switch the target object, replacing the cached introspection results only
 	 * if the class of the new object is different to that of the replaced object.
+	 * **************************************************************************
+	 * ~$ 切换目标对象,替换缓存的内省的结果只有新对象的类是不同的对象所取代.
 	 * @param object the new target object
 	 * @param nestedPath the nested path of the object
 	 * @param rootObject the root object at the top of the path
@@ -232,6 +266,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Return the nested path of the object wrapped by this BeanWrapper.
+	 * *****************************************************************
+	 * ~$返回的嵌套路径对象由这个BeanWrapper包裹.
 	 */
 	public final String getNestedPath() {
 		return this.nestedPath;
@@ -259,6 +295,10 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	 * instead of resulting in a {@link NullValueInNestedPathException}. Turning this flag on also
 	 * enables auto-growth of collection elements when accessing an out-of-bounds index.
 	 * <p>Default is "false" on a plain BeanWrapper.
+	 * *****************************************************************************************************
+	 * ~$设置这个BeanWrapper是否应该试图“auto-grow”一个嵌套包含null值的路径.
+	 * <p>If "true",将填充空路径位置预设值遍历而不是导致{@link NullValueInNestedPathException }.
+	 *   把这个标志还使汽车增长的集合元素当访问一个界外指数.
 	 */
 	public void setAutoGrowNestedPaths(boolean autoGrowNestedPaths) {
 		this.autoGrowNestedPaths = autoGrowNestedPaths;
@@ -266,6 +306,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Return whether "auto-growing" of nested paths has been activated.
+	 * *****************************************************************
+	 * ~$ 返回“auto-growing”嵌套的路径是否被激活.
 	 */
 	public boolean isAutoGrowNestedPaths() {
 		return this.autoGrowNestedPaths;
@@ -274,6 +316,9 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Specify a limit for array and collection auto-growing.
 	 * <p>Default is unlimited on a plain BeanWrapper.
+	 * ******************************************************
+	 * ~$ 数组和集合的auto-growing指定一个限制.
+	 * <p>纯BeanWrapper默认是无限的.
 	 */
 	public void setAutoGrowCollectionLimit(int autoGrowCollectionLimit) {
 		this.autoGrowCollectionLimit = autoGrowCollectionLimit;
@@ -281,6 +326,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Return the limit for array and collection auto-growing.
+	 * *******************************************************
+	 * ~$ 返回数组和集合的auto-growing的限制.
 	 */
 	public int getAutoGrowCollectionLimit() {
 		return this.autoGrowCollectionLimit;
@@ -289,6 +336,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Set the security context used during the invocation of the wrapped instance methods.
 	 * Can be null.
+	 * ************************************************************************************
+	 * ~$ 设置安全上下文用于包装的调用实例方法.可以为空.
 	 */
 	public void setSecurityContext(AccessControlContext acc) {
 		this.acc = acc;
@@ -297,6 +346,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Return the security context used during the invocation of the wrapped instance methods.
 	 * Can be null.
+	 * ***************************************************************************************
+	 * ~$ 返回调用中使用的安全上下文实例方法.可以为空.
 	 */
 	public AccessControlContext getSecurityContext() {
 		return this.acc;
@@ -305,6 +356,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Set the class to introspect.
 	 * Needs to be called when the target object changes.
+	 * **************************************************
+	 * ~$ 设置类来反省.时需要调用目标对象的变化.
 	 * @param clazz the class to introspect
 	 */
 	protected void setIntrospectionClass(Class clazz) {
@@ -317,6 +370,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Obtain a lazily initializted CachedIntrospectionResults instance
 	 * for the wrapped object.
+	 * ****************************************************************
+	 * ~$ 获得一个懒洋洋地initializted CachedIntrospectionResults包装对象实例.
 	 */
 	private CachedIntrospectionResults getCachedIntrospectionResults() {
 		Assert.state(this.object != null, "BeanWrapper does not hold a bean instance");
@@ -343,6 +398,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	/**
 	 * Internal version of {@link #getPropertyDescriptor}:
 	 * Returns <code>null</code> if not found rather than throwing an exception.
+	 * *************************************************************************
+	 * ~$ 内部版本的{@link #getPropertyDescriptor }:返回null如果没有找到而不是抛出异常.
 	 * @param propertyName the property to obtain the descriptor for
 	 * @return the property descriptor for the specified property,
 	 * or <code>null</code> if not found
@@ -363,12 +420,15 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 			}
 			else {
 				// Maybe an indexed/mapped property...
+				/** 也许一个索引/映射属性...*/
 				Object value = getPropertyValue(propertyName);
 				if (value != null) {
 					return value.getClass();
 				}
 				// Check to see if there is a custom editor,
+				/** 检查是否有一个自定义的编辑器, */
 				// which might give an indication on the desired target type.
+				/** 这可能给指示所需的目标类型.*/
 				Class editorType = guessPropertyTypeFromEditors(propertyName);
 				if (editorType != null) {
 					return editorType;
@@ -415,6 +475,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 			}
 			else {
 				// Maybe an indexed/mapped property...
+				/** 也许一个索引/映射性质 */
 				getPropertyValue(propertyName);
 				return true;
 			}
@@ -495,6 +556,9 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	 * Convert the given value for the specified property to the latter's type.
 	 * <p>This method is only intended for optimizations in a BeanFactory.
 	 * Use the <code>convertIfNecessary</code> methods for programmatic conversion.
+	 * ****************************************************************************
+	 * ~$ 给定的值转换为指定的属性,后者的类型.
+	 * <p>这个方法只是用于BeanFactory优化.使用convertIfNecessary编程转换的方法.
 	 * @param value the value to convert
 	 * @param propertyName the target property
 	 * (note that nested or indexed properties are not supported here)
@@ -525,9 +589,10 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	//---------------------------------------------------------------------
 	// Implementation methods
 	//---------------------------------------------------------------------
-
 	/**
 	 * Get the last component of the path. Also works if not nested.
+	 * *************************************************************
+	 * ~$ 给定的值转换为指定的属性,后者的类型.
 	 * @param bw BeanWrapper to work on
 	 * @param nestedPath property path we know is nested
 	 * @return last component of the path (the property on the target bean)
@@ -541,6 +606,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Recursively navigate to return a BeanWrapper for the nested property path.
+	 * **************************************************************************
+	 * ~$ 递归地导航到返回BeanWrapper嵌套属性的路径.
 	 * @param propertyPath property property path, which may be nested
 	 * @return a BeanWrapper for the target bean
 	 */
@@ -563,6 +630,9 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	 * Create a new one if not found in the cache.
 	 * <p>Note: Caching nested BeanWrappers is necessary now,
 	 * to keep registered custom editors for nested properties.
+	 * ********************************************************
+	 * ~$ 检索BeanWrapper给定嵌套属性。创建一个新的,如果缓存中没有发现.
+	 * <p>注意:缓存嵌套BeanWrappers现在是必要的,保持注册自定义为嵌套的属性编辑器.
 	 * @param nestedProperty property to create the BeanWrapper for
 	 * @return the BeanWrapper instance, either cached or newly created
 	 */
@@ -584,6 +654,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 		}
 
 		// Lookup cached sub-BeanWrapper, create new one if not found.
+		/** 查找缓存sub-BeanWrapper,创建新的如果没有发现. */
 		BeanWrapperImpl nestedBw = this.nestedBeanWrappers.get(canonicalName);
 		if (nestedBw == null || nestedBw.getWrappedInstance() != propertyValue) {
 			if (logger.isTraceEnabled()) {
@@ -591,6 +662,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 			}
 			nestedBw = newNestedBeanWrapper(propertyValue, this.nestedPath + canonicalName + NESTED_PROPERTY_SEPARATOR);
 			// Inherit all type-specific PropertyEditors.
+			/** 继承所有特定类型PropertyEditors. */
 			copyDefaultEditorsTo(nestedBw);
 			copyCustomEditorsTo(nestedBw, canonicalName);
 			this.nestedBeanWrappers.put(canonicalName, nestedBw);
@@ -661,6 +733,9 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	 * Create a new nested BeanWrapper instance.
 	 * <p>Default implementation creates a BeanWrapperImpl instance.
 	 * Can be overridden in subclasses to create a BeanWrapperImpl subclass.
+	 * ********************************************************************
+	 * ~$ 创建一个新的嵌套BeanWrapper实例.
+	 * <p>默认实现创建一个BeanWrapperImpl实例.可以在子类中覆盖创建BeanWrapperImpl子类.
 	 * @param object object wrapped by this BeanWrapper
 	 * @param nestedPath the nested path of the object
 	 * @return the nested BeanWrapper instance
@@ -671,6 +746,8 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 	/**
 	 * Parse the given property name into the corresponding property name tokens.
+	 * **************************************************************************
+	 * ~$ 给定的属性名称解析成相应的属性名令牌.
 	 * @param propertyName the property name to parse
 	 * @return representation of the parsed property tokens
 	 */
@@ -713,7 +790,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 	//---------------------------------------------------------------------
 	// Implementation of PropertyAccessor interface
 	//---------------------------------------------------------------------
-
+	/** PropertyAccessor接口的实现 */
 	@Override
 	public Object getPropertyValue(String propertyName) throws BeansException {
 		BeanWrapperImpl nestedBw = getBeanWrapperForPropertyPath(propertyName);
@@ -814,7 +891,9 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 						Map map = (Map) value;
 						Class<?> mapKeyType = GenericCollectionTypeResolver.getMapKeyReturnType(pd.getReadMethod(), i + 1);
 						// IMPORTANT: Do not pass full property name in here - property editors
+						/** 重要:不要在属性编辑器,通过完整的属性名 */
 						// must not kick in for map keys but rather only for map values.
+						/** 不能踢在 map 键而是只为映射值.*/
 						TypeDescriptor typeDescriptor = mapKeyType != null ? TypeDescriptor.valueOf(mapKeyType) : TypeDescriptor.valueOf(Object.class);
 						Object convertedMapKey = convertIfNecessary(null, null, key, mapKeyType, typeDescriptor);
 						value = map.get(convertedMapKey);
@@ -935,6 +1014,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 		if (tokens.keys != null) {
 			// Apply indexes and map keys: fetch value for all keys but the last one.
+			/** 应用索引和地图键:获取所有钥匙,但最后一个值.*/
 			PropertyTokenHolder getterTokens = new PropertyTokenHolder();
 			getterTokens.canonicalName = tokens.canonicalName;
 			getterTokens.actualName = tokens.actualName;
@@ -1028,6 +1108,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 						pd.getReadMethod(), tokens.keys.length);
 				Map map = (Map) propValue;
 				// IMPORTANT: Do not pass full property name in here - property editors
+				/** 重要:不要在属性编辑器,通过完整的属性名 */
 				// must not kick in for map keys but rather only for map values.
 				TypeDescriptor typeDescriptor = (mapKeyType != null ?
 						TypeDescriptor.valueOf(mapKeyType) : TypeDescriptor.valueOf(Object.class));

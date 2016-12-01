@@ -30,7 +30,10 @@ import org.springframework.util.ObjectUtils;
  * <p>The binding process continues when it encounters application-level
  * PropertyAccessExceptions, applying those changes that can be applied
  * and storing rejected changes in an object of this class.
+ * *****************************************************************************
+ * ~$ 结合异常,由个人PropertyAccessException实例.创建这个类的一个对象的绑定过程中,和错误添加必要的.
  *
+ * <p>绑定过程继续当遇到应用层PropertyAccessExceptions,应用这些更改,可以应用和存储拒绝了这个类的一个对象的变化.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 18 April 2001
@@ -38,6 +41,7 @@ import org.springframework.util.ObjectUtils;
 public class PropertyBatchUpdateException extends BeansException {
 
 	/** List of PropertyAccessException objects */
+	/** PropertyAccessException对象列表 */
 	private PropertyAccessException[] propertyAccessExceptions;
 
 
@@ -54,6 +58,8 @@ public class PropertyBatchUpdateException extends BeansException {
 
 	/**
 	 * If this returns 0, no errors were encountered during binding.
+	 * *************************************************************
+	 * ~$ 如果它返回0,期间没有遇到错误绑定.
 	 */
 	public final int getExceptionCount() {
 		return this.propertyAccessExceptions.length;
@@ -62,6 +68,9 @@ public class PropertyBatchUpdateException extends BeansException {
 	/**
 	 * Return an array of the propertyAccessExceptions stored in this object.
 	 * <p>Will return the empty array (not <code>null</code>) if there were no errors.
+	 * *******************************************************************************
+	 * ~$ 返回一个数组的propertyAccessExceptions存储在这个对象中.
+	 * <p> 将返回空数组(非空)如果没有错误.
 	 */
 	public final PropertyAccessException[] getPropertyAccessExceptions() {
 		return this.propertyAccessExceptions;
@@ -69,6 +78,8 @@ public class PropertyBatchUpdateException extends BeansException {
 
 	/**
 	 * Return the exception for this field, or <code>null</code> if there isn't any.
+	 * *****************************************************************************
+	 * ~$ 返回这个领域的异常,如果没有或null.
 	 */
 	public PropertyAccessException getPropertyAccessException(String propertyName) {
 		for (PropertyAccessException pae : this.propertyAccessExceptions) {

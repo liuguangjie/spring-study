@@ -22,7 +22,8 @@ import org.springframework.util.ClassUtils;
 
 /**
  * Exception thrown on a type mismatch when trying to set a bean property.
- *
+ * ***********************************************************************
+ * ~$ 异常类型不匹配,试图设置一个bean属性.
  * @author Rod Johnson
  * @author Juergen Hoeller
  */
@@ -30,6 +31,8 @@ public class TypeMismatchException extends PropertyAccessException {
 
 	/**
 	 * Error code that a type mismatch error will be registered with.
+	 * *************************************************************
+	 * ~$ 错误代码,将注册一个类型不匹配错误.
 	 */
 	public static final String ERROR_CODE = "typeMismatch";
 
@@ -42,7 +45,9 @@ public class TypeMismatchException extends PropertyAccessException {
 	/**
 	 * Create a new TypeMismatchException.
 	 * @param propertyChangeEvent the PropertyChangeEvent that resulted in the problem
+	 *                            ~$   PropertyChangeEvent导致这个问题
 	 * @param requiredType the required target type
+	 *                     ~$ 所需的目标类型
 	 */
 	public TypeMismatchException(PropertyChangeEvent propertyChangeEvent, Class requiredType) {
 		this(propertyChangeEvent, requiredType, null);
@@ -53,6 +58,7 @@ public class TypeMismatchException extends PropertyAccessException {
 	 * @param propertyChangeEvent the PropertyChangeEvent that resulted in the problem
 	 * @param requiredType the required target type (or <code>null</code> if not known)
 	 * @param cause the root cause (may be <code>null</code>)
+	 *              ~$ 问题的根源
 	 */
 	public TypeMismatchException(PropertyChangeEvent propertyChangeEvent, Class requiredType, Throwable cause) {
 		super(propertyChangeEvent,
@@ -70,6 +76,7 @@ public class TypeMismatchException extends PropertyAccessException {
 	/**
 	 * Create a new TypeMismatchException without PropertyChangeEvent.
 	 * @param value the offending value that couldn't be converted (may be <code>null</code>)
+	 *              ~$    不能转换的错误值
 	 * @param requiredType the required target type (or <code>null</code> if not known)
 	 */
 	public TypeMismatchException(Object value, Class requiredType) {

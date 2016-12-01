@@ -24,6 +24,11 @@ import java.beans.PropertyEditor;
  *
  * <p>Extended by {@link BeanWrapper}; implemented by {@link BeanWrapperImpl}
  * and {@link org.springframework.validation.DataBinder}.
+ * *************************************************************************************
+ * ~$ 封装的方法注册javabean {@link PropertyEditor PropertyEditors }.
+ *    这是中央接口,{@link PropertyEditorRegistrar }操作.
+ *
+ * <p>延长{@link BeanWrapper };实现{@link BeanWrapperImpl }和{@link org.springframework.validation.DataBinder }.
  *
  * @author Juergen Hoeller
  * @since 1.2.6
@@ -36,6 +41,8 @@ public interface PropertyEditorRegistry {
 
 	/**
 	 * Register the given custom property editor for all properties of the given type.
+	 * *******************************************************************************
+	 * ~$ 注册给定的自定义属性编辑器给定类型的所有属性.
 	 * @param requiredType the type of the property
 	 * @param propertyEditor the editor to register
 	 */
@@ -55,6 +62,15 @@ public interface PropertyEditorRegistry {
 	 * <p>For example, if you wanted to register an editor for "items[n].quantity"
 	 * (for all values n), you would use "items.quantity" as the value of the
 	 * 'propertyPath' argument to this method.
+	 * *********************************************************************************
+	 * ~$ 注册了对于给定的类型和属性,自定义属性编辑器或给定类型的所有属性.
+	 * <p>如果属性路径表示数组或集合属性,编辑器将会应用到数组/集合本身({@link PropertyEditor }
+	 *    必须创建一个数组或集合值)或每个元素(PropertyEditor来创建元素类型),根据需要指定类型.
+	 * <p>注意:每个属性只有一个单一的注册自定义编辑器支持路径.
+	 *     对于一组/数组,不注册一个编辑收集/数组,每个元素在同一性质.
+	 * <p>例如,如果您想注册一个编辑器"items[n].quantity"(n)所有的值,
+	 *    您将使用"items.quantity"的价值“propertyPath”这个方法的参数.
+	 *
 	 * @param requiredType the type of the property. This may be <code>null</code>
 	 * if a property is given but should be specified in any case, in particular in
 	 * case of a Collection - making clear whether the editor is supposed to apply
@@ -68,6 +84,8 @@ public interface PropertyEditorRegistry {
 
 	/**
 	 * Find a custom property editor for the given type and property.
+	 * **************************************************************
+	 * ~$ 找到一个自定义属性编辑器为给定的类型和属性.
 	 * @param requiredType the type of the property (can be <code>null</code> if a property
 	 * is given but should be specified in any case for consistency checking)
 	 * @param propertyPath the path of the property (name or nested path), or

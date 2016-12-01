@@ -31,7 +31,8 @@ import org.springframework.util.StringUtils;
 /**
  * PropertyComparator performs a comparison of two beans,
  * evaluating the specified bean property via a BeanWrapper.
- *
+ * *********************************************************
+ * ~$ PropertyComparator执行两个bean的比较,评估通过BeanWrapper指定的bean属性.
  * @author Juergen Hoeller
  * @author Jean-Pierre Pawlak
  * @since 19.05.2003
@@ -48,6 +49,8 @@ public class PropertyComparator implements Comparator {
 
 	/**
 	 * Create a new PropertyComparator for the given SortDefinition.
+	 * *************************************************************
+	 * ~$ 创建一个新的给定SortDefinition PropertyComparator.
 	 * @see MutableSortDefinition
 	 */
 	public PropertyComparator(SortDefinition sortDefinition) {
@@ -56,6 +59,8 @@ public class PropertyComparator implements Comparator {
 
 	/**
 	 * Create a PropertyComparator for the given settings.
+	 * ***************************************************
+	 * ~$ 创建一个PropertyComparator给定设置.
 	 * @param property the property to compare
 	 * @param ignoreCase whether upper and lower case in String values should be ignored
 	 * @param ascending whether to sort ascending (true) or descending (false)
@@ -66,6 +71,8 @@ public class PropertyComparator implements Comparator {
 
 	/**
 	 * Return the SortDefinition that this comparator uses.
+	 * ****************************************************
+	 * ~$ 返回SortDefinition这比较器使用.
 	 */
 	public final SortDefinition getSortDefinition() {
 		return this.sortDefinition;
@@ -83,6 +90,7 @@ public class PropertyComparator implements Comparator {
 		int result;
 		
 		// Put an object with null property at the end of the sort result.
+		/** 把一个对象与空属性的排序结果.*/
 		try {
 			if (v1 != null) {
 				result = (v2 != null ? ((Comparable) v1).compareTo(v2) : -1);
@@ -103,12 +111,16 @@ public class PropertyComparator implements Comparator {
 
 	/**
 	 * Get the SortDefinition's property value for the given object.
+	 * *************************************************************
+	 * ~$ 得到SortDefinition给定对象的属性值.
 	 * @param obj the object to get the property value for
 	 * @return the property value
 	 */
 	private Object getPropertyValue(Object obj) {
 		// If a nested property cannot be read, simply return null
+		/** 如果一个嵌套的属性不能阅读,简单地返回null */
 		// (similar to JSTL EL). If the property doesn't exist in the
+		/** (类似于JSTL EL).如果属性不存在*/
 		// first place, let the exception through.
 		try {
 			this.beanWrapper.setWrappedInstance(obj);
@@ -125,6 +137,9 @@ public class PropertyComparator implements Comparator {
 	 * Sort the given List according to the given sort definition.
 	 * <p>Note: Contained objects have to provide the given property
 	 * in the form of a bean property, i.e. a getXXX method.
+	 * *************************************************************
+	 * ~$ 排序列表根据给定的类定义.
+	 * <p>注意:包含的对象必须提供给定属性的形式bean属性,即一个getXXX方法.
 	 * @param source the input List
 	 * @param sortDefinition the parameters to sort by
 	 * @throws IllegalArgumentException in case of a missing propertyName
@@ -139,6 +154,9 @@ public class PropertyComparator implements Comparator {
 	 * Sort the given source according to the given sort definition.
 	 * <p>Note: Contained objects have to provide the given property
 	 * in the form of a bean property, i.e. a getXXX method.
+	 * *************************************************************
+	 * ~$ 对给定源排序根据给定的类定义.
+	 * <p> 注意:包含的对象必须提供给定属性的形式bean属性,即一个getXXX方法.
 	 * @param source input source
 	 * @param sortDefinition the parameters to sort by
 	 * @throws IllegalArgumentException in case of a missing propertyName

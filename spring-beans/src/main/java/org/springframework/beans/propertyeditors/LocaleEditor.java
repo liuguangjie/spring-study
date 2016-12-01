@@ -26,7 +26,11 @@ import org.springframework.util.StringUtils;
  * <p>Expects the same syntax as Locale's <code>toString</code>, i.e. language +
  * optionally country + optionally variant, separated by "_" (e.g. "en", "en_US").
  * Also accepts spaces as separators, as alternative to underscores.
+ * *********************************************************************************
+ * ~$ 编辑java.util.Locale,直接填充一个Locale属性.
  *
+ * <p>预计相同的语法语言环境的toString,即语言+可选国家+可选变量,
+ *    用“_”分隔(例如“en”、“en_US”)。还接受空格作为分隔符,选择下划线.
  * @author Juergen Hoeller
  * @since 26.05.2003
  * @see java.util.Locale

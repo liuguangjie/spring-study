@@ -35,7 +35,15 @@ import java.beans.PropertyDescriptor;
  * <p>A BeanWrapper's default for the "extractOldValueForEditor" setting
  * is "false", to avoid side effects caused by getter method invocations.
  * Turn this to "true" to expose present property values to custom editors.
- *
+ * *****************************************************************************
+ * ~$ Spring's 主要的接口低级javabean的基础设施.
+ * <p>通常不是直接使用而是含蓄地通过{@link org.springframework.beans.factory.BeanFactory }
+ *    或{@link org.springframework.validation.DataBinder }.
+ * <p>提供业务分析和操作标准JavaBeans:可以获取和设置属性值(单独或散装),
+ *    得到属性描述符,和查询的可读性、可写性属性.
+ * <p>这个接口支持嵌套的属性启用的设置属性subproperties无限深度.
+ * <p>BeanWrapper的默认“extractOldValueForEditor”设置为“false”,以避免副作用引起的getter方法调用.
+ *   把这"true"公开呈现自定义编辑器的属性值.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 13 April 2001
@@ -50,12 +58,16 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 
 	/**
 	 * Return the bean instance wrapped by this object, if any.
+	 * ********************************************************
+	 * ~$ 返回这个对象的bean实例包装,如果有.
 	 * @return the bean instance, or <code>null</code> if none set
 	 */
 	Object getWrappedInstance();
 
 	/**
 	 * Return the type of the wrapped JavaBean object.
+	 * ***********************************************
+	 * ~$ 返回包装JavaBean对象的类型.
 	 * @return the type of the wrapped bean instance,
 	 * or <code>null</code> if no wrapped object has been set
 	 */
@@ -64,6 +76,8 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	/**
 	 * Obtain the PropertyDescriptors for the wrapped object
 	 * (as determined by standard JavaBeans introspection).
+	 * *****************************************************
+	 * ~$ 获得的PropertyDescriptors包装对象 (由标准JavaBeans自省).
 	 * @return the PropertyDescriptors for the wrapped object
 	 */
 	PropertyDescriptor[] getPropertyDescriptors();
@@ -71,6 +85,8 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	/**
 	 * Obtain the property descriptor for a specific property
 	 * of the wrapped object.
+	 * ******************************************************
+	 * ~$ 获得包裹的属性描述符为一个特定的属性对象.
 	 * @param propertyName the property to obtain the descriptor for
 	 * (may be a nested path, but no indexed/mapped property)
 	 * @return the property descriptor for the specified property
@@ -84,22 +100,34 @@ public interface BeanWrapper extends ConfigurablePropertyAccessor {
 	 * instead of resulting in a {@link NullValueInNestedPathException}. Turning this flag on also
 	 * enables auto-growth of collection elements when accessing an out-of-bounds index.
 	 * <p>Default is "false" on a plain BeanWrapper.
+	 * ****************************************************************************************************
+	 * ~$ 设置这个BeanWrapper是否应该试图"auto-grow"一个嵌套包含null值的路径.
+	 * <p>如果“真实的”,将填充空路径位置预设值遍历而不是导致{@link NullValueInNestedPathException }.
+	 *    把这个标志还使汽车增长的集合元素当访问一个界外指数.
+	 * <p>纯BeanWrapper默认是"false".
 	 */
 	void setAutoGrowNestedPaths(boolean autoGrowNestedPaths);
 
 	/**
 	 * Return whether "auto-growing" of nested paths has been activated.
+	 * *****************************************************************
+	 * ~$ 返回 "auto-growing" 嵌套的路径是否被激活.
 	 */
 	boolean isAutoGrowNestedPaths();
 
 	/**
 	 * Specify a limit for array and collection auto-growing.
 	 * <p>Default is unlimited on a plain BeanWrapper.
+	 * ******************************************************
+	 * ~$ 数组和集合的auto-growing指定一个限制.
+	 * <p>纯BeanWrapper默认是无限的.
 	 */
 	void setAutoGrowCollectionLimit(int autoGrowCollectionLimit);
 
 	/**
 	 * Return the limit for array and collection auto-growing.
+	 * *******************************************************
+	 * ~$ 返回数组和集合的auto-growing的限制.
 	 */
 	int getAutoGrowCollectionLimit();
 

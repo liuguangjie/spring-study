@@ -25,7 +25,10 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>Note that this is a runtime (unchecked) exception. Beans exceptions
  * are usually fatal; there is no reason for them to be checked.
+ * ***********************************************************************
+ * ~$ 抽象超类中的所有异常抛出bean包和子包.
  *
+ * <p>注意,这是一个运行时异常(不).Beans异常通常是致命的,没有理由让他们检查.
  * @author Rod Johnson
  * @author Juergen Hoeller
  */
@@ -42,6 +45,8 @@ public abstract class BeansException extends NestedRuntimeException {
 	/**
 	 * Create a new BeansException with the specified message
 	 * and root cause.
+	 * ******************************************************
+	 * ~$ 创建一个新的BeansException指定的消息和根源.
 	 * @param msg the detail message
 	 * @param cause the root cause
 	 */

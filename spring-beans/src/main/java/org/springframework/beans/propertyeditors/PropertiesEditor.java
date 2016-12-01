@@ -31,7 +31,8 @@ import java.util.Properties;
  *
  * <p>The required format is defined in the standard <code>Properties</code>
  * documentation. Each property must be on a new line.
- *
+ * ************************************************************************************
+ * ~$ 自定义{@link java.beans.PropertyEditor}{@link Properties}对象.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see Properties#load
@@ -41,6 +42,8 @@ public class PropertiesEditor extends PropertyEditorSupport {
 	/**
 	 * Convert {@link String} into {@link Properties}, considering it as
 	 * properties content.
+	 * *****************************************************************
+	 * ~$ {@link String} 转换成{@link Properties}, 考虑它作为属性内容.
 	 * @param text the text to be so converted
 	 */
 	@Override
@@ -49,10 +52,12 @@ public class PropertiesEditor extends PropertyEditorSupport {
 		if (text != null) {
 			try {
 				// Must use the ISO-8859-1 encoding because Properties.load(stream) expects it.
+				/** 必须使用iso-8859-1编码因为Properties.load(流)预计它. */
 				props.load(new ByteArrayInputStream(text.getBytes("ISO-8859-1")));
 			}
 			catch (IOException ex) {
 				// Should never happen.
+				/** 不应该发生的. */
 				throw new IllegalArgumentException(
 						"Failed to parse [" + text + "] into Properties", ex);
 			}
@@ -62,6 +67,8 @@ public class PropertiesEditor extends PropertyEditorSupport {
 
 	/**
 	 * Take {@link Properties} as-is; convert {@link Map} into <code>Properties</code>.
+	 * ********************************************************************************
+	 * ~$ 取 {@link Properties} 原属性;{@link Map} 转换成 Properties.
 	 */
 	@Override
 	public void setValue(Object value) {

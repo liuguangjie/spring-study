@@ -25,7 +25,8 @@ import java.util.Map;
  * Abstract implementation of the {@link PropertyAccessor} interface.
  * Provides base implementations of all convenience methods, with the
  * implementation of actual property access left to subclasses.
- *
+ * ******************************************************************
+ * ~$ 抽象的实现{@link PropertyAccessor }接口.为基础实现的便利方法,提供了实际的实现属性访问子类.
  * @author Juergen Hoeller
  * @since 2.0
  * @see #getPropertyValue
@@ -71,8 +72,11 @@ public abstract class AbstractPropertyAccessor extends PropertyEditorRegistrySup
 		for (PropertyValue pv : propertyValues) {
 			try {
 				// This method may throw any BeansException, which won't be caught
+				/** 这种方法可能抛出任何BeansException,不会被抓 */
 				// here, if there is a critical failure such as no matching field.
+				/** 在这里,如果有严重故障,如没有匹配的字段.*/
 				// We can attempt to deal only with less serious exceptions.
+				/** 我们可以尝试交易只有那么严重异常.*/
 				setPropertyValue(pv);
 			}
 			catch (NotWritablePropertyException ex) {
@@ -80,6 +84,7 @@ public abstract class AbstractPropertyAccessor extends PropertyEditorRegistrySup
 					throw ex;
 				}
 				// Otherwise, just ignore it and continue...
+				/** 否则,只是忽略它并继续...*/
 			}
 			catch (NullValueInNestedPathException ex) {
 				if (!ignoreInvalid) {
@@ -96,6 +101,7 @@ public abstract class AbstractPropertyAccessor extends PropertyEditorRegistrySup
 		}
 
 		// If we encountered individual exceptions, throw the composite exception.
+		/** 如果我们遇到例外,把综合异常.*/
 		if (propertyAccessExceptions != null) {
 			PropertyAccessException[] paeArray =
 					propertyAccessExceptions.toArray(new PropertyAccessException[propertyAccessExceptions.size()]);
@@ -109,6 +115,7 @@ public abstract class AbstractPropertyAccessor extends PropertyEditorRegistrySup
 
 
 	// Redefined with public visibility.
+	/**  重新定义与公共可见性.*/
 	@Override
 	public Class getPropertyType(String propertyPath) {
 		return null;
@@ -116,7 +123,10 @@ public abstract class AbstractPropertyAccessor extends PropertyEditorRegistrySup
 
 	/**
 	 * Actually get the value of a property.
+	 * *************************************
+	 * ~$ 一个属性的值.
 	 * @param propertyName name of the property to get the value of
+	 *                     ~$ 名字的property 的价值
 	 * @return the value of the property
 	 * @throws InvalidPropertyException if there is no such property or
 	 * if the property isn't readable

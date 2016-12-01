@@ -19,7 +19,8 @@ package org.springframework.beans;
 /**
  * Exception thrown on an attempt to get the value of a property
  * that isn't readable, because there's no getter method.
- *
+ * *************************************************************
+ * ~$ 异常抛出企图得到的价值属性,不读,因为没有getter方法.
  * @author Juergen Hoeller
  * @since 1.0.2
  */

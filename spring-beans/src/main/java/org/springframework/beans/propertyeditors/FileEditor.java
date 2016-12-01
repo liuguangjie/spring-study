@@ -43,7 +43,17 @@ import org.springframework.util.StringUtils;
  * then we try to locate the file using standard ResourceLoader semantics.
  * If the file was not found, then a File instance is created assuming the file
  * name refers to a relative file location.
+ * ****************************************************************************
+ * ~$ 编辑器java.io.File,直接填充文件属性从Spring资源的位置.
  *
+ * <p>支持Spring风格的URL符号:任何完全限定标准URL("file:", "http:", etc)
+ *    和Spring的特殊"classpath:"pseudo-URL.
+ *
+ * <p>注意:这个编辑器的行为改变了在Spring 2.0中.以前,它创建了一个文件从一个文件名直接实例.
+ *    Spring 2.0,需要一个标准的Spring资源位置作为输入;这是符合URLEditor InputStreamEditor现在.
+ *
+ * <p>注意:在Spring 2.5中做以下修改.如果指定一个文件名没有URL前缀或没有一个绝对路径然后我们试图找到文件使用标准ResourceLoader语义.
+ *    如果文件不存在,则创建一个文件实例假设文件名称指的是一个相对的文件位置.
  * @author Juergen Hoeller
  * @author Thomas Risberg
  * @since 09.12.2003
@@ -61,6 +71,8 @@ public class FileEditor extends PropertyEditorSupport {
 	/**
 	 * Create a new FileEditor,
 	 * using the default ResourceEditor underneath.
+	 * ********************************************
+	 * ~$ 创建一个新的FileEditor,使用默认ResourceEditor下面.
 	 */
 	public FileEditor() {
 		this.resourceEditor = new ResourceEditor();
@@ -85,7 +97,9 @@ public class FileEditor extends PropertyEditorSupport {
 		}
 
 		// Check whether we got an absolute file path without "file:" prefix.
+		/** 检查是否我们绝对没有"file:"前缀的文件路径. */
 		// For backwards compatibility, we'll consider those as straight file path.
+		/** 对于向后兼容性,我们将认为这些文件路径. */
 		if (!ResourceUtils.isUrl(text)) {
 			File file = new File(text);
 			if (file.isAbsolute()) {
@@ -95,10 +109,12 @@ public class FileEditor extends PropertyEditorSupport {
 		}
 
 		// Proceed with standard resource location parsing.
+		/** 进行标准的资源位置的解析. */
 		this.resourceEditor.setAsText(text);
 		Resource resource = (Resource) this.resourceEditor.getValue();
 
 		// If it's a URL or a path pointing to an existing resource, use it as-is.
+		/** 如果它是一个URL或路径指向现有资源,按原样使用它. */
 		if (ResourceUtils.isUrl(text) || resource.exists()) {
 			try {
 				setValue(resource.getFile());
@@ -110,6 +126,7 @@ public class FileEditor extends PropertyEditorSupport {
 		}
 		else {
 			// Create a relative File reference and hope for the best.
+			/** 创建一个相对文件参考,希望最好的.*/
 			setValue(new File(text));
 		}
 	}

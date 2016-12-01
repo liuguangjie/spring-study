@@ -22,7 +22,8 @@ import java.util.TimeZone;
 /**
  * Editor for <code>java.util.TimeZone</code>, translating timezone IDs into
  * TimeZone objects. Does not expose a text representation for TimeZone objects.
- *
+ * ****************************************************************************
+ * ~$ 编辑java.util.TimeZone,时区标识翻译成时区对象.不公开时区对象的文本表示.
  * @author Juergen Hoeller
  * @since 3.0
  * @see TimeZone
@@ -37,6 +38,8 @@ public class TimeZoneEditor extends PropertyEditorSupport {
 	/**
 	 * This implementation returns <code>null</code> to indicate that
 	 * there is no appropriate text representation.
+	 * **************************************************************
+	 * ~$ 这个实现返回null,表明没有适当的文本表示.
 	 */
 	@Override
 	public String getAsText() {

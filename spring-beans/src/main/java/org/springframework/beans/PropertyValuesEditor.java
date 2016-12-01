@@ -30,7 +30,11 @@ import org.springframework.beans.propertyeditors.PropertiesEditor;
  * <p>The present implementation relies on a
  * {@link PropertiesEditor}
  * underneath.
+ * *****************************************************************************
+ * ~$
+ * <p> 所需的格式是{@link Properties} 中定义的文档.每个属性都必须在一个新行.
  *
+ * <p> 目前的实现依赖于{@link PropertiesEditor }.
  * @author Rod Johnson
  * @author Juergen Hoeller
  */

@@ -19,7 +19,8 @@ package org.springframework.beans;
 /**
  * Exception thrown on an attempt to set the value of a property that
  * is not writable (typically because there is no setter method).
- *
+ * ******************************************************************
+ * ~$ 异常抛出一个试图设置的价值属性,不是可写(通常因为没有setter方法).
  * @author Rod Johnson
  * @author Alef Arendsen
  * @author Arjen Poutsma
@@ -78,6 +79,8 @@ public class NotWritablePropertyException extends InvalidPropertyException {
 	/**
 	 * Return suggestions for actual bean property names that closely match
 	 * the invalid property name, if any.
+	 * *********************************************************************
+	 * ~$ 返回实际建议密切匹配的bean属性名称无效的属性名,如果有.
 	 */
 	public String[] getPossibleMatches() {
 		return this.possibleMatches;

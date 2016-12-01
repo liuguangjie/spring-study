@@ -22,7 +22,9 @@ import java.util.regex.Pattern;
 /**
  * Editor for <code>java.util.regex.Pattern</code>, to directly populate a Pattern property.
  * Expects the same syntax as Pattern's <code>compile</code> method.
- *
+ * *****************************************************************************************
+ * ~$ 预计相同的语法语言环境的toString,即语言+可选国家+可选变量,
+ *    用“_”分隔(例如“en”、“en_US”).还接受空格作为分隔符,选择下划线.
  * @author Juergen Hoeller
  * @since 2.0.1
  * @see Pattern
@@ -35,6 +37,8 @@ public class PatternEditor extends PropertyEditorSupport {
 
 	/**
 	 * Create a new PatternEditor with default settings.
+	 * *************************************************
+	 * ~$ 创建一个新的PatternEditor默认设置.
 	 */
 	public PatternEditor() {
 		this.flags = 0;

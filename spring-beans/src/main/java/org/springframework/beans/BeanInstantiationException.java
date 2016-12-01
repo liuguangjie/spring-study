@@ -19,7 +19,8 @@ package org.springframework.beans;
 /**
  * Exception thrown when instantiation of a bean failed.
  * Carries the offending bean class.
- *
+ * *****************************************************
+ * ~$ 异常时抛出的实例化bean失败了.携带的bean类.
  * @author Juergen Hoeller
  * @since 1.2.8
  */
@@ -50,6 +51,8 @@ public class BeanInstantiationException extends FatalBeanException {
 
 	/**
 	 * Return the offending bean class.
+	 * ********************************
+	 * ~$ 返回的bean类.
 	 */
 	public Class getBeanClass() {
 		return beanClass;

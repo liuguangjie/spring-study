@@ -51,7 +51,11 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  * creation within an {@link org.springframework.context.ApplicationContext})
  * with resource editors. Used by
  * {@link org.springframework.context.support.AbstractApplicationContext}.
- *
+ * **************************************************************************
+ * ~$ PropertyEditorRegistrar实现填充给定{@link PropertyEditorRegistry }
+ *    (通常是{ @link org.springframework.beans。BeanWrapper }用于bean创建在一个
+ *    {@link org.springframework.context.ApplicationContext })与资源编辑器.
+ *    使用{@link org.springframework.context.support.AbstractApplicationContext }.
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 2.0
@@ -66,6 +70,8 @@ public class ResourceEditorRegistrar implements PropertyEditorRegistrar {
 	/**
 	 * Create a new ResourceEditorRegistrar for the given {@link ResourceLoader}
 	 * using a {@link StandardEnvironment}.
+	 * *************************************************************************
+	 * ~$ 创建一个新的ResourceEditorRegistrar给定{@link ResourceLoader }使用{@link StandardEnvironment }.
 	 * @param resourceLoader the ResourceLoader (or ResourcePatternResolver)
 	 * to create editors for (usually an ApplicationContext)
 	 * @see ResourcePatternResolver
@@ -80,6 +86,8 @@ public class ResourceEditorRegistrar implements PropertyEditorRegistrar {
 
 	/**
 	 * Create a new ResourceEditorRegistrar for the given ResourceLoader
+	 * *****************************************************************
+	 * ~$ 创建一个新的给定ResourceLoader ResourceEditorRegistrar
 	 * @param resourceLoader the ResourceLoader (or ResourcePatternResolver)
 	 * to create editors for (usually an ApplicationContext)
 	 * @see ResourcePatternResolver
@@ -97,6 +105,9 @@ public class ResourceEditorRegistrar implements PropertyEditorRegistrar {
 	 * URIEditor, ClassEditor, ClassArrayEditor.
 	 * <p>If this registrar has been configured with a {@link ResourcePatternResolver},
 	 * a ResourceArrayPropertyEditor will be registered as well.
+	 * *******************************************************************************
+	 * ~$ 给定的注册表填充下面的资源编辑器:ResourceEditor,InputStreamEditor,InputSourceEditor,FileEditor,URLEditor,URIEditor,ClassEditor ClassArrayEditor.
+	 * <p>如果这个注册已经配置了一个{@link ResourcePatternResolver },ResourceArrayPropertyEditor将注册.
 	 * @see ResourceEditor
 	 * @see InputStreamEditor
 	 * @see InputSourceEditor
@@ -130,6 +141,8 @@ public class ResourceEditorRegistrar implements PropertyEditorRegistrar {
 	/**
 	 * Override default editor, if possible (since that's what we really mean to do here);
 	 * otherwise register as a custom editor.
+	 * ***********************************************************************************
+	 * ~$ 覆盖默认编辑器,如果可能的话(因为这是我们真正的意思);否则注册为一个自定义编辑器.
 	 */
 	private void doRegisterEditor(PropertyEditorRegistry registry, Class<?> requiredType, PropertyEditor editor) {
 		if (registry instanceof PropertyEditorRegistrySupport) {

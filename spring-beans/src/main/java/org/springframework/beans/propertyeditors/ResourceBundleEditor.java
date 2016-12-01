@@ -66,7 +66,15 @@ import java.util.ResourceBundle;
  * <b>not</b> registered by default with any of the Spring infrastructure.
  * 
  * <p>Thanks to David Leal Valmana for the suggestion and initial prototype.
+ * *******************************************************************************************************
+ * ~$ {@link java.beans.PropertyEditor }实现{@link ResourceBundle ResourceBundle}.
  *
+ * <p>只支持转换从一个字符串,而不是一个字符串.
+ *
+ *    找到下面的一些例子中使用这个类(正确配置)Spring容器使用基于xml的元数据:
+ *
+ * <p>一个正确配置的Spring{@link org.springframework.context.ApplicationContext container}
+ *    可能包含一个{@link org.springframework.beans.factory.config.CustomEditorConfigurer }定义的转换可以透明的影响:
  * @author Rick Evans
  * @since 2.0
  */
@@ -75,6 +83,8 @@ public class ResourceBundleEditor extends PropertyEditorSupport {
 	/**
 	 * The separator used to distinguish between the base name and the
 	 * locale (if any) when {@link #setAsText(String) converting from a String}.
+	 * *************************************************************************
+	 * ~$ 分离器用于区分基本名称和地区(如果有的话)当{@link #setAsText(String) converting from a String}.
 	 */
 	public static final String BASE_NAME_SEPARATOR = "_";
 
@@ -89,6 +99,7 @@ public class ResourceBundleEditor extends PropertyEditorSupport {
 			bundle = ResourceBundle.getBundle(rawBaseName);
 		} else {
 			// it potentially has locale information
+			/** 它可能有语言环境信息. */
 			String baseName = rawBaseName.substring(0, indexOfBaseNameSeparator);
 			if (!StringUtils.hasText(baseName)) {
 				throw new IllegalArgumentException("Bad ResourceBundle name : received '" + text + "' as argument to 'setAsText(String value)'.");

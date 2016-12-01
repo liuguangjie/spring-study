@@ -24,7 +24,8 @@ import org.springframework.core.convert.ConversionService;
  * for PropertyEditor management.
  *
  * <p>Serves as base interface for {@link BeanWrapper}.
- *
+ * *************************************************************************
+ * ~$ PropertyAccessor接口,封装配置方法.也扩展了PropertyEditorRegistry接口,定义了PropertyEditor管理方法.
  * @author Juergen Hoeller
  * @since 2.0
  * @see BeanWrapper
@@ -34,23 +35,31 @@ public interface ConfigurablePropertyAccessor extends PropertyAccessor, Property
 	/**
 	 * Specify a Spring 3.0 ConversionService to use for converting
 	 * property values, as an alternative to JavaBeans PropertyEditors.
+	 * ***************************************************************
+	 * ~$ 指定一个Spring 3.0 ConversionService用于转换属性值,作为一个javabean PropertyEditors的替代品.
 	 */
 	void setConversionService(ConversionService conversionService);
 
 	/**
 	 * Return the associated ConversionService, if any.
+	 * ************************************************
+	 * ~$ 返回相关ConversionService,如果有.
 	 */
 	ConversionService getConversionService();
 
 	/**
 	 * Set whether to extract the old property value when applying a
 	 * property editor to a new value for a property.
+	 * *************************************************************
+	 * ~$ 设置是否提取旧属性值在应用属性编辑器,一个属性的新值.
 	 */
 	void setExtractOldValueForEditor(boolean extractOldValueForEditor);
 
 	/**
 	 * Return whether to extract the old property value when applying a
 	 * property editor to a new value for a property.
+	 * ****************************************************************
+	 * ~$ 返回是否提取旧属性值在应用属性编辑器,一个属性的新值.
 	 */
 	boolean isExtractOldValueForEditor();
 

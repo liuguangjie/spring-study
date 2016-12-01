@@ -32,7 +32,8 @@ import org.springframework.util.Assert;
  * ("file:", "http:", etc) and Spring's special "classpath:" pseudo-URL.
  *
  * <p>Note that in the default usage, the stream is not closed by Spring itself!
- *
+ * *****************************************************************************
+ * ~$ 单向PropertyEditor可以从一个文本字符串转换为一个java.InputStream,解释给定字符串作为Spring资源位置(如URL字符串).
  * @author Juergen Hoeller
  * @since 1.0.1
  * @see java.io.InputStream
@@ -57,6 +58,8 @@ public class InputStreamEditor extends PropertyEditorSupport {
 	/**
 	 * Create a new InputStreamEditor,
 	 * using the given ResourceEditor underneath.
+	 * ******************************************
+	 * ~$ 创建一个新的InputStreamEditor,使用给定的ResourceEditor下面.
 	 * @param resourceEditor the ResourceEditor to use
 	 */
 	public InputStreamEditor(ResourceEditor resourceEditor) {
@@ -81,6 +84,8 @@ public class InputStreamEditor extends PropertyEditorSupport {
 	/**
 	 * This implementation returns <code>null</code> to indicate that
 	 * there is no appropriate text representation.
+	 * **************************************************************
+	 * ~$ 这个实现返回null,表明没有适当的文本表示.
 	 */
 	@Override
 	public String getAsText() {

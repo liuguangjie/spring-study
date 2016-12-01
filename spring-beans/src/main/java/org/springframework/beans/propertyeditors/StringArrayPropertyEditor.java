@@ -26,7 +26,10 @@ import org.springframework.util.StringUtils;
  *
  * <p>Strings must be in CSV format, with a customizable separator.
  * By default values in the result are trimmed of whitespace.
+ * ****************************************************************
+ * ~$ 自定义{@link java.beans.PropertyEditor }字符串数组.
  *
+ * <p>在CSV格式字符串必须,一个可定制的分隔符.默认值的结果是空白的修剪.
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Dave Syer
@@ -37,6 +40,8 @@ public class StringArrayPropertyEditor extends PropertyEditorSupport {
 
 	/**
 	 * Default separator for splitting a String: a comma (",")
+	 * *******************************************************
+	 * ~$ 默认为分割字符串分隔符:一个逗号(",")
 	 */
 	public static final String DEFAULT_SEPARATOR = ",";
 
@@ -54,6 +59,9 @@ public class StringArrayPropertyEditor extends PropertyEditorSupport {
 	 * Create a new StringArrayPropertyEditor with the default separator
 	 * (a comma).
 	 * <p>An empty text (without elements) will be turned into an empty array.
+	 * ***********************************************************************
+	 * ~$ 创建一个新的StringArrayPropertyEditor用默认的分隔符(a comma).
+	 * <p>一个空的文本(没有元素)将变成一个空数组.
 	 */
 	public StringArrayPropertyEditor() {
 		this(DEFAULT_SEPARATOR, null, false);
@@ -62,6 +70,9 @@ public class StringArrayPropertyEditor extends PropertyEditorSupport {
 	/**
 	 * Create a new StringArrayPropertyEditor with the given separator.
 	 * <p>An empty text (without elements) will be turned into an empty array.
+	 * ***********************************************************************
+	 * ~$ 创建一个新的StringArrayPropertyEditor用给定的分隔符.
+	 * <p> 一个空的文本(没有元素)将变成一个空数组.
 	 * @param separator the separator to use for splitting a {@link String}
 	 */
 	public StringArrayPropertyEditor(String separator) {
@@ -70,6 +81,8 @@ public class StringArrayPropertyEditor extends PropertyEditorSupport {
 
 	/**
 	 * Create a new StringArrayPropertyEditor with the given separator.
+	 * ****************************************************************
+	 * ~$ 创建一个新的StringArrayPropertyEditor用给定的分隔符.
 	 * @param separator the separator to use for splitting a {@link String}
 	 * @param emptyArrayAsNull <code>true</code> if an empty String array
 	 * is to be transformed into <code>null</code>

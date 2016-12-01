@@ -35,7 +35,14 @@ import org.springframework.util.Assert;
  * <p>Note: A URL must specify a valid protocol, else it will be rejected
  * upfront. However, the target resource does not necessarily have to exist
  * at the time of URL creation; this depends on the specific resource type.
+ * *************************************************************************
+ * ~$ 编辑java.net.URL,直接填充一个URL属性而不是使用一个字符串属性作为桥梁.
  *
+ * <p>支持Spring风格的URL符号:任何完全限定标准URL("file:", "http:",等)
+ *    和Spring的特殊"classpath:" pseudo-URL以及Spring上下文特定的相对文件路径.
+ *
+ * <p>注意:一个URL必须指定一个有效的协议,否则它将被拒绝的前期.
+ *    然而,目标资源并不一定存在的URL创建;这取决于特定的资源类型.
  * @author Juergen Hoeller
  * @since 15.12.2003
  * @see URL
@@ -51,6 +58,8 @@ public class URLEditor extends PropertyEditorSupport {
 
 	/**
 	 * Create a new URLEditor, using the default ResourceEditor underneath.
+	 * ********************************************************************
+	 * ~$ 创建一个新的URLEditor,使用默认ResourceEditor下面.
 	 */
 	public URLEditor() {
 		this.resourceEditor = new ResourceEditor();
@@ -58,6 +67,8 @@ public class URLEditor extends PropertyEditorSupport {
 
 	/**
 	 * Create a new URLEditor, using the given ResourceEditor underneath.
+	 * ******************************************************************
+	 * ~$ 创建一个新的URLEditor,使用给定的ResourceEditor下面.
 	 * @param resourceEditor the ResourceEditor to use
 	 */
 	public URLEditor(ResourceEditor resourceEditor) {

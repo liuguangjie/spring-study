@@ -20,7 +20,9 @@ package org.springframework.beans;
  * Simple factory facade for obtaining {@link PropertyAccessor} instances,
  * in particular for {@link BeanWrapper} instances. Conceals the actual
  * target implementation classes and their extended public signature.
- *
+ * ***********************************************************************
+ * ~$ 简单工厂外观获得{@link PropertyAccessor }实例,
+ *    尤其是{@link BeanWrapper }实例.隐瞒实际的目标实现类及其扩展公共签名.
  * @author Juergen Hoeller
  * @since 2.5.2
  */
@@ -29,6 +31,8 @@ public abstract class PropertyAccessorFactory {
 	/**
 	 * Obtain a BeanWrapper for the given target object,
 	 * accessing properties in JavaBeans style.
+	 * ************************************************
+	 * ~$ 获得BeanWrapper给定目标对象,访问javabean属性风格.
 	 * @param target the target object to wrap
 	 * @return the property accessor
 	 * @see BeanWrapperImpl
@@ -40,6 +44,8 @@ public abstract class PropertyAccessorFactory {
 	/**
 	 * Obtain a PropertyAccessor for the given target object,
 	 * accessing properties in direct field style.
+	 * ******************************************************
+	 * ~$ 获得PropertyAccessor给定目标对象,直接字段访问属性风格.
 	 * @param target the target object to wrap
 	 * @return the property accessor
 	 * @see DirectFieldAccessor

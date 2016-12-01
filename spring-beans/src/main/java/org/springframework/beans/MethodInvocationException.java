@@ -21,13 +21,16 @@ import java.beans.PropertyChangeEvent;
 /**
  * Thrown when a bean property getter or setter method throws an exception,
  * analogous to an InvocationTargetException.
- *
+ * ***********************************************************************
+ * ~$ 时抛出一个bean属性的getter或setter方法将抛出一个异常,类似于一个InvocationTargetException.
  * @author Rod Johnson
  */
 public class MethodInvocationException extends PropertyAccessException {
 
 	/**
 	 * Error code that a method invocation error will be registered with.
+	 * ******************************************************************
+	 * ~$ 错误代码,一个方法调用的错误将被注册.
 	 */
 	public static final String ERROR_CODE = "methodInvocation";
 	

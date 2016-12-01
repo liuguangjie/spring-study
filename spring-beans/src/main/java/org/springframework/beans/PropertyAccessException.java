@@ -23,7 +23,8 @@ import org.springframework.core.ErrorCoded;
 /**
  * Superclass for exceptions related to a property access,
  * such as type mismatch or invocation target exception.
- *
+ * *******************************************************
+ * ~$ 超类与属性相关的异常访问,如类型不匹配或调用目标例外.
  * @author Rod Johnson
  * @author Juergen Hoeller
  */
@@ -45,6 +46,8 @@ public abstract class PropertyAccessException extends BeansException implements 
 
 	/**
 	 * Create a new PropertyAccessException without PropertyChangeEvent.
+	 * *****************************************************************
+	 * ~$ 创建一个新的没有PropertyChangeEvent PropertyAccessException.
 	 * @param msg the detail message
 	 * @param cause the root cause
 	 */
@@ -57,6 +60,8 @@ public abstract class PropertyAccessException extends BeansException implements 
 	 * Return the PropertyChangeEvent that resulted in the problem.
 	 * <p>May be <code>null</code>; only available if an actual bean property
 	 * was affected.
+	 * **********************************************************************
+	 * ~$ 返回PropertyChangeEvent导致这个问题.可能是null;只有一个实际的bean属性是否受到影响.
 	 */
 	public PropertyChangeEvent getPropertyChangeEvent() {
 		return this.propertyChangeEvent;
@@ -64,6 +69,8 @@ public abstract class PropertyAccessException extends BeansException implements 
 
 	/**
 	 * Return the name of the affected property, if available.
+	 * *******************************************************
+	 * ~$ 返回受影响的属性名,如果可用.
 	 */
 	public String getPropertyName() {
 		return (this.propertyChangeEvent != null ? this.propertyChangeEvent.getPropertyName() : null);
@@ -71,6 +78,8 @@ public abstract class PropertyAccessException extends BeansException implements 
 
 	/**
 	 * Return the affected value that was about to be set, if any.
+	 * ***********************************************************
+	 * ~$ 返回值大约是设置的影响,如果有的话.
 	 */
 	public Object getValue() {
 		return (this.propertyChangeEvent != null ? this.propertyChangeEvent.getNewValue() : null);

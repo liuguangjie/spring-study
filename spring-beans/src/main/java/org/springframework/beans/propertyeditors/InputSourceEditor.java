@@ -31,7 +31,11 @@ import org.springframework.util.Assert;
  *
  * <p>Supports Spring-style URL notation: any fully qualified standard URL
  * ("file:", "http:", etc) and Spring's special "classpath:" pseudo-URL.
+ * ***********************************************************************
+ * ~$ 编辑org.xml.sax.InputSource,将从一个Spring资源位置字符串转换为一个SAX InputSource对象.
  *
+ * <p>支持Spring风格的URL符号:任何完全限定标准URL("file:", "http:", etc)
+ *    和Spring的特殊"classpath:"pseudo-URL.
  * @author Juergen Hoeller
  * @since 3.0.3
  * @see InputSource

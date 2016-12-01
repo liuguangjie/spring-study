@@ -27,7 +27,8 @@ import org.springframework.util.StringUtils;
 /**
  * Helper class for calculating bean property matches, according to.
  * Used by BeanWrapperImpl to suggest alternatives for an invalid property name.
- *
+ * ****************************************************************************
+ * ~$ 辅助类计算bean属性匹配,根据.BeanWrapperImpl建议使用的方法无效的属性名.
  * @author Alef Arendsen
  * @author Arjen Poutsma
  * @author Juergen Hoeller
@@ -39,13 +40,17 @@ final class PropertyMatches {
 	//---------------------------------------------------------------------
 	// Static section
 	//---------------------------------------------------------------------
+	/** 静态部分*/
 
 	/** Default maximum property distance: 2 */
+	/** 默认最大属性间隔:2 */
 	public static final int DEFAULT_MAX_DISTANCE = 2;
 
 
 	/**
 	 * Create PropertyMatches for the given bean property.
+	 * ***************************************************
+	 * ~$ 为给定的bean创建PropertyMatches  property.
 	 * @param propertyName the name of the property to find possible matches for
 	 * @param beanClass the bean class to search for matches
 	 */
@@ -67,7 +72,7 @@ final class PropertyMatches {
 	//---------------------------------------------------------------------
 	// Instance section
 	//---------------------------------------------------------------------
-
+	/** 实例部分 */
 	private final String propertyName;
 
 	private String[] possibleMatches;
@@ -75,6 +80,8 @@ final class PropertyMatches {
 
 	/**
 	 * Create a new PropertyMatches instance for the given property.
+	 * *************************************************************
+	 * ~$ 创建一个新的PropertyMatches实例为给定的属性.
 	 */
 	private PropertyMatches(String propertyName, Class beanClass, int maxDistance) {
 		this.propertyName = propertyName;
@@ -84,6 +91,8 @@ final class PropertyMatches {
 
 	/**
 	 * Return the calculated possible matches.
+	 * ***************************************
+	 * ~$ 返回计算可能的匹配.
 	 */
 	public String[] getPossibleMatches() {
 		return possibleMatches;
@@ -92,6 +101,8 @@ final class PropertyMatches {
 	/**
 	 * Build an error message for the given invalid property name,
 	 * indicating the possible property matches.
+	 * ***********************************************************
+	 * ~$ 建立一个给定无效的属性名,错误消息指示可能的属性匹配.
 	 */
 	public String buildErrorMessage() {
 		StringBuilder msg = new StringBuilder();
@@ -125,6 +136,9 @@ final class PropertyMatches {
 	 * class. Internally uses the <code>getStringDistance</code> method, which
 	 * in turn uses the Levenshtein algorithm to determine the distance between
 	 * two Strings.
+	 * ************************************************************************
+	 * ~$ 产生可能的属性选择给定属性和类.在内部使用getStringDistance方法,
+	 *    进而使用Levenshtein算法来确定两个字符串之间的距离.
 	 * @param propertyDescriptors the JavaBeans property descriptors to search
 	 * @param maxDistance the maximum distance to accept
 	 */
@@ -145,6 +159,8 @@ final class PropertyMatches {
 	/**
 	 * Calculate the distance between the given two Strings
 	 * according to the Levenshtein algorithm.
+	 * ****************************************************
+	 * ~$ 计算给定的两个字符串之间的距离根据Levenshtein算法.
 	 * @param s1 the first String
 	 * @param s2 the second String
 	 * @return the distance value

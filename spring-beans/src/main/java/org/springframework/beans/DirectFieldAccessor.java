@@ -37,7 +37,12 @@ import org.springframework.util.ReflectionUtils;
  *
  * <p>A DirectFieldAccessor's default for the "extractOldValueForEditor" setting
  * is "true", since a field can always be read without side effects.
+ * ******************************************************************************
+ * ~$ {@link PropertyAccessor }实现直接访问实例字段.允许直接绑定到字段而不是通过JavaBean setter.
  *
+ * <p>这个实现只支持领域实际的目标对象.这是嵌套无法遍历字段.
+ *
+ * <p>DirectFieldAccessor的默认"extractOldValueForEditor"设置为"true",由于一个字段总是可以读没有副作用.
  * @author Juergen Hoeller
  * @since 2.0
  * @see #setExtractOldValueForEditor
@@ -56,6 +61,8 @@ public class DirectFieldAccessor extends AbstractPropertyAccessor {
 
 	/**
 	 * Create a new DirectFieldAccessor for the given target object.
+	 * *************************************************************
+	 * ~$ 创建一个新的DirectFieldAccessor给定目标对象.
 	 * @param target the target object to access
 	 */
 	public DirectFieldAccessor(final Object target) {
@@ -65,6 +72,7 @@ public class DirectFieldAccessor extends AbstractPropertyAccessor {
 			public void doWith(Field field) {
 				if (fieldMap.containsKey(field.getName())) {
 					// ignore superclass declarations of fields already found in a subclass
+					/** 忽略超类字段的声明已经发现在子类中 */
 				} else {
 					fieldMap.put(field.getName(), field);
 				}

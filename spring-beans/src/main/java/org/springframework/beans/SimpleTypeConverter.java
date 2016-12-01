@@ -24,7 +24,9 @@ import org.springframework.core.convert.ConverterNotFoundException;
  * Simple implementation of the TypeConverter interface that does not operate
  * on any specific target object. This is an alternative to using a full-blown
  * BeanWrapperImpl instance for arbitrary type conversion needs.
- *
+ * ***************************************************************************
+ * ~$ TypeConverter接口的简单实现,不使用任何特定的目标对象.
+ *    这是一个替代使用全面BeanWrapperImpl实例为任意类型转换的需要.
  * @author Juergen Hoeller
  * @since 2.0
  * @see BeanWrapperImpl
