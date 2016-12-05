@@ -35,7 +35,10 @@ import org.springframework.util.ClassUtils;
  *
  * <p>Subclasses need to implement the template method
  * {@link #findLabeledEnums(Class)}.
+ * ********************************************************************
+ * ~$ 抽象基类{@link LabeledEnumResolver }实现,缓存所有检索{@link LabeledEnum }实例.
  *
+ * <p>子类必须实现模板方法{@link #findLabeledEnums(Class)}.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 1.2.2
@@ -89,6 +92,8 @@ public abstract class AbstractCachingLabeledEnumResolver implements LabeledEnumR
 	/**
 	 * Template method to be implemented by subclasses.
 	 * Supposed to find all LabeledEnum instances for the given type.
+	 * **************************************************************
+	 * ~$ 模板方法被子类实现.应该找到所有LabeledEnum给定类型的实例.
 	 * @param type the enum type
 	 * @return the Set of LabeledEnum instances
 	 * @see LabeledEnum

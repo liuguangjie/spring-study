@@ -18,7 +18,8 @@ package org.springframework.core.convert.converter;
 
 /**
  * For registering converters with a type conversion system.
- *
+ * *********************************************************
+ * ~$ 注册转换器类型转换系统.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 3.0
@@ -28,6 +29,8 @@ public interface ConverterRegistry {
 	/**
 	 * Add a plain converter to this registry.
 	 * The convertible sourceType/targetType pair is derived from the Converter's parameterized types.
+	 * ***********************************************************************************************
+	 * ~$ 这个注册表添加一个简单的转换.可转换sourceType / targetType对来源于转换器的参数化类型.
 	 * @throws IllegalArgumentException if the parameterized types could not be resolved
 	 */
 	void addConverter(Converter<?, ?> converter);
@@ -36,24 +39,35 @@ public interface ConverterRegistry {
 	 * Add a plain converter to this registry.
 	 * The convertible sourceType/targetType pair is specified explicitly.
 	 * Allows for a Converter to be reused for multiple distinct pairs without having to create a Converter class for each pair.
+	 * *************************************************************************************************************************
+	 * ~$ 这个注册表添加一个简单的转换.
+	 *    可转换sourceType / targetType对显式地指定.
+	 *    允许转换为多个不同的对不被重用为每一对创建一个转换类.
 	 * @since 3.1
 	 */
 	void addConverter(Class<?> sourceType, Class<?> targetType, Converter<?, ?> converter);
 
 	/**
 	 * Add a generic converter to this registry.
+	 * *****************************************
+	 * ~$ 这个注册表添加一个通用的转换器.
 	 */
 	void addConverter(GenericConverter converter);
 	
 	/**
 	 * Add a ranged converter factory to this registry.
 	 * The convertible sourceType/rangeType pair is derived from the ConverterFactory's parameterized types.
+	 * *****************************************************************************************************
+	 * ~$ 这个注册表添加一个远程变频器的工厂.
+	 *    可转换sourceType / rangeType对来源于ConverterFactory参数化的类型.
 	 * @throws IllegalArgumentException if the parameterized types could not be resolved. 
 	 */
 	void addConverterFactory(ConverterFactory<?, ?> converterFactory);
 
 	/**
 	 * Remove any converters from sourceType to targetType.
+	 * ****************************************************
+	 * ~$ 删除任何转换器sourceType targetType.
 	 * @param sourceType the source type
 	 * @param targetType the target type
 	 */

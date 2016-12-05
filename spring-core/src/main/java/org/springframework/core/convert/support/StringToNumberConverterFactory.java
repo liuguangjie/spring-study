@@ -25,7 +25,10 @@ import org.springframework.util.NumberUtils;
  *
  * <p>Support Number classes including Byte, Short, Integer, Float, Double, Long, BigInteger, BigDecimal. This class
  * delegates to {@link NumberUtils#parseNumber(String, Class)} to perform the conversion.
- *
+ * **************************************************************
+ * ~$ 从一个字符串转换为任何JDK-standard数字实现.
+ * <p>支持类包括Byte, Short, Integer, Float, Double, Long, BigInteger, BigDecimal.
+ *    这个类代表{@link NumberUtils#parseNumber(String, Class)} 来执行转换.
  * @author Keith Donald
  * @since 3.0
  * @see Byte

@@ -32,7 +32,11 @@ import org.springframework.core.convert.converter.ConditionalGenericConverter;
  * size of the source Collection. Then copies each element in the source collection to the
  * target collection. Will perform an element conversion from the source collection's
  * parameterized type to the target collection's parameterized type if necessary.
+ * ***************************************************************************************
+ * ~$ 从一组转换到另一个集合中.
  *
+ * <p> 首先,创建一个新的请求的集合targetType大小等于源集合的大小.然后将源集合中的每个元素复制到目标集合.
+ *     将执行一个元素从源集合的参数化类型转换目标集合的参数化类型,如果必要的.
  * @author Keith Donald
  * @since 3.0
  */

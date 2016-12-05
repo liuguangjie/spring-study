@@ -27,7 +27,8 @@ import org.springframework.util.Assert;
  * {@link LabeledEnumResolver} that resolves statically defined enumerations.
  * Static implies all enum instances were defined within Java code,
  * implementing the type-safe enum pattern.
- *
+ * **************************************************************************
+ * ~$ {@link LabeledEnumResolver }解决静态定义的枚举.静态意味着所有枚举实例被定义在Java代码中,实现类型安全的枚举模式.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 1.2.2

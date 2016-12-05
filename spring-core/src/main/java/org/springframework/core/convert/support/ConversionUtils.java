@@ -23,7 +23,8 @@ import org.springframework.core.convert.converter.GenericConverter;
 
 /**
  * Internal utilities for the conversion package.
- *
+ * **********************************************
+ * ~$ 内部设施的转换方案.
  * @author Keith Donald
  * @since 3.0
  */

@@ -25,7 +25,8 @@ import org.springframework.core.convert.converter.Converter;
 /**
  * Converts from a Properties to a String by calling {@link Properties#store(java.io.OutputStream, String)}.
  * Decodes with the ISO-8859-1 charset before returning the String.
- *
+ * *****************************************************************
+ * ~$ 将从一个属性转换为字符串通过调用 {@link Properties#store(java.io.OutputStream, String)}.
  * @author Keith Donald
  * @since 3.0
  */

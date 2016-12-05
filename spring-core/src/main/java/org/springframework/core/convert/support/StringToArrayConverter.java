@@ -28,7 +28,9 @@ import org.springframework.util.StringUtils;
 /**
  * Converts a comma-delimited String to an Array.
  * Only matches if String.class can be converted to the target array element type.
- * 
+ * *******************************************************************************
+ * ~$ 将一个用逗号分隔的字符串转换为一个数组.
+ * 只有匹配字符串.类可以被转换成目标数组元素类型.
  * @author Keith Donald
  * @since 3.0
  */

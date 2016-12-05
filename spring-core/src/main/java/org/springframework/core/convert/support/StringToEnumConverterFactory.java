@@ -21,7 +21,8 @@ import org.springframework.core.convert.converter.ConverterFactory;
 
 /**
  * Converts from a String to a java.lang.Enum by calling {@link Enum#valueOf(Class, String)}.
- *
+ * ******************************************************************************************
+ * ~$ 从一个字符串转换为一个java.lang.Enum 通过调用{@link Enum#valueOf(Class, String)}.
  * @author Keith Donald
  * @since 3.0
  */

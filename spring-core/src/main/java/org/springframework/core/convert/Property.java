@@ -34,7 +34,11 @@ import org.springframework.util.StringUtils;
  *
  * <p>Used to build a TypeDescriptor from a property location.
  * The built TypeDescriptor can then be used to convert from/to the property type.
+ * *******************************************************************************
+ * ~$ 一个javabean属性的描述,使我们能够避免依赖java.beans.PropertyDescriptor.
+ *    java.bean包不可用在许多环境中(例如安卓,Java ME),这是Spring的理想的可移植性的核心转换设备.
  *
+ * <p>用于构建TypeDescriptor从一个属性的位置.构建TypeDescriptor可以用来转换从/到属性类型.
  * @author Keith Donald
  * @since 3.1
  * @see TypeDescriptor#TypeDescriptor(Property)
@@ -67,6 +71,8 @@ public final class Property {
 
 	/**
 	 * The object declaring this property, either directly or in a superclass the object extends.
+	 * *********************************************************************
+	 * ~$ 对象声明这个属性,直接或在一个超类对象扩展.
 	 */
 	public Class<?> getObjectType() {
 		return this.objectType;
@@ -74,6 +80,8 @@ public final class Property {
 
 	/**
 	 * The name of the property: e.g. 'foo'
+	 * ************************************
+	 * ~$ 属性的名称:例如“foo”
 	 */
 	public String getName() {
 		return this.name;
@@ -81,6 +89,8 @@ public final class Property {
 
 	/**
 	 * The property type: e.g. <code>java.lang.String</code>
+	 * *****************************************************
+	 * ~$ 属性类型:如以 java.lang.String
 	 */
 	public Class<?> getType() {
 		return this.methodParameter.getParameterType();
@@ -166,6 +176,7 @@ public final class Property {
 
 	private MethodParameter resolveParameterType(MethodParameter parameter) {
 		// needed to resolve generic property types that parameterized by sub-classes e.g. T getFoo();
+		/** 需要解决一般的财产类型参数化的子类例如T getFoo(); */
 		GenericTypeResolver.resolveParameterType(parameter, getObjectType());
 		return parameter;			
 	}

@@ -36,7 +36,11 @@ import org.springframework.util.comparator.NullSafeComparator;
  *
  * <li>A descriptive label. For example: "the CSV File Format".</li>
  * </ul>
- *
+ * ****************************************************************************
+ * ~$ 一个接口的对象代表一个枚举的标签.每个这样的枚举实例具有以下特点:
+ *    一种标识enum类.例如:com.mycompany.util.FileFormat
+ *    个代码,惟一地标识的上下文中enum类型。例如:CSV。不同类型的代码是可能的(例如。、字符、整数、字符串).
+ *    一个描述性的标签。例如:“CSV文件格式”.
  * @author Keith Donald
  * @since 1.2.2
  * @deprecated as of Spring 3.0, in favor of Java 5 enums.
@@ -46,12 +50,17 @@ public interface LabeledEnum extends Comparable, Serializable {
 
 	/**
 	 * Return this enumeration's type.
+	 * *******************************
+	 * ~$ 返回这个枚举类型.
 	 */
 	Class getType();
 
 	/**
 	 * Return this enumeration's code.
 	 * <p>Each code should be unique within enumerations of the same type.
+	 * *******************************************************************
+	 * ~$ 返回这个枚举的代码.
+	 * <p>每个代码应该是独特的在相同类型的枚举.
 	 */
 	Comparable getCode();
 
@@ -62,9 +71,11 @@ public interface LabeledEnum extends Comparable, Serializable {
 
 
 	// Constants for standard enum ordering (Comparator implementations)
-
+	/** 标准enum常量排序(比较器实现) */
 	/**
 	 * Shared Comparator instance that sorts enumerations by <code>CODE_ORDER</code>.
+	 * ******************************************************************************
+	 * ~$ 共享比较器实例,CODE_ORDER枚举类型.
 	 */
 	Comparator CODE_ORDER = new Comparator() {
 		public int compare(Object o1, Object o2) {
@@ -76,6 +87,8 @@ public interface LabeledEnum extends Comparable, Serializable {
 
 	/**
 	 * Shared Comparator instance that sorts enumerations by <code>LABEL_ORDER</code>.
+	 * *******************************************************************************
+	 * ~$ 共享比较器实例,LABEL_ORDER枚举类型.
 	 */
 	Comparator LABEL_ORDER = new Comparator() {
 		public int compare(Object o1, Object o2) {
@@ -89,6 +102,8 @@ public interface LabeledEnum extends Comparable, Serializable {
 	/**
 	 * Shared Comparator instance that sorts enumerations by <code>LABEL_ORDER</code>,
 	 * then <code>CODE_ORDER</code>.
+	 * *******************************************************************************
+	 * ~$ 共享LABEL_ORDER枚举类型的比较器实例,然后CODE_ORDER.
 	 */
 	Comparator DEFAULT_ORDER =
 			new CompoundComparator(new Comparator[] { LABEL_ORDER, CODE_ORDER });

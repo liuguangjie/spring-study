@@ -32,7 +32,10 @@ import org.springframework.core.convert.converter.ConditionalGenericConverter;
  * <p>First, creates a new Collection of the requested targetType.
  * Then adds each array element to the target collection.
  * Will perform an element conversion from the source component type to the collection's parameterized type if necessary.
- * 
+ * *********************************************************************************************************************
+ * ~$ 将数组转换成一个集合.
+ * <p>首先,创建一个新的请求targetType的集合.然后将每个数组元素添加到目标集合.
+ *    将执行一个元素转换从源组件类型集合的参数化类型,如果必要的.
  * @author Keith Donald
  * @since 3.0
  */

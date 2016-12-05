@@ -21,7 +21,8 @@ import java.util.Set;
 
 /**
  * Interface for looking up <code>LabeledEnum</code> instances.
- *
+ * ************************************************************
+ * ~$ 界面查找LabeledEnum实例.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 1.2.2
@@ -33,6 +34,8 @@ public interface LabeledEnumResolver {
 	/**
 	 * Return a set of enumerations of a particular type. Each element in the
 	 * set should be an instance of LabeledEnum.
+	 * **********************************************************************
+	 * ~$ 返回一组特定类型的枚举.集合中的每个元素应该LabeledEnum的实例.
 	 * @param type the enum type
 	 * @return a set of localized enumeration instances for the provided type
 	 * @throws IllegalArgumentException if the type is not supported
@@ -43,6 +46,9 @@ public interface LabeledEnumResolver {
 	 * Return a map of enumerations of a particular type. Each element in the
 	 * map should be a key/value pair, where the key is the enum code, and the
 	 * value is the <code>LabeledEnum</code> instance.
+	 * **********************************************************************
+	 * ~$ 返回一个特定类型的枚举的map.每个元素的map应该是一个键/值对,
+	 *    关键是枚举代码,和值是LabeledEnum实例.
 	 * @param type the enum type
 	 * @return a Map of localized enumeration instances,
 	 * with enum code as key and <code>LabeledEnum</code> instance as value
@@ -52,6 +58,8 @@ public interface LabeledEnumResolver {
 
 	/**
 	 * Resolve a single <code>LabeledEnum</code> by its identifying code.
+	 * ******************************************************************
+	 * ~$ 解决单个LabeledEnum标识码.
 	 * @param type the enum type
 	 * @param code the enum code
 	 * @return the enum
@@ -61,6 +69,8 @@ public interface LabeledEnumResolver {
 
 	/**
 	 * Resolve a single <code>LabeledEnum</code> by its identifying code.
+	 * ******************************************************************
+	 * ~$ 解决单个LabeledEnum标识码.
 	 * @param type the enum type
 	 * @param label the enum label
 	 * @return the enum

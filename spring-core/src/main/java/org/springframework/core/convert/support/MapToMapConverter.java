@@ -32,7 +32,11 @@ import org.springframework.core.convert.converter.ConditionalGenericConverter;
  * size of the source Map. Then copies each element in the source map to the target map.
  * Will perform a conversion from the source maps's parameterized K,V types to the target
  * map's parameterized types K,V if necessary.
+ * **************************************************************************************
+ * ~$ 将映射到另一个Map.
  *
+ * <p>首先,创建一个新的映射的请求targetType大小等于源图的大小.然后复制源映射到目标映射中的每个元素.
+ *    将执行一个转换从源地图参数化K、V类型到目标图的参数化类型K、V,如果必要的.
  * @author Keith Donald
  * @since 3.0
  */

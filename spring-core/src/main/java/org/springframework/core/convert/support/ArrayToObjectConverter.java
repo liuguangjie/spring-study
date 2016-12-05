@@ -26,7 +26,8 @@ import org.springframework.core.convert.converter.ConditionalGenericConverter;
 
 /**
  * Converts an Array to an Object by returning the first array element after converting it to the desired targetType.
- * 
+ * ******************************************************************************************************************
+ * ~$ 将数组转换为一个对象通过返回后的第一个数组元素将它转换为所需的targetType.
  * @author Keith Donald
  * @since 3.0
  */

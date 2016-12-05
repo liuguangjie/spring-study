@@ -28,7 +28,8 @@ import org.springframework.util.ObjectUtils;
 /**
  * Converts an Array to another Array.
  * First adapts the source array to a List, then delegates to {@link CollectionToArrayConverter} to perform the target array conversion. 
- * 
+ * *************************************************************************************************************************************
+ * ~$ 将数组转换为另一个数组中.首先适应源数组列表,然后代表{@link CollectionToArrayConverter }执行目标数组转换.
  * @author Keith Donald
  * @since 3.0
  */

@@ -18,7 +18,8 @@ package org.springframework.core.enums;
 
 /**
  * Base class for static type-safe labeled enum instances.
- * 
+ * *******************************************************
+ * ~$ 基类的静态类型安全标签枚举实例.
  * Usage example:
  * 
  * <pre>
@@ -48,17 +49,23 @@ public abstract class StaticLabeledEnum extends AbstractLabeledEnum {
 
 	/**
 	 * The unique code of the enum.
+	 * ****************************
+	 * ~$ 独特的enum的代码.
 	 */
 	private final Short code;
 
 	/**
 	 * A descriptive label for the enum.
+	 * *********************************
+	 * ~$ 枚举一个描述性的标签.
 	 */
 	private final transient String label;
 
 
 	/**
 	 * Create a new StaticLabeledEnum instance.
+	 * ****************************************
+	 * ~$ 创建一个新的StaticLabeledEnum实例.
 	 * @param code the short code
 	 * @param label the label (can be <code>null</code>)
 	 */
@@ -82,6 +89,8 @@ public abstract class StaticLabeledEnum extends AbstractLabeledEnum {
 
 	/**
 	 * Return the code of this LabeledEnum instance as a short.
+	 * ********************************************************
+	 * ~$ 返回这个LabeledEnum实例的代码作为一个短.
 	 */
 	public short shortValue() {
 		return ((Number) getCode()).shortValue();
@@ -94,6 +103,8 @@ public abstract class StaticLabeledEnum extends AbstractLabeledEnum {
 
 	/**
 	 * Return the resolved type safe static enum instance.
+	 * ***************************************************
+	 * ~$ 返回解析后的类型安全的静态enum实例.
 	 */
 	protected Object readResolve() {
 		return StaticLabeledEnumResolver.instance().getLabeledEnumByCode(getType(), getCode());

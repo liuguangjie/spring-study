@@ -18,7 +18,8 @@ package org.springframework.core.convert;
 
 /**
  * Thrown when a suitable converter could not be found in a conversion service.
- *
+ * ***************************************************************************
+ * ~$ 找不到一个合适的转换器时抛出转换服务.
  * @author Keith Donald
  * @since 3.0 
  */

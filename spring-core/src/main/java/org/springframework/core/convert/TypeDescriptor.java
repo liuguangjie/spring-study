@@ -27,7 +27,8 @@ import org.springframework.util.ObjectUtils;
 
 /**
  * Context about a type to convert from or to.
- *
+ * *******************************************
+ * ~$ 关于类型转换或上下文.
  * @author Keith Donald
  * @author Andy Clement
  * @author Juergen Hoeller
@@ -71,7 +72,10 @@ public class TypeDescriptor {
 
 	/**
 	 * Create a new type descriptor from a {@link MethodParameter}.
-	 * Use this constructor when a source or target conversion point is a constructor parameter, method parameter, or method return value. 
+	 * Use this constructor when a source or target conversion point is a constructor parameter, method parameter, or method return value.
+	 * ************************************************************************************
+	 * ~$ 创建一个新类型描述符从@link MethodParameter }.
+	 *    使用此构造函数,当一个源或目标转换是一个构造函数参数,方法参数或返回值的方法.
 	 * @param methodParameter the method parameter
 	 */
 	public TypeDescriptor(MethodParameter methodParameter) {
@@ -81,6 +85,9 @@ public class TypeDescriptor {
 	/**
 	 * Create a new type descriptor from a {@link Field}.
 	 * Use this constructor when source or target conversion point is a field.
+	 * ***********************************************************************
+	 * ~$ 创建一个新类型描述符{@link Field}.
+	 * 使用此构造函数在源或目标转换一个字段.
 	 * @param field the field
 	 */
 	public TypeDescriptor(Field field) {
@@ -90,6 +97,9 @@ public class TypeDescriptor {
 	/**
 	 * Create a new type descriptor from a {@link Property}.
 	 * Use this constructor when a source or target conversion point is a property on a Java class.
+	 * ********************************************************************************************
+	 * ~$ 创建一个新类型描述符{@link Property}.
+	 * 使用此构造函数,当一个源或目标转换的观点是一个Java类的一个属性.
 	 * @param property the property
 	 */
 	public TypeDescriptor(Property property) {
@@ -100,6 +110,10 @@ public class TypeDescriptor {
 	 * Create a new type descriptor from the given type.
 	 * Use this to instruct the conversion system to convert an object to a specific target type, when no type location such as a method parameter or field is available to provide additional conversion context.
 	 * Generally prefer use of {@link #forObject(Object)} for constructing type descriptors from source objects, as it handles the null object case.
+	 * ********************************************************************************
+	 * ~$ 创建一个新类型描述符从给定的类型.
+	 *    用它来指示转换系统将一个对象转换为一个特定的目标类型,当没有输入位置如方法参数或上下文字段是可以提供额外的转换.
+	 *    通常更喜欢使用 {@link #forObject(Object)} 构造类型描述符从源对象,因为它处理null对象的情况.
 	 * @param type the class
 	 * @return the type descriptor
 	 */
@@ -113,6 +127,10 @@ public class TypeDescriptor {
 	 * Useful for converting to typed Collections.
 	 * For example, a List&lt;String&gt; could be converted to a List&lt;EmailAddress&gt; by converting to a targetType built with this method.
 	 * The method call to construct such a TypeDescriptor would look something like: collection(List.class, TypeDescriptor.valueOf(EmailAddress.class));
+	 * **************************************************************************************
+	 * ~$ 从创建一个新类型描述符 java.util.Collection 集合类型.
+	 * 	  用于转换类型的集合.例如,List<String>可以通过转换转换为列表EmailAddress targetType用这个方法.
+	 * 	  方法调用来构建这样一个TypeDescriptor会看起来像:收集(列表。类,TypeDescriptor.valueOf(EmailAddress.class));
 	 * @param collectionType the collection type, which must implement {@link Collection}.
 	 * @param elementTypeDescriptor a descriptor for the collection's element type, used to convert collection elements
 	 * @return the collection type descriptor
@@ -129,6 +147,10 @@ public class TypeDescriptor {
 	 * Useful for Converting to typed Maps.
 	 * For example, a Map&lt;String, String&gt; could be converted to a Map&lt;Id, EmailAddress&gt; by converting to a targetType built with this method:
 	 * The method call to construct such a TypeDescriptor would look something like: map(Map.class, TypeDescriptor.valueOf(Id.class), TypeDescriptor.valueOf(EmailAddress.class));
+	 * *******************************************************************************************
+	 * ~$ 创建一个 java.util.Map 类型的描述. 用于转换类型的Map.
+	 *    列如,Map<String,String>  可以转换为一个  Map<Id, EmailAddress> 通过转换targetType用这个方法:
+	 *    方法调用来构建这样一个TypeDescriptor看起来  像: map(Map.class, TypeDescriptor.valueOf(Id.class), TypeDescriptor.valueOf(EmailAddress.class));
 	 * @param mapType the map type, which must implement {@link Map}.
 	 * @param keyTypeDescriptor a descriptor for the map's key type, used to convert map keys
 	 * @param valueTypeDescriptor the map's value type, used to convert map values

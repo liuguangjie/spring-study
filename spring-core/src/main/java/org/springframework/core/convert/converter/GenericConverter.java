@@ -33,7 +33,14 @@ import java.util.Set;
  *
  * <p>This interface should generally not be used when the simpler {@link Converter} or
  * {@link ConverterFactory} interfaces are sufficient.
+ * *****************************************************************************************************
+ * ~$ 通用转换器接口两个或两个以上的类型之间的转换.
  *
+ * <p> 这是最灵活的转换器SPI接口,也最复杂.它非常灵活,GenericConverter可以支持多个源/目标类型对之间的转换(见{@link #getConvertibleTypes()}.
+ *    此外,GenericConverter实现访问源/目标{@link TypeDescriptor field context}在类型转换的过程.
+ *    这使得解决源和目标字段元数据注释和泛型信息等,可影响转换逻辑.
+ *
+ * <p>这个接口时通常不应使用简单{@link Converter}或{@link ConverterFactory}接口是充分的.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 3.0
@@ -46,11 +53,16 @@ public interface GenericConverter {
 	/**
 	 * Return the source and target types which this converter can convert between.
 	 * <p>Each entry is a convertible source-to-target type pair.
+	 * ****************************************************************************
+	 * ~$ 返回这个转换器可以转换的源和目标类型之间.
+	 * <p>每个条目是一对可转换源到目标的类型.
 	 */
 	Set<ConvertiblePair> getConvertibleTypes();
 
 	/**
 	 * Convert the source to the targetType described by the TypeDescriptor.
+	 * *********************************************************************
+	 * ~$ 转换的源targetType TypeDescriptor所描述的.
 	 * @param source the source object to convert (may be null)
 	 * @param sourceType the type descriptor of the field we are converting from
 	 * @param targetType the type descriptor of the field we are converting to
@@ -61,6 +73,8 @@ public interface GenericConverter {
 
 	/**
 	 * Holder for a source-to-target class pair.
+	 * *****************************************
+	 * ~$ 一对源到目标类的持有人.
 	 */
 	public static final class ConvertiblePair {
 
@@ -70,6 +84,8 @@ public interface GenericConverter {
 
 		/**
 		 * Create a new source-to-target pair.
+		 * ***********************************
+		 * ~$ 创建一个新的源到目标的一对.
 		 * @param sourceType the source type
 		 * @param targetType the target type
 		 */

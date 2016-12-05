@@ -18,7 +18,8 @@ package org.springframework.core.enums;
 
 /**
  * Base class for labeled enum instances that aren't static.
- *
+ * *********************************************************
+ * ~$ 基类标记枚举实例不是静态的.
  * @author Keith Donald
  * @since 1.2.6
  * @deprecated as of Spring 3.0, in favor of Java 5 enums.

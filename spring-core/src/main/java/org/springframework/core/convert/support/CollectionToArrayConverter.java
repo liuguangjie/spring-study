@@ -32,7 +32,10 @@ import org.springframework.core.convert.converter.ConditionalGenericConverter;
  * size of the source Collection. Then sets each collection element into the array.
  * Will perform an element conversion from the collection's parameterized type to the
  * array's component type if necessary.
- *
+ * *************************************************************************************
+ * ~$ 将一个集合转换为一个数组.
+ * <p>首先,创建一个新的数组长度的请求的targetType等于源集合的大小.然后设置数组的每个集合元素.
+ *    将执行一个元素集合的参数化类型转换成数组的组件类型,如果必要的.
  * @author Keith Donald
  * @since 3.0
  */

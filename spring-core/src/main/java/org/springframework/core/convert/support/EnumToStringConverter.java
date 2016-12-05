@@ -20,6 +20,8 @@ import org.springframework.core.convert.converter.Converter;
 
 /**
  * Simply calls {@link Enum#name()} to convert a source Enum to a String.
+ * **********************************************************************
+ * ~$ 简单地调用{@link Enum#name()}源枚举转换为一个字符串.
  * @author Keith Donald
  * @since 3.0
  */

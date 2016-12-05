@@ -20,7 +20,8 @@ import org.springframework.core.convert.converter.Converter;
 
 /**
  * Converts from any JDK-standard Number implementation to a Character.
- *
+ * ********************************************************************
+ * ~$ 从任何JDK-standard数字实现字符转换.
  * @author Keith Donald
  * @since 3.0
  * @see Character

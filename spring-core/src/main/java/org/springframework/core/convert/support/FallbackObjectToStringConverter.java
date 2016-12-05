@@ -28,7 +28,11 @@ import org.springframework.core.convert.converter.ConditionalGenericConverter;
  *
  * <p>Used by the default ConversionService as a fallback if there are no other explicit
  * to-String converters registered.
+ * ********************************************************************************************************************
+ * ~$ 简单地调用# toString()} { @link对象任何受支持的对象转换为一个字符串.
+ *   支持CharSequence进行、StringWriter任何类和一个字符串(String)方法构造函数或价值.
  *
+ * <p>使用默认ConversionService作为后备如果没有其他显式字符串转换器注册.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 3.0

@@ -24,7 +24,11 @@ import org.springframework.util.Assert;
  * <p>Should almost always be subclassed, but for some simple situations it may be
  * used directly. Note that you will not be able to use unique type-based
  * functionality like <code>LabeledEnumResolver.getLabeledEnumSet(type) in this case.
+ * **********************************************************************************
+ * ~$ 实现LabeledEnum它使用一个字符串的代码类型.
  *
+ * <p>几乎总是应该从它派生出子类,但是对于一些简单的情况下直接使用.
+ *    请注意,您将无法使用独特的基于类型功能像 LabeledEnumResolver.getLabeledEnumSet(type)在这种情况下.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 1.2.2

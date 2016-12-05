@@ -29,7 +29,9 @@ import org.springframework.util.StringUtils;
 /**
  * Converts a comma-delimited String to a Collection.
  * If the target collection element type is declared, only matches if String.class can be converted to it.
- *
+ * ************************************************************
+ * ~$ 将一个用逗号分隔的字符串转换成一个集合.
+ *    如果目标集合元素类型声明,只有匹配字符串.类可以被转换成它.
  * @author Keith Donald
  * @since 3.0
  */

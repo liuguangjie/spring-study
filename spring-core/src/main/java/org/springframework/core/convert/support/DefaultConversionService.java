@@ -28,7 +28,11 @@ import org.springframework.core.convert.converter.ConverterRegistry;
  * <p>Designed for direct instantiation but also exposes the static
  * {@link #addDefaultConverters(ConverterRegistry)} utility method for ad hoc use against any
  * {@code ConverterRegistry} instance.
+ * ******************************************************************************************
+ * ~$ 专业化的{@link GenericConversionService }默认配置与转换器适合大多数环境.
  *
+ * <p>设计用于直接实例化,也暴露了静态{@link #addDefaultConverters(ConverterRegistry)}
+ *    临时使用的实用程序方法对任何{@code ConverterRegistry }实例.
  * @author Chris Beams
  * @since 3.1
  */
@@ -37,6 +41,9 @@ public class DefaultConversionService extends GenericConversionService {
 	/**
 	 * Create a new {@code DefaultConversionService} with the set of
 	 * {@linkplain DefaultConversionService#addDefaultConverters(ConverterRegistry) default converters}.
+	 * *********************************************************************
+	 * ~$ 创建一个新的{ @code DefaultConversionService }
+	 *      {@linkplain DefaultConversionService#addDefaultConverters(ConverterRegistry) default converters} 的集合.
 	 */
 	public DefaultConversionService() {
 		addDefaultConverters(this);
@@ -46,6 +53,8 @@ public class DefaultConversionService extends GenericConversionService {
 	
 	/**
 	 * Add converters appropriate for most environments.
+	 * *************************************************
+	 * ~$ 添加转换器适合大多数环境.
 	 * @param converterRegistry the registry of converters to add to (must also be castable to ConversionService)
 	 * @throws ClassCastException if the converterRegistry could not be cast to a ConversionService
 	 */

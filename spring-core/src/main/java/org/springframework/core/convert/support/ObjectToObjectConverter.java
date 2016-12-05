@@ -36,7 +36,11 @@ import org.springframework.util.ReflectionUtils;
  * to perform the conversion, if such a method exists. Else calls the target type's
  * Constructor that accepts a single sourceType argument, if such a Constructor exists.
  * Else throws a ConversionFailedException.
+ * ***********************************************************************************
+ * ~$ 通用的转换器,源对象转换为目标类型授权方法在目标类型.
  *
+ * <p>调用静态返回对象的值(sourceType)方法在目标类型来执行转换,如果存在这样的一个方法.
+ *    其他调用目标类型的构造函数接受一个sourceType参数,如果存在这样的一个构造函数.抛出一个ConversionFailedException.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 3.0

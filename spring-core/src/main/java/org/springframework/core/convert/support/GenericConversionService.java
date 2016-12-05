@@ -47,7 +47,9 @@ import org.springframework.util.ClassUtils;
  * Base {@link ConversionService} implementation suitable for use in most environments.
  * Indirectly implements {@link ConverterRegistry} as registration API through the
  * {@link ConfigurableConversionService} interface.
- *
+ * ************************************************************************************
+ * ~$ 基地{ @link ConversionService }实现适合在大多数环境中使用.
+ *    间接实现{@link ConverterRegistry }作为登记API通过{@link ConfigurableConversionService }接口.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -179,6 +181,10 @@ public class GenericConversionService implements ConfigurableConversionService {
 	/**
 	 * Convenience operation for converting a source object to the specified targetType, where the targetType is a descriptor that provides additional conversion context.
 	 * Simply delegates to {@link #convert(Object, TypeDescriptor, TypeDescriptor)} and encapsulates the construction of the sourceType descriptor using {@link TypeDescriptor#forObject(Object)}.
+	 * ****************************************************************************************************
+	 * ~$ 方便操作将一个源对象转换为指定的targetType,targetType在哪一个描述符,它提供了额外的转换上下文.
+	 *    只是代表{@link #convert(Object, TypeDescriptor, TypeDescriptor)}和封装的建设sourceType描述符使用{@link TypeDescriptor#forObject(Object)}.
+	 *
 	 * @param source the source object
 	 * @param targetType the target type
 	 * @return the converted value
@@ -215,6 +221,8 @@ public class GenericConversionService implements ConfigurableConversionService {
 	 * Template method to convert a null source.
 	 * <p>Default implementation returns <code>null</code>.
 	 * Subclasses may override to return custom null objects for specific target types.
+	 * *******************************************************************************
+	 * ~$ 模板方法将一个空源。默认实现返回null.子类可以重写为特定目标类型返回自定义空对象.
 	 * @param sourceType the sourceType to convert from
 	 * @param targetType the targetType to convert to
 	 * @return the converted null object
@@ -229,6 +237,12 @@ public class GenericConversionService implements ConfigurableConversionService {
 	 * On a cache miss, then performs an exhaustive search for a matching converter.
 	 * If no converter matches, returns the default converter.
 	 * Subclasses may override.
+	 * ***************************************************************************
+	 * ~$钩方法来查找给定sourceType / targetType对的转换器.
+	 *  第一次查询这个ConversionService转换器的缓存.
+	 *	 缓存错过,然后执行一个详尽的搜索匹配的转换器.
+	 *	 如果没有匹配的转换器,返回默认的转换器.
+	 *	 子类可以重写.
 	 * @param sourceType the source type to convert from
 	 * @param targetType the target type to convert to
 	 * @return the generic converter that will perform the conversion, or <code>null</code> if no suitable converter was found
@@ -261,6 +275,11 @@ public class GenericConversionService implements ConfigurableConversionService {
 	 * Returns a NO_OP Converter if the sourceType is assignable to the targetType.
 	 * Returns <code>null</code> otherwise, indicating no suitable converter could be found.
 	 * Subclasses may override.
+	 * ***********************************************************************************************
+	 * ~$返回的默认转换如果没有找到转换器sourceType / targetType对.
+	 *	 返回一个NO_OP转换器targetType如果sourceType是可转让的.
+	 *	 否则返回null,表明没有能找到合适的转换器.
+	 *	 子类可以重写.
 	 * @param sourceType the source type to convert from
 	 * @param targetType the target type to convert to
 	 * @return the default generic converter that will perform the conversion

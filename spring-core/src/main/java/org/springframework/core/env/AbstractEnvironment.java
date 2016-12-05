@@ -44,7 +44,14 @@ import org.springframework.util.StringUtils;
  * clients should customize using {@link ConfigurableEnvironment#getPropertySources()} and
  * working against the {@link MutablePropertySources} API. See
  * {@link ConfigurableEnvironment} Javadoc for usage examples.
+ * ****************************************************************************************
+ * ~$ {@link Environment} 的抽象基类实现.支持保留默认的配置名称的概念,
+ *     使指定活跃和默认概要文件通过{@link #ACTIVE_PROFILES_PROPERTY_NAME }和{@link #DEFAULT_PROFILES_PROPERTY_NAME }属性.
  *
+ * <p>具体子类的不同主要是{ @link PropertySource }他们添加默认对象.{@code AbstractEnvironment }没有补充道.
+ *    子类应该贡献财产来源通过保护{ @link # customizePropertySources()}钩,
+ *    而客户应该定制使用{@link ConfigurableEnvironment #getPropertySources()}和工作对{@link MutablePropertySources } API.
+ *    看到{@link ConfigurableEnvironment } Javadoc的用法示例.
  * @author Chris Beams
  * @since 3.1
  * @see ConfigurableEnvironment
@@ -59,6 +66,11 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	 * character in variable names. Assuming that Spring's {@link SystemEnvironmentPropertySource}
 	 * is in use, this property may be specified as an environment variable as
 	 * {@code SPRING_PROFILES_ACTIVE}.
+	 * *******************************************************************************************
+	 * ~$ 属性的名称设置为指定活动简介:{@value}.可能是逗号分隔的值.
+	 * <p>请注意,某些shell环境如Bash在变量名中不允许使用的字符.
+	 *    假设Spring的{@link SystemEnvironmentPropertySource }在使用,
+	 *    这个属性可以指定为一个环境变量为{@code SPRING_PROFILES_ACTIVE }.
 	 * @see ConfigurableEnvironment#setActiveProfiles
 	 */
 	public static final String ACTIVE_PROFILES_PROPERTY_NAME = "spring.profiles.active";
@@ -70,6 +82,11 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	 * character in variable names. Assuming that Spring's {@link SystemEnvironmentPropertySource}
 	 * is in use, this property may be specified as an environment variable as
 	 * {@code SPRING_PROFILES_DEFAULT}.
+	 * *******************************************************************************************
+	 * ~$ 属性的名称设置为指定配置文件默认活动: {@value}. 可能是逗号分隔的值.
+	 * <p>请注意,某些shell环境如Bash在变量名中不允许使用的字符.
+	 *    假设Spring的{@link SystemEnvironmentPropertySource }在使用,
+	 *    这个属性可以指定为一个环境变量为{@code SPRING_PROFILES_DEFAULT }.
 	 * @see ConfigurableEnvironment#setDefaultProfiles
 	 */
 	public static final String DEFAULT_PROFILES_PROPERTY_NAME = "spring.profiles.default";
@@ -78,6 +95,8 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	 * Name of reserved default profile name: {@value}. If no default profile names are
 	 * explicitly and no active profile names are explicitly set, this profile will
 	 * automatically be activated by default.
+	 * ********************************************************************************
+	 * ~$ 保留默认的配置文件名的名字:{@value}.如果没有默认概要文件的名字是明确的和没有显式地设置当前文件名称,默认这个概要文件将自动激活.
 	 * @see #getReservedDefaultProfiles
 	 * @see ConfigurableEnvironment#setDefaultProfiles
 	 * @see ConfigurableEnvironment#setActiveProfiles
@@ -174,6 +193,9 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	 * Return the set of reserved default profile names. This implementation returns
 	 * {@value #RESERVED_DEFAULT_PROFILE_NAME}. Subclasses may override in order to
 	 * customize the set of reserved names.
+	 * *****************************************************************************
+	 * ~$ 返回保留默认的设置配置文件的名字.{@value #RESERVED_DEFAULT_PROFILE_NAME }这个实现的回报.
+	 *    子类可以重写以定制保留名称的集合.
 	 * @see #RESERVED_DEFAULT_PROFILE_NAME
 	 * @see #doGetDefaultProfiles()
 	 */
@@ -195,6 +217,9 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	 * {@link #setActiveProfiles} or if the current set of active profiles
 	 * is empty, check for the presence of the {@value #ACTIVE_PROFILES_PROPERTY_NAME}
 	 * property and assign its value to the set of active profiles.
+	 * *******************************************************************************
+	 * ~$ 返回活动配置文件的设置显式地设置通过{@link #setActiveProfiles }或者当前的活跃集概要文件是空的,
+	 *    检查#ACTIVE_PROFILES_PROPERTY_NAME } {@value #ACTIVE_PROFILES_PROPERTY_NAME}属性的存在,并将其价值分配给活动概要文件的集合.
 	 * @see #getActiveProfiles()
 	 * @see #ACTIVE_PROFILES_PROPERTY_NAME
 	 */

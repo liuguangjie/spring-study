@@ -20,7 +20,8 @@ import org.springframework.core.NestedRuntimeException;
 
 /**
  * Base class for exceptions thrown by the conversion system.
- *
+ * *********************************************************
+ * ~$ 基类异常抛出的转换系统.
  * @author Keith Donald
  * @since 3.0 
  */

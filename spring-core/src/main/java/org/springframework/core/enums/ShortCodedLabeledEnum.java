@@ -22,7 +22,11 @@ package org.springframework.core.enums;
  * <p>Should almost always be subclassed, but for some simple situations it may be
  * used directly. Note that you will not be able to use unique type-based functionality
  * like <code>LabeledEnumResolver.getLabeledEnumSet(type)</code> in this case.
+ * ************************************************************************************
+ * ~$ 实现LabeledEnum它使用短的代码类型.
  *
+ * <p>几乎总是应该从它派生出子类,但是对于一些简单的情况下直接使用.
+ *   请注意,您将无法使用独特的基于类型功能像LabeledEnumResolver.getLabeledEnumSet(type)在这种情况下.
  * @author Keith Donald
  * @since 1.2.2
  * @deprecated as of Spring 3.0, in favor of Java 5 enums.

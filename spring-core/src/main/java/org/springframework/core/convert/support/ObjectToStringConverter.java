@@ -20,6 +20,8 @@ import org.springframework.core.convert.converter.Converter;
 
 /**
  * Simply calls {@link Object#toString()} to convert a source Object to a String.
+ * ******************************************************************************
+ * ~$ 简单地调用{@link Object#toString()} 对象源对象转换为一个字符串.
  * @author Keith Donald
  * @since 3.0
  */

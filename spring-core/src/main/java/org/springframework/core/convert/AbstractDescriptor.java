@@ -89,7 +89,9 @@ abstract class AbstractDescriptor {
 		}
 		else if (Object.class.equals(getType())) {
 			// could be a collection type but we don't know about its element type,
+			/** 可能是一个集合类型对其元素类型,但我们不知道 */
 			// so let's just assume there is an element type of type Object
+			/** 让我们假设有一个对象类型的元素类型 */
 			return this;
 		}
 		else {

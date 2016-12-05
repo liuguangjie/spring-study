@@ -19,7 +19,8 @@ package org.springframework.core.convert.converter;
 /**
  * A converter converts a source object of type S to a target of type T.
  * Implementations of this interface are thread-safe and can be shared.
- *
+ * *********************************************************************
+ * ~$ 转换器转换的源对象类型的目标类型t的实现这个接口是线程安全的,可以共享.
  * @author Keith Donald
  * @since 3.0
  */
@@ -27,7 +28,10 @@ public interface Converter<S, T> {
 
 	/**
 	 * Convert the source of type S to target type T.
+	 * **********************************************
+	 * ~$ 转换类型到目标类型T的来源.
 	 * @param source the source object to convert, which must be an instance of S
+	 *               ~$     转换的源对象,必须的一个实例
 	 * @return the converted object, which must be an instance of T
 	 * @throws IllegalArgumentException if the source could not be converted to the desired target type
 	 */

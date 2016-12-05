@@ -26,7 +26,8 @@ import org.springframework.core.convert.converter.GenericConverter;
 /**
  * A factory for common {@link org.springframework.core.convert.ConversionService}
  * configurations.
- *
+ * ****************************************************
+ * ~$ 一个工厂常见的{@link org.springframework.core.convert.ConversionService }配置.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -36,6 +37,8 @@ public abstract class ConversionServiceFactory {
 
 	/**
 	 * Register the given Converter objects with the given target ConverterRegistry.
+	 * *****************************************************************************
+	 * ~$ 给定的转换器对象注册ConverterRegistry给定的目标.
 	 * @param converters the converter objects: implementing {@link Converter},
 	 * {@link ConverterFactory}, or {@link GenericConverter}
 	 * @param registry the target registry
@@ -62,6 +65,8 @@ public abstract class ConversionServiceFactory {
 
 	/**
 	 * Create a new default GenericConversionService instance that can be safely modified.
+	 * ***********************************************************************************
+	 * ~$ 创建一个新的默认GenericConversionService实例可以安全地修改.
 	 * @deprecated in Spring 3.1 in favor of {@link DefaultConversionService#DefaultConversionService()}
 	 */
 	public static GenericConversionService createDefaultConversionService() {
@@ -70,6 +75,8 @@ public abstract class ConversionServiceFactory {
 
 	/**
 	 * Populate the given GenericConversionService instance with the set of default converters.
+	 * ****************************************************************************************
+	 * ~$ 填充给定GenericConversionService实例的设置默认的转换器.
 	 * @deprecated in Spring 3.1 in favor of {@link DefaultConversionService#addDefaultConverters(ConverterRegistry)}
 	 */
 	public static void addDefaultConverters(GenericConversionService conversionService) {

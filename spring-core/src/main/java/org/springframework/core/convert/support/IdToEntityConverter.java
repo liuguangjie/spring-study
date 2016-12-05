@@ -33,7 +33,10 @@ import org.springframework.util.ReflectionUtils;
  *
  * <p>For this converter to match, the finder method must be public, static, have the signature
  * <code>find[EntityName]([IdType])</code>, and return an instance of the desired entity type.
+ * ********************************************************************************************
+ * ~$ 将一个实体标识符转换为实体引用通过调用一个静态目标实体类型查找器方法.
  *
+ * <p>对于这个转换器来匹配,查找器方法必须是公开的,静态的,有签名找到[EntityName]([IdType]),并返回所需的实体类型的一个实例.
  * @author Keith Donald
  * @since 3.0
  */

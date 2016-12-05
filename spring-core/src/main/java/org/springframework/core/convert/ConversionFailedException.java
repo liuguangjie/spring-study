@@ -20,7 +20,8 @@ import org.springframework.util.ObjectUtils;
 
 /**
  * Exception to be thrown when an actual type conversion attempt fails.
- *
+ * ********************************************************************
+ * ~$ 例外被扔在一个实际的类型转换的尝试失败.
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 3.0
@@ -52,6 +53,8 @@ public final class ConversionFailedException extends ConversionException {
 
 	/**
 	 * Return the source type we tried to convert the value from.
+	 * *********************************************************
+	 * ~$ 返回源类型我们试图转换值.
 	 */
 	public TypeDescriptor getSourceType() {
 		return this.sourceType;
@@ -59,6 +62,8 @@ public final class ConversionFailedException extends ConversionException {
 
 	/**
 	 * Return the target type we tried to convert the value to.
+	 * ********************************************************
+	 * ~$ 返回类型我们试图将值转换为目标.
 	 */
 	public TypeDescriptor getTargetType() {
 		return this.targetType;
@@ -66,6 +71,8 @@ public final class ConversionFailedException extends ConversionException {
 
 	/**
 	 * Return the offending value.
+	 * ***************************
+	 * ~$ 返回的值.
 	 */
 	public Object getValue() {
 		return this.value;

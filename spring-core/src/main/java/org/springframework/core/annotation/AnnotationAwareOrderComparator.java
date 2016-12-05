@@ -25,7 +25,9 @@ import org.springframework.core.Ordered;
  * {@link Order} annotation, with an order value provided by an
  * <code>Ordered</code> instance overriding a statically defined
  * annotation value (if any).
- *
+ * *************************************************************
+ * ~$ {@link java.util.Comparator}实现检查{@link org.springframework.core.Ordered}和{@link Order}注解,
+ *    有序实例提供的 Ordered 值覆盖静态定义注释的值(如果有的话).
  * @author Juergen Hoeller
  * @since 2.0.1
  * @see org.springframework.core.Ordered
