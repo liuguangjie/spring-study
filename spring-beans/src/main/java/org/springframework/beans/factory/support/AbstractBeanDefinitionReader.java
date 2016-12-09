@@ -57,8 +57,10 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 
 	private ClassLoader beanClassLoader;
 
+	/** 解析占位符 等  */
 	private Environment environment = new StandardEnvironment();
 
+	/** bean 的名称和定义 */
 	private BeanNameGenerator beanNameGenerator = new DefaultBeanNameGenerator();
 
 
@@ -101,7 +103,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 		}
 
 		// Inherit Environment if possible
-		/** 继承的环境如果可能的话*/
+		/** 继承的环境如果可能的话 */
 		if (this.registry instanceof EnvironmentCapable) {
 			this.environment = ((EnvironmentCapable)this.registry).getEnvironment();
 		}

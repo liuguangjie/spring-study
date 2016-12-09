@@ -122,23 +122,27 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	private boolean namespaceAware = false;
 
 	private Class<?> documentReaderClass = DefaultBeanDefinitionDocumentReader.class;
-
+	/** 处理bean定义 错误和警告 */
 	private ProblemReporter problemReporter = new FailFastProblemReporter();
 
 	private ReaderEventListener eventListener = new EmptyReaderEventListener();
 
 	private SourceExtractor sourceExtractor = new NullSourceExtractor();
 
+	/** 加载命名空间  详情请见 spring-beans模块 classpath下的  META-INF/spring.handlers文件 */
 	private NamespaceHandlerResolver namespaceHandlerResolver;
 
+	/** 使用JAXP进行DOM解析 */
 	private DocumentLoader documentLoader = new DefaultDocumentLoader();
 
 	private EntityResolver entityResolver;
 
 	private ErrorHandler errorHandler = new SimpleSaxErrorHandler(logger);
 
+	/** 验证xml的文档类型  */
 	private final XmlValidationModeDetector validationModeDetector = new XmlValidationModeDetector();
 
+	/** 指定编码去读取的xml 文件的内容 */
 	private final ThreadLocal<Set<EncodedResource>> resourcesCurrentlyBeingLoaded =
 			new NamedThreadLocal<Set<EncodedResource>>("XML bean definition resources currently being loaded");
 
@@ -462,9 +466,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource)
 			throws BeanDefinitionStoreException {
 		try {
+			/** 验证 是xsd 还是dtd 用常量来表示 */
 			int validationMode = getValidationModeForResource(resource);
+			/** 构建 文档   注册 命名空间 */
 			Document doc = this.documentLoader.loadDocument(
 					inputSource, getEntityResolver(), this.errorHandler, validationMode, isNamespaceAware());
+			/** 注册xml中定义的bean */
 			return registerBeanDefinitions(doc, resource);
 		}
 		catch (BeanDefinitionStoreException ex) {

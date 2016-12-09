@@ -152,6 +152,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// this behavior emulates a stack of delegates without actually necessitating one.
 		/** 这种行为模拟一堆代表不需要.*/
 		BeanDefinitionParserDelegate parent = this.delegate;
+		/** createHelper方法做的事情有  注册 beans 标签的属性值 列: default-lazy-init="true"  到 BeanDefinitionParserDelegate中*/
 		this.delegate = createHelper(readerContext, root, parent);
 
 		preProcessXml(root);
@@ -346,6 +347,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		if (bdHolder != null) {
+			/** 装饰 自定义的 xml 属性值 */
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
 				// Register the final decorated instance.

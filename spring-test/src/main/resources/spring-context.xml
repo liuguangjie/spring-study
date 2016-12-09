@@ -7,6 +7,6 @@
        default-lazy-init="true">
     <description>Spring Configuration</description>
 
-    <bean id="ss" class="org.springframework.util.xml.SimpleNamespaceContext"></bean>
+    <bean id="_happy" class="com.spring.study.beans.Happy"></bean>
 
 </beans>
