@@ -5,8 +5,10 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
        default-lazy-init="true">
-    <description>Spring Configuration</description>
-
-
+    <description>Spring  import.... </description>
+    <bean id="doorEvent"   class="com.spring.study.listener.DoorEvent">
+        <constructor-arg index="0" value=""/>
+        <constructor-arg index="1" value=""/>
+    </bean>
 
 </beans>

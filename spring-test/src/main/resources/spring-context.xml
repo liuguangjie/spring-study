@@ -4,9 +4,23 @@
        xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
-       default-lazy-init="true">
+       default-lazy-init="true" default-autowire="default" default-destroy-method="getHi" default-init-method="happy" default-merge="true">
     <description>Spring Configuration</description>
 
-    <bean id="_happy" class="com.spring.study.beans.Happy"></bean>
+    <bean id="happy"  class="com.spring.study.beans.Happy" >
+        <meta key="metaData" value="test.java.lang.String"/>
+        <property name="hi" ref="testString"/>
+
+    </bean>
+    <alias name="happy" alias="happy1,happy2,happy3"/>
+    <bean id="testString" class="java.lang.String">
+        <constructor-arg index="0" value="test.ref.java.lang.String"/>
+    </bean>
+    <!-- 测试 look-method  标签 -->
+    <bean id="connManager" class="com.spring.study.beans.ConnManager">
+        <lookup-method name="createConnection" bean="connectionExtends"/>
+    </bean>
+    <bean id="connectionExtends" class="com.spring.study.beans.ConnectionExtends"/>
+    <import resource="spring-context-test.xml" />
 
 </beans>

@@ -1,15 +1,25 @@
 package com.springframework.core.test;
 
+import com.spring.study.beans.Happy;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.Constants;
-import org.springframework.core.io.*;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.xml.XmlValidationModeDetector;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -40,6 +50,29 @@ public class XmlTest {
         resourceLoader=new DefaultResourceLoader();
         resource=resourceLoader.getResource(config);
     }
+
+    /** 获得命名空间代码dome */
+    @Test
+    public void testXmlParse() throws Exception {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        DocumentBuilder docBuilder = factory.newDocumentBuilder();
+        Document document=docBuilder.parse(resource.getInputStream());
+        Element root=document.getDocumentElement();
+        System.out.println(root.getTagName());
+        System.out.println(root.getNamespaceURI());
+        NodeList nl = root.getChildNodes();
+        for (int i = 0; i < nl.getLength(); i++) {
+            Node node = nl.item(i);
+            if (node instanceof Element) {
+                System.out.println(((Element) node).getTagName());
+                System.out.println(node.getNamespaceURI());
+            }
+        }
+
+
+    }
+
     @Test
     public void testSpringXml(){
         /*ClassPathResource resource=new ClassPathResource(config);
@@ -50,10 +83,8 @@ public class XmlTest {
         //ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
         //System.out.println(applicationContext);
         XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
-
-        Object object=beanFactory.getBean("ss");
+        Object object=beanFactory.getBean("ssttr");
         System.out.println(object);
-        System.out.println("ooooooooooooooooooo");
     }
     private String classpathConfig="classpath*:"+config;
 
