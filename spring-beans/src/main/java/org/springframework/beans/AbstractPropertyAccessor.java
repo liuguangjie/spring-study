@@ -77,7 +77,7 @@ public abstract class AbstractPropertyAccessor extends PropertyEditorRegistrySup
 				/** 在这里,如果有严重故障,如没有匹配的字段.*/
 				// We can attempt to deal only with less serious exceptions.
 				/** 我们可以尝试交易只有那么严重异常.*/
-				setPropertyValue(pv);
+				setPropertyValue(pv); 		//在这里完成赋值
 			}
 			catch (NotWritablePropertyException ex) {
 				if (!ignoreUnknown) {

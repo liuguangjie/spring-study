@@ -152,7 +152,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// this behavior emulates a stack of delegates without actually necessitating one.
 		/** 这种行为模拟一堆代表不需要.*/
 		BeanDefinitionParserDelegate parent = this.delegate;
-		/** createHelper方法做的事情有  注册 beans 标签的属性值 列: default-lazy-init="true"  到 BeanDefinitionParserDelegate中*/
+		/** createHelper方法做的事情有  注册 beans 标签的属性值 列: default-lazy-init="true"  到 DocumentDefaultsDefinition 中 */
 		this.delegate = createHelper(readerContext, root, parent);
 
 		preProcessXml(root);
@@ -248,7 +248,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 
 		// Resolve system properties: e.g. "${user.dir}"
-		/** 解决系统属性:如. "${user.dir}" */
+		/** 解决系统属性:如. "${user.dir}"  这里我还是看不太懂 */
 		location = environment.resolveRequiredPlaceholders(location);
 
 		Set<Resource> actualResources = new LinkedHashSet<Resource>(4);
@@ -349,7 +349,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		if (bdHolder != null) {
-			/** 装饰 自定义的 xml 属性值 */
+			/** 装饰 自定义的 xml 属性值  列如:  p命名空间 */
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
 				// Register the final decorated instance.

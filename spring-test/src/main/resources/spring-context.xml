@@ -1,26 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
-       default-lazy-init="true" default-autowire="default" default-destroy-method="getHi" default-init-method="happy" default-merge="true">
-    <description>Spring Configuration</description>
+       >
+    <!--<bean id="injectionList" class="com.spring.study.collection.InjectionCollections">
+        <property name="list" >
+            <list value-type="java.lang.String">
+                <value>java</value>
+                <value >c++</value>
+                <value>pythen</value>
+                <value>c</value>
+            </list>
+        </property>
+        <property name="map">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="java" value="java9"/>
+                <entry key="c++" value="first"/>
+                <entry key="c" value="one"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="java">simple</prop>
+            </props>
+        </property>
 
-    <bean id="happy"  class="com.spring.study.beans.Happy" >
-        <meta key="metaData" value="test.java.lang.String"/>
-        <property name="hi" ref="testString"/>
+        <property name="propertiesList">
+            <list>
+                <props>
+                    <prop key="asda">888</prop>
+                </props>
+                <props>
+                    <prop key="nini">asahsdf</prop>
+                </props>
+            </list>
+        </property>
+    </bean>-->
+    <bean id="happy" class="com.spring.study.beans.Happy" init-method="init" destroy-method="destroy" scope="prototype">
+        <property name="connectionExample" ref="connectionExample"/>
+     </bean>
+    <bean id="connectionExample" class="com.spring.study.beans.ConnectionExample"/>
+    <bean id="testBeanPostProcessor" class="com.spring.study.postprocessor.TestBeanPostProcessor" />
+    <bean class="com.spring.study.beans.ConnManager" />
+    <bean id="apple" class="com.spring.study.beans.Apple" >
+        <constructor-arg index="0" value="hellloooooooo" />
+        <constructor-arg index="1" ref="bananer"/>
+    </bean>
+    <bean id="bananer" class="com.spring.study.beans.Bananer"/>
+         <!--测试-->
+    <!--<bean id="connManager" class="com.spring.study.beans.ConnManager" >
+        <lookup-method bean="connectionExtends" name="createConnection"/>
+    </bean>
 
+    <bean id="connectionExtends" class="com.spring.study.beans.ConnectionExtends"/>-->
+    <!--<bean id="fruitPlate1" class="com.spring.study.beans.FruitPlate">
+        <lookup-method name="getFruit" bean="apple"/>
     </bean>
-    <alias name="happy" alias="happy1,happy2,happy3"/>
-    <bean id="testString" class="java.lang.String">
-        <constructor-arg index="0" value="test.ref.java.lang.String"/>
+    <bean id="fruitPlate2" class="com.spring.study.beans.FruitPlate" >
+        <lookup-method name="getFruit" bean="bananer"/>
     </bean>
-    <!-- 测试 look-method  标签 -->
-    <bean id="connManager" class="com.spring.study.beans.ConnManager">
-        <lookup-method name="createConnection" bean="connectionExtends"/>
+    <bean id="apple" class="com.spring.study.beans.Apple" />
+    <bean id="bananer" class="com.spring.study.beans.Bananer" />-->
+
+    <!--<bean id="person" class="com.spring.study.beans.Person">
+        <replaced-method name="show" replacer="replace"></replaced-method>
     </bean>
-    <bean id="connectionExtends" class="com.spring.study.beans.ConnectionExtends"/>
-    <import resource="spring-context-test.xml" />
+    <bean id="replace" class="com.spring.study.beans.ReplacedClass"/>-->
+
+
+
+
+
 
 </beans>

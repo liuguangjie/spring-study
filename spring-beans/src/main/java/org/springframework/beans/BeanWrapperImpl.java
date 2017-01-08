@@ -1000,7 +1000,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 			if (nestedBw == this) {
 				pv.getOriginalPropertyValue().resolvedTokens = tokens;
 			}
-			nestedBw.setPropertyValue(tokens, pv);
+			nestedBw.setPropertyValue(tokens, pv);  // 在这里完成赋值
 		}
 		else {
 			setPropertyValue(tokens, pv);
@@ -1232,7 +1232,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 					}
 				}
 				else {
-					writeMethod.invoke(this.object, value);
+					writeMethod.invoke(this.object, value); //在这里完成赋值   ^_^!
 				}
 			}
 			catch (TypeMismatchException ex) {

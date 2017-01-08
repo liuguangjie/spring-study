@@ -609,7 +609,7 @@ public class BeanDefinitionParserDelegate {
 				parent = ele.getAttribute(PARENT_ATTRIBUTE);
 			}
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
-
+			/** 填充bean属性值到 AbstractBeanDefinition 对象中 */
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
@@ -1512,7 +1512,7 @@ public class BeanDefinitionParserDelegate {
 		}
 		return TRUE_VALUE.equals(value);
 	}
-
+	/** 解析自定义标签... */
 	public BeanDefinition parseCustomElement(Element ele) {
 		return parseCustomElement(ele, null);
 	}

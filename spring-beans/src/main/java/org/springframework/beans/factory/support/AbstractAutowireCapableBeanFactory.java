@@ -583,8 +583,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Initialize the bean instance.
 		Object exposedObject = bean;
 		try {
-			populateBean(beanName, mbd, instanceWrapper);
+			populateBean(beanName, mbd, instanceWrapper); //填充bean的属性值
 			if (exposedObject != null) {
+				/** 初始化方法 */
 				exposedObject = initializeBean(beanName, exposedObject, mbd);
 			}
 		}
@@ -625,7 +626,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Register bean as disposable.
-		/** bean注册为一次性.*/
+		/** bean注册为一次性. 销毁方法 */
 		try {
 			registerDisposableBeanIfNecessary(beanName, bean, mbd);
 		}

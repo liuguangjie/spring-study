@@ -291,6 +291,7 @@ public class GenericConversionService implements ConfigurableConversionService {
 	// internal helpers
 
 	private GenericConverter.ConvertiblePair getRequiredTypeInfo(Object converter, Class<?> genericIfc) {
+		/** 解析 converter对象 泛型参数类型 */
 		Class<?>[] args = GenericTypeResolver.resolveTypeArguments(converter.getClass(), genericIfc);
 		return (args != null ? new GenericConverter.ConvertiblePair(args[0], args[1]) : null);
 	}

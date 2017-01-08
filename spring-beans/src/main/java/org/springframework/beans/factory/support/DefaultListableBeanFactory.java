@@ -690,7 +690,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				this.frozenBeanDefinitionNames = null;
 			}
 			this.beanDefinitionMap.put(beanName, beanDefinition);
-
+			/** 清空 这个bean 名字 一些缓存 */
 			resetBeanDefinition(beanName);
 		}
 	}

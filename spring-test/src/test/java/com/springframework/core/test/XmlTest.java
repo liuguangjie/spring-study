@@ -1,15 +1,17 @@
 package com.springframework.core.test;
 
-import com.spring.study.beans.Happy;
+import com.spring.study.beans.*;
+import com.spring.study.collection.InjectionCollections;
+import com.spring.study.postprocessor.TestBeanPostProcessor;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.Constants;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.*;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.xml.XmlValidationModeDetector;
@@ -17,14 +19,22 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -34,8 +44,6 @@ public class XmlTest {
 
 
     /**
-
-
 
 
      */
@@ -74,6 +82,66 @@ public class XmlTest {
     }
 
     @Test
+    public void testGetInputStream() throws IOException {
+        Resource resource = new ClassPathResource("org/springframework/beans/factory/xml/spring-beans-3.1.xsd");
+        InputStream inputStream=resource.getInputStream();
+        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
+        String line=null;
+
+        while(true){
+            line=bufferedReader.readLine();
+            if(line==null){
+                break;
+            }
+            System.out.println(line);
+
+        }
+
+        System.out.println(inputStream);
+    }
+
+    @Test
+    public void testLookupMothed(){
+        XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
+        ConnManager connManager=beanFactory.getBean("connManager", ConnManager.class);
+
+        ConnectionExample connectionExample1=connManager.createConnection();
+        ConnectionExample connectionExample2=connManager.createConnection();
+        System.out.println(connectionExample1 +" equals "+ connectionExample2);
+
+
+        /*XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
+        FruitPlate fruitPlate1=beanFactory.getBean("fruitPlate1",FruitPlate.class);
+        fruitPlate1.getFruit();*/
+
+    }
+
+    @Test
+    public void testReplacedMethod(){
+
+        XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
+        Person person=beanFactory.getBean(Person.class);
+
+        System.out.println(person);
+
+        person.show();
+
+    }
+    @Test
+    public void test1() throws IllegalAccessException, InvocationTargetException, InstantiationException {
+        Class clazz=Apple.class;
+        try {
+            Constructor constructor= clazz.getDeclaredConstructor(new Class[]{String.class,Fruit.class});
+            Apple apple= (Apple) constructor.newInstance(new Object[]{"zzz",new Bananer()});
+            System.out.println(apple.getFruit());
+            System.out.println(constructor);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
     public void testSpringXml(){
         /*ClassPathResource resource=new ClassPathResource(config);
 
@@ -82,9 +150,48 @@ public class XmlTest {
         //System.out.println(resource);
         //ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
         //System.out.println(applicationContext);
+
+        /** 初级查看代码 */
         XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
-        Object object=beanFactory.getBean("ssttr");
-        System.out.println(object);
+        //InjectionCollections injectionCollections=beanFactory.getBean(InjectionCollections.class);
+        //InjectionCollections injectionCollections1=(InjectionCollections)beanFactory.getBean("injectionList");
+        //System.out.println(injectionCollections1.getList());
+        //List<String> list=injectionCollections.getList();
+        //System.out.println(list);
+       //beanFactory.addBeanPostProcessor(beanFactory.getBean("testBeanPostProcessor", BeanPostProcessor.class));
+        //beanFactory.addBeanPostProcessor(new TestBeanPostProcessor());
+        /*Happy happy0=beanFactory.getBean("happy",Happy.class);
+        System.out.println(happy0);
+        happy0.say();*/
+        Apple apple=beanFactory.getBean("apple",Apple.class);
+        System.out.println(apple.getIDCode());
+        beanFactory.destroySingletons();
+        //ConnectionExample connectionExample= (ConnectionExample) beanFactory.getBean("connectionExample");
+        //connectionExample.execConnection();
+
+
+        /*for (String s : list){
+            System.out.println(s);
+        }
+        System.out.println("----------------------");*/
+        /*Map<String,String> map=injectionCollections.getMap();
+        for (Map.Entry<String,String> entry:map.entrySet()){
+            System.out.println(entry.getKey()+"="+entry.getValue());
+        }
+        System.out.println("----------------------");
+        List<Properties> propertiesList=injectionCollections.getPropertiesList();
+        for (Properties properties: propertiesList){
+            Enumeration<?> enumeration=properties.propertyNames();
+            while(enumeration.hasMoreElements()){
+                String key=(String)enumeration.nextElement();
+                System.out.println(key+"="+properties.get(key));
+            }
+
+        }*/
+        /** 高级查看代码 */
+        /*ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
+        Happy happy=applicationContext.getBean(Happy.class);
+        happy.say();*/
     }
     private String classpathConfig="classpath*:"+config;
 
