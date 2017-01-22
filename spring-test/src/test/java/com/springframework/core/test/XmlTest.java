@@ -13,20 +13,21 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.Constants;
 import org.springframework.core.io.*;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.xml.XmlValidationModeDetector;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
@@ -64,12 +65,42 @@ public class XmlTest {
     public void testXmlParse() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
+        factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage","http://www.w3.org/2001/XMLSchema");
         DocumentBuilder docBuilder = factory.newDocumentBuilder();
+        docBuilder.setEntityResolver(new EntityResolver() {
+
+            public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+
+                if (systemId != null) {
+                    String resourceLocation = getSchemaMappings().get(systemId);
+                    if (resourceLocation != null) {
+                        Resource resource = new ClassPathResource(resourceLocation, resourceLoader.getClassLoader());
+                        try {
+                            InputSource source = new InputSource(resource.getInputStream());
+                            source.setPublicId(publicId);
+                            source.setSystemId(systemId);
+                            return source;
+                        }
+                        catch (FileNotFoundException ex) {
+                        }
+                    }
+                }
+                return null;
+            }
+
+
+
+        });
         Document document=docBuilder.parse(resource.getInputStream());
         Element root=document.getDocumentElement();
+
+        //Element rootElement=root.getDocumentElement();
+
         System.out.println(root.getTagName());
         System.out.println(root.getNamespaceURI());
+
         NodeList nl = root.getChildNodes();
+        System.out.println(nl.getLength());
         for (int i = 0; i < nl.getLength(); i++) {
             Node node = nl.item(i);
             if (node instanceof Element) {
@@ -79,6 +110,28 @@ public class XmlTest {
         }
 
 
+    }
+    private volatile Map<String, String> schemaMappings;
+    private  String schemaMappingsLocation="META-INF/spring.schemas";
+    private Map<String, String> getSchemaMappings() {
+        if (this.schemaMappings == null) {
+            synchronized (this) {
+                if (this.schemaMappings == null) {
+                    try {
+                        Properties mappings =
+                                PropertiesLoaderUtils.loadAllProperties(this.schemaMappingsLocation, resourceLoader.getClassLoader());
+                        Map<String, String> schemaMappings = new ConcurrentHashMap<String, String>();
+                        CollectionUtils.mergePropertiesIntoMap(mappings, schemaMappings);
+                        this.schemaMappings = schemaMappings;
+                    }
+                    catch (IOException ex) {
+                        throw new IllegalStateException(
+                                "Unable to load schema mappings from location [" + this.schemaMappingsLocation + "]", ex);
+                    }
+                }
+            }
+        }
+        return this.schemaMappings;
     }
 
     @Test
@@ -108,6 +161,7 @@ public class XmlTest {
         ConnectionExample connectionExample1=connManager.createConnection();
         ConnectionExample connectionExample2=connManager.createConnection();
         System.out.println(connectionExample1 +" equals "+ connectionExample2);
+        connectionExample1.execConnection();
 
 
         /*XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
@@ -153,19 +207,17 @@ public class XmlTest {
 
         /** 初级查看代码 */
         XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
-        //InjectionCollections injectionCollections=beanFactory.getBean(InjectionCollections.class);
-        //InjectionCollections injectionCollections1=(InjectionCollections)beanFactory.getBean("injectionList");
-        //System.out.println(injectionCollections1.getList());
-        //List<String> list=injectionCollections.getList();
-        //System.out.println(list);
+        InjectionCollections injectionCollections=beanFactory.getBean(InjectionCollections.class);
+        List<String> list=injectionCollections.getList();
+        System.out.println(list);
        //beanFactory.addBeanPostProcessor(beanFactory.getBean("testBeanPostProcessor", BeanPostProcessor.class));
         //beanFactory.addBeanPostProcessor(new TestBeanPostProcessor());
         /*Happy happy0=beanFactory.getBean("happy",Happy.class);
         System.out.println(happy0);
         happy0.say();*/
-        Apple apple=beanFactory.getBean("apple",Apple.class);
+        /*Apple apple=beanFactory.getBean("apple",Apple.class);
         System.out.println(apple.getIDCode());
-        beanFactory.destroySingletons();
+        beanFactory.destroySingletons();*/
         //ConnectionExample connectionExample= (ConnectionExample) beanFactory.getBean("connectionExample");
         //connectionExample.execConnection();
 

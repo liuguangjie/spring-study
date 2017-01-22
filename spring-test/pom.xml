@@ -22,6 +22,16 @@
             <artifactId>spring-beans</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!--
         <dependency>
             <groupId>com.springframework</groupId>
@@ -43,11 +53,7 @@
             <artifactId>spring-tx</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>1.0</version>
-        </dependency>-->
+        -->
     </dependencies>
 
 

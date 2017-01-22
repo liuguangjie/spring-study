@@ -223,7 +223,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			return;
 		}
 
-		// Parse each @Configuration class
+		// Parse each @Configuration class  迭代每一个 类上的 @Configuration 注解
 		ConfigurationClassParser parser = new ConfigurationClassParser(
 				this.metadataReaderFactory, this.problemReporter, this.environment, this.resourceLoader, registry);
 		for (BeanDefinitionHolder holder : configCandidates) {

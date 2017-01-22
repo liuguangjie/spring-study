@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
        >
-    <!--<bean id="injectionList" class="com.spring.study.collection.InjectionCollections">
+    <bean id="injectionList" class="com.spring.study.collection.InjectionCollections">
         <property name="list" >
             <list value-type="java.lang.String">
                 <value>java</value>
@@ -38,8 +38,8 @@
                 </props>
             </list>
         </property>
-    </bean>-->
-    <bean id="happy" class="com.spring.study.beans.Happy" init-method="init" destroy-method="destroy" scope="prototype">
+    </bean>
+    <!--<bean id="happy" class="com.spring.study.beans.Happy" init-method="init" destroy-method="destroy" scope="prototype">
         <property name="connectionExample" ref="connectionExample"/>
      </bean>
     <bean id="connectionExample" class="com.spring.study.beans.ConnectionExample"/>
@@ -49,13 +49,13 @@
         <constructor-arg index="0" value="hellloooooooo" />
         <constructor-arg index="1" ref="bananer"/>
     </bean>
-    <bean id="bananer" class="com.spring.study.beans.Bananer"/>
+    <bean id="bananer" class="com.spring.study.beans.Bananer"/>-->
          <!--测试-->
-    <!--<bean id="connManager" class="com.spring.study.beans.ConnManager" >
+    <bean id="connManager" class="com.spring.study.beans.ConnManager" >
         <lookup-method bean="connectionExtends" name="createConnection"/>
     </bean>
 
-    <bean id="connectionExtends" class="com.spring.study.beans.ConnectionExtends"/>-->
+    <bean id="connectionExtends" class="com.spring.study.beans.ConnectionExtends"/>
     <!--<bean id="fruitPlate1" class="com.spring.study.beans.FruitPlate">
         <lookup-method name="getFruit" bean="apple"/>
     </bean>
