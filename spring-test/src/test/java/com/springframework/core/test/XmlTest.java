@@ -2,14 +2,10 @@ package com.springframework.core.test;
 
 import com.spring.study.beans.*;
 import com.spring.study.collection.InjectionCollections;
-import com.spring.study.postprocessor.TestBeanPostProcessor;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.Constants;
 import org.springframework.core.io.*;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -32,7 +28,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -50,7 +45,7 @@ public class XmlTest {
      */
 
 
-    private String config= "spring-context.xml";
+    private String config= "spel/spring-spel.xml";
 
     private ResourceLoader resourceLoader=null;
     private Resource resource=null;

@@ -555,7 +555,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				}
 				if (value != null) {
 					ReflectionUtils.makeAccessible(field);
-					field.set(bean, value);
+					field.set(bean, value); //完成 @Autowire 完成赋值
 				}
 			}
 			catch (Throwable ex) {

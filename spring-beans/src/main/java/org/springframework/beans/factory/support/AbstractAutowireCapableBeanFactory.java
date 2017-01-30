@@ -585,7 +585,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		try {
 			populateBean(beanName, mbd, instanceWrapper); //填充bean的属性值
 			if (exposedObject != null) {
-				/** 初始化方法 */
+				/** 初始化方法 和 BeanPostProcessor 类的方法 并设置 beanFactory引用和其他类的一些引用*/
 				exposedObject = initializeBean(beanName, exposedObject, mbd);
 			}
 		}
@@ -1236,7 +1236,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		boolean hasInstAwareBpps = hasInstantiationAwareBeanPostProcessors();
 		boolean needsDepCheck = (mbd.getDependencyCheck() != RootBeanDefinition.DEPENDENCY_CHECK_NONE);
-
+		// @Autowired 注解值的注入 是通过一个后置处理器 AutowiredAnnotationBeanPostProcessor
 		if (hasInstAwareBpps || needsDepCheck) {
 			PropertyDescriptor[] filteredPds = filterPropertyDescriptorsForDependencyCheck(bw);
 			if (hasInstAwareBpps) {
