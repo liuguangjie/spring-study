@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+       >
+
+    <!--<bean id="helloWorldImpl1" class="com.spring.study.aop.HelloWorldImpl1" />
+    <bean id="timeHandler" class="com.spring.study.aop.TimeHandler" />-->
+
+    <!--<context:property-placeholder location="aop/aop.properties" />-->
+    <!--<aop:config>
+        <aop:pointcut id="pointcut" expression="execution(* com.spring.study.aop.HelloWorld.*(..))" />
+        <aop:aspect id="time" ref="timeHandler">
+            <aop:before method="aopBefore" pointcut-ref="pointcut" />
+            <aop:after method="aopAfter" pointcut-ref="pointcut" />
+        </aop:aspect>
+    </aop:config>-->
+    <bean id="springBeforeAdvice" class="com.spring.study.aop.SpringBeforeAdvice"/>
+    <!-- aop 最原始的方式 -->
+    <!--<bean id="helloWorldImpl1" class="com.spring.study.aop.HelloWorldImpl1"/>
+
+
+    <bean class="org.springframework.aop.framework.ProxyFactoryBean" >
+        <property name="target" ref="helloWorldImpl1"/>
+        <property name="interceptorNames">
+            <array>
+                <value >springBeforeAdvice</value>
+            </array>
+        </property>
+        <property name="proxyTargetClass">
+            <value>true</value>
+        </property>
+    </bean>-->
+
+    <!-- 切入点 静态普通方法 名字匹配-->
+    <bean id="helloWorldImplTarget" class="com.spring.study.aop.HelloWorldImpl1" />
+    <!--<bean id="staticAdvisor" class="com.spring.study.aop.StaticAdvisor" p:advice-ref="springBeforeAdvice"/>-->
+    <bean id="abstactFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true"
+          p:interceptorNames="defaultPointcutAdvisor" p:proxyTargetClass="true"/>
+
+    <bean id="helloWorldImpl" parent="abstactFactoryBean" p:target-ref="helloWorldImplTarget" />
+    <!-- 切入点reg匹配 -->
+    <!--<bean id="regexpMethodPointcutAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor" p:advice-ref="springBeforeAdvice">
+        <property name="patterns">
+            <array>
+                <value>.*print.*</value>
+            </array>
+        </property>
+    </bean>-->
+
+    <!-- 动态检查 类和方法匹配 -->
+    <bean id="dynamicMethodCheck" class="com.spring.study.aop.DynamicMethodCheck"/>
+    <bean id="defaultPointcutAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="pointcut" ref="dynamicMethodCheck"/>
+        <property name="advice" ref="springBeforeAdvice"/>
+    </bean>
+
+</beans>
