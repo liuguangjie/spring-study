@@ -22,11 +22,11 @@
             <artifactId>spring-beans</artifactId>
             <version>1.0</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.springframework</groupId>
             <artifactId>spring-context</artifactId>

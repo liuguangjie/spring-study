@@ -16,7 +16,7 @@
     <bean id="helloWorldImpl1" class="com.spring.study.aop.HelloWorldImpl1"/>
     <bean id="aspectJAop" class="com.spring.study.aop.AspectJAop" />
     <bean id="apple" class="com.spring.study.beans.Apple"/>
-    <aop:config proxy-target-class="true">   
+    <aop:config proxy-target-class="true">
         <aop:pointcut id="pointcutRef" expression="execution(* com.spring.study.aop..*(..))" />
         <aop:aspect id="time" ref="aspectJAop">
             <aop:before method="aspectBefore" pointcut-ref="pointcutRef" />

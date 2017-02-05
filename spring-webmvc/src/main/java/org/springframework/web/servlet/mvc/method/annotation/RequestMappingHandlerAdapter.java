@@ -121,7 +121,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter i
 	private SessionAttributeStore sessionAttributeStore = new DefaultSessionAttributeStore();
 	
 	private boolean ignoreDefaultModelOnRedirect = false;
-	
+	/** 缓存有@SessionAttributes 注解的类*/
 	private final Map<Class<?>, SessionAttributesHandler> sessionAttributesHandlerCache =
 		new ConcurrentHashMap<Class<?>, SessionAttributesHandler>();
 
@@ -130,9 +130,9 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter i
 	private HandlerMethodArgumentResolverComposite initBinderArgumentResolvers;
 	
 	private HandlerMethodReturnValueHandlerComposite returnValueHandlers;
-
+	/** 缓存有 @InitBinder 注解的方法 */
 	private final Map<Class<?>, Set<Method>> dataBinderFactoryCache = new ConcurrentHashMap<Class<?>, Set<Method>>();
-
+	/** 缓存 有 @ModelAttribute 注解的方法 */
 	private final Map<Class<?>, Set<Method>> modelFactoryCache = new ConcurrentHashMap<Class<?>, Set<Method>>();
 
 	/**
@@ -604,13 +604,14 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter i
 			HandlerMethod handlerMethod) throws Exception {
 		
 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
-
+		/** 封装 @InitBinder 注解的方法 并设置 参数解析器*/
 		WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);
 		ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);
 		ServletInvocableHandlerMethod requestMappingMethod = createRequestMappingMethod(handlerMethod, binderFactory);
 
 		ModelAndViewContainer mavContainer = new ModelAndViewContainer();
 		mavContainer.addAllAttributes(RequestContextUtils.getInputFlashMap(request));
+		/** 初始化 @ModelAttribute 注解的方法*/
 		modelFactory.initModel(webRequest, mavContainer, requestMappingMethod);
 		mavContainer.setIgnoreDefaultModelOnRedirect(this.ignoreDefaultModelOnRedirect);
 

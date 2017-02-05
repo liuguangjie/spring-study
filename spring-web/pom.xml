@@ -27,6 +27,17 @@
             <artifactId>spring-oxm</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
 
 
