@@ -11,7 +11,9 @@ public class Customer {
 
     @Value("#{itemBean}")
     private Item item;
-    @Value("#{itemBean.name}")
+    //@Value("#{itemBean.name}")
+    //@Value("${package}")
+    @Value("#{configProperties['package']}")
     private String itemName;
 
     public Item getItem() {

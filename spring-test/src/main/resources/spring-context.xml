@@ -27,7 +27,6 @@
                 <prop key="java">simple</prop>
             </props>
         </property>
-
         <property name="propertiesList">
             <list>
                 <props>

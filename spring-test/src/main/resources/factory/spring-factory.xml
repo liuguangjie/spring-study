@@ -8,6 +8,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
 >
     <!--<bean id="person0" class="com.spring.study.factory.PersionFactoryBean"/>-->
-    <bean id="person1" class="com.spring.study.factory.StaticFactoryMethod" factory-method="getPerson"/>
+    <bean id="person1" class="com.spring.study.factory.StaticFactoryMethod" factory-method="getPerson" />
 
 </beans>

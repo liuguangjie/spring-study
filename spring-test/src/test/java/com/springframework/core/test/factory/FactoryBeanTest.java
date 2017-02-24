@@ -14,16 +14,13 @@ public class FactoryBeanTest extends BaseApplicationContext {
     }
     @Test
     public void testProxyFactoryBean(){
-        Person person= (Person) applicationContext.getBean("person0");
+        Person person= applicationContext.getBean(Person.class);
+        Person person1=applicationContext.getBean(Person.class);
+        System.out.println(person1);
+        System.out.println(person);
         person.show();
     }
 
-    @Test
-    public void testStaticFactoryMethod(){
-        Person person= (Person) applicationContext.getBean("person1");
-        person.show();
-
-    }
 
 
 }

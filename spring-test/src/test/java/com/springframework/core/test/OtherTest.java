@@ -29,6 +29,22 @@ public class OtherTest {
             System.out.println();
         }
 
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        int space=0;
+        for (int i=7;i>0;i--){
+            for(int k=0;k<space;k++){
+                System.out.print(" ");
+            }
+            for (int j=i*2-1; j>0;j--){
+                System.out.print("*");
+            }
+            space++;
+            System.out.println();
+        }
+
     }
 
 

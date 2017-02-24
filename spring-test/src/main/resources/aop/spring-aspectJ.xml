@@ -21,7 +21,15 @@
         <aop:aspect id="time" ref="aspectJAop">
             <aop:before method="aspectBefore" pointcut-ref="pointcutRef" />
             <aop:after-returning method="afterRet" pointcut-ref="pointcutRef" returning="test"/>
+            <aop:after-throwing method="doThrow" pointcut-ref="pointcutRef" throwing="ex"/>
         </aop:aspect>
     </aop:config>
+
+    <!--<aop:config proxy-target-class="true">
+        <aop:pointcut id="pooo" expression="execution(* com.spring.study.aop..*(..))"/>
+        <aop:aspect id="zxx" ref="aspectJAop">
+            <aop:after-returning method="afterRet" pointcut-ref="pooo" returning="test"/>
+        </aop:aspect>
+    </aop:config>-->
 
 </beans>

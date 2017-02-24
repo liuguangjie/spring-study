@@ -10,10 +10,10 @@ import javax.annotation.PreDestroy;
  * Created by free on 16-12-8.
  * 开心的情绪
  */
-@Service("com.happy")
+/*@Service("com.happy")*/
 public class Happy  extends Mood{
 
-    //@Autowired
+    @Autowired
     private ConnectionExample connectionExample;
 
     private String hi=null;

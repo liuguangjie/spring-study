@@ -6,6 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.SourceFilteringListener;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.Constants;
 import org.springframework.core.io.*;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -26,8 +32,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -150,6 +158,7 @@ public class XmlTest {
 
     @Test
     public void testLookupMothed(){
+        ClassPathResource resource=new ClassPathResource("spring-context.xml");
         XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
         ConnManager connManager=beanFactory.getBean("connManager", ConnManager.class);
 
@@ -191,20 +200,21 @@ public class XmlTest {
     }
 
     @Test
-    public void testSpringXml(){
-        /*ClassPathResource resource=new ClassPathResource(config);
+    public void testSpringXml() throws Exception{
 
-        System.out.println(resource.exists());*/
+        /*ClassPathResource resource=new ClassPathResource("spring-context.xml");*/
 
         //System.out.println(resource);
         //ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
         //System.out.println(applicationContext);
 
         /** 初级查看代码 */
-        XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
+        /*XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
         InjectionCollections injectionCollections=beanFactory.getBean(InjectionCollections.class);
         List<String> list=injectionCollections.getList();
         System.out.println(list);
+        beanFactory.destroySingletons();*/
+
        //beanFactory.addBeanPostProcessor(beanFactory.getBean("testBeanPostProcessor", BeanPostProcessor.class));
         //beanFactory.addBeanPostProcessor(new TestBeanPostProcessor());
         /*Happy happy0=beanFactory.getBean("happy",Happy.class);
@@ -236,9 +246,13 @@ public class XmlTest {
 
         }*/
         /** 高级查看代码 */
-        /*ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
-        Happy happy=applicationContext.getBean(Happy.class);
-        happy.say();*/
+        ClassPathXmlApplicationContext applicationContext=new ClassPathXmlApplicationContext();
+        applicationContext.addApplicationListener(new TestApplicationListener());
+        applicationContext.setConfigLocation("spring-context.xml");
+        applicationContext.refresh();
+
+        InjectionCollections collections=applicationContext.getBean(InjectionCollections.class);
+        System.out.println(collections.getList());
     }
     private String classpathConfig="classpath*:"+config;
 
@@ -289,6 +303,7 @@ public class XmlTest {
         }
     }
 
+
     @Test
     public void testSubString() throws IOException {
 
@@ -300,14 +315,14 @@ public class XmlTest {
         */
 
         /**
-         第二波
+         第二波*/
          PathMatchingResourcePatternResolver patternResolver=new PathMatchingResourcePatternResolver();
          System.out.println(patternResolver);
-         String locationPattern = "classpath*:"+config+",classpath*:spring-context-test.xml";
+         String locationPattern = "classpath*:"+config;
          Resource[] resources=patternResolver.getResources(locationPattern);
 
          System.out.println(resources.length);
-         */
+
 
         /**
          第三波
@@ -331,7 +346,7 @@ public class XmlTest {
     public void testBitSum(){
         //101000
         System.out.println(10 >> 2);
-
+        System.out.println("===================================================================");
         /**
         2 10   0
         2  5   1
@@ -339,6 +354,14 @@ public class XmlTest {
         2  1   1
          */
 
+    }
+
+    private class  TestApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
+
+        @Override
+        public void onApplicationEvent(ContextRefreshedEvent event) {
+            XmlTest.this.testBitSum();
+        }
     }
 
 }

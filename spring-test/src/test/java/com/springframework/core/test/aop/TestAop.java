@@ -17,7 +17,7 @@ public class TestAop  extends BaseApplicationContext {
 
     @Test
     public void testHelloWorld(){
-        HelloWorld hw1 = (HelloWorld)applicationContext.getBean("helloWorldImpl");
+        HelloWorld hw1 = (HelloWorld)applicationContext.getBean("helloWorldImpl1");
         hw1.printHelloWorld();
         hw1.doPrint();
     }
