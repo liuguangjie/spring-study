@@ -17,8 +17,7 @@ public class HelloWorldImpl1 implements HelloWorld {
         return ;
     }
 
-    public String printHelloWorld(String count){
-
-        return count+"asdasd";
+    public void printHelloWorld(String count){
+        System.out.println("无返回值 ...");
     }
 }

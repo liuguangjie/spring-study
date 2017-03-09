@@ -5,9 +5,6 @@ package com.spring.study.beans;
  */
 public class Bananer extends Fruit {
     private String bananers=null;
-    public Bananer () {
-        System.out.println("I got a  fresh bananer");
-    }
 
     public String getBananers() {
         return bananers;

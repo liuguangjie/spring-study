@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 the original author or authors.
+ * Copyright 2002-2006 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,9 @@
 
 package org.springframework.transaction.interceptor;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
-import org.aopalliance.aop.AspectException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -59,15 +55,19 @@ import org.springframework.util.ClassUtils;
  * @see #setTransactionAttributes
  * @see #setTransactionAttributeSource
  */
-public class TransactionAspectSupport implements InitializingBean, Serializable {
+public abstract class TransactionAspectSupport implements InitializingBean {
+
+	// NOTE: This class must not implement Serializable because it serves as base
+	// class for AspectJ aspects (which are not allowed to implement Serializable)!
 
 	/**
-	 * Holder to support the currentTransactionStatus() method, and communication
-	 * between different cooperating advices (e.g. before and after advice)
-	 * if the aspect involves more than a single method (as will be the case for
-	 * around advice).
+	 * Holder to support the <code>currentTransactionStatus()</code> method,
+	 * and to support communication between different cooperating advices
+	 * (e.g. before and after advice) if the aspect involves more than a
+	 * single method (as will be the case for around advice).
 	 */
 	private static ThreadLocal currentTransactionInfo = new ThreadLocal();
+
 
 	/**
 	 * Return the transaction status of the current method invocation.
@@ -106,18 +106,14 @@ public class TransactionAspectSupport implements InitializingBean, Serializable 
 		return info;
 	}
 
-	/**
-	 * Transient to avoid serialization. Not static as we want it
-	 * to be the correct logger for subclasses. Reconstituted in
-	 * readObject().
-	 */
-	protected transient Log logger = LogFactory.getLog(getClass());
+
+	protected final Log logger = LogFactory.getLog(getClass());
 
 	/** Delegate used to create, commit and rollback transactions */
-	protected PlatformTransactionManager transactionManager;
+	private PlatformTransactionManager transactionManager;
 
 	/** Helper used to find transaction attributes */
-	protected TransactionAttributeSource transactionAttributeSource;
+	private TransactionAttributeSource transactionAttributeSource;
 
 
 	/**
@@ -151,6 +147,19 @@ public class TransactionAspectSupport implements InitializingBean, Serializable 
 		NameMatchTransactionAttributeSource tas = new NameMatchTransactionAttributeSource();
 		tas.setProperties(transactionAttributes);
 		this.transactionAttributeSource = tas;
+	}
+
+	/**
+	 * Set multiple transaction attribute sources which are used to find transaction
+	 * attributes. Will build a CompositeTransactionAttributeSource for the given sources.
+	 * @see CompositeTransactionAttributeSource
+	 * @see MethodMapTransactionAttributeSource
+	 * @see NameMatchTransactionAttributeSource
+	 * @see AttributesTransactionAttributeSource
+	 * @see org.springframework.transaction.annotation.AnnotationTransactionAttributeSource
+	 */
+	public void setTransactionAttributeSources(TransactionAttributeSource[] transactionAttributeSources) {
+		this.transactionAttributeSource = new CompositeTransactionAttributeSource(transactionAttributeSources);
 	}
 
 	/**
@@ -293,13 +302,23 @@ public class TransactionAspectSupport implements InitializingBean, Serializable 
 				}
 			}
 			else {
-				// we don't roll back on this exception
+				// We don't roll back on this exception.
 				if (logger.isDebugEnabled()) {
 					logger.debug(txInfo.joinpointIdentification() + " threw throwable [" + ex +
 							"] but this does not force transaction rollback");
 				}
-				// will still roll back if TransactionStatus.rollbackOnly is true
-				this.transactionManager.commit(txInfo.getTransactionStatus());
+				// Will still roll back if TransactionStatus.isRollbackOnly() is true.
+				try {
+					this.transactionManager.commit(txInfo.getTransactionStatus());
+				}
+				catch (RuntimeException ex2) {
+					logger.error("Application exception overridden by commit exception", ex);
+					throw ex2;
+				}
+				catch (Error err) {
+					logger.error("Application exception overridden by commit error", ex);
+					throw err;
+				}
 			}
 		}
 	}
@@ -316,25 +335,6 @@ public class TransactionAspectSupport implements InitializingBean, Serializable 
 	}
 
 	
-	//---------------------------------------------------------------------
-	// Serialization support
-	//---------------------------------------------------------------------
-	
-	private void readObject(ObjectInputStream ois) throws IOException {
-		// Rely on default serialization, just initialize state after deserialization.
-		try {
-			ois.defaultReadObject();
-		}
-		catch (ClassNotFoundException ex) {
-			throw new AspectException("Failed to deserialize Spring AOP transaction aspect:" +
-					"Check that Spring AOP libraries are available on the client side", ex);
-		}
-		
-		// Initialize transient fields
-		this.logger = LogFactory.getLog(getClass());
-	}
-
-
 	/**
 	 * Opaque object used to hold Transaction information. Subclasses
 	 * must pass it back to methods on this class, but not see its internals.

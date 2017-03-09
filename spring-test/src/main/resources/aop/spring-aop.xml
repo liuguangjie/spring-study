@@ -23,28 +23,28 @@
     </aop:config>-->
     <bean id="springBeforeAdvice" class="com.spring.study.aop.SpringBeforeAdvice"/>
     <!-- aop 最原始的方式 -->
-    <!--<bean id="helloWorldImpl1" class="com.spring.study.aop.HelloWorldImpl1"/>
+    <bean id="helloWorldImpl1" class="com.spring.study.aop.HelloWorldImpl1"/>
 
 
     <bean class="org.springframework.aop.framework.ProxyFactoryBean" >
         <property name="target" ref="helloWorldImpl1"/>
         <property name="interceptorNames">
             <array>
-                <value >springBeforeAdvice</value>
+                <value>springBeforeAdvice</value>
             </array>
         </property>
-        <property name="proxyTargetClass">
+        <!--<property name="proxyTargetClass">
             <value>true</value>
-        </property>
-    </bean>-->
+        </property>-->
+    </bean>
 
     <!-- 切入点 静态普通方法 名字匹配-->
-    <bean id="helloWorldImplTarget" class="com.spring.study.aop.HelloWorldImpl1" />
+    <!--<bean id="helloWorldImplTarget" class="com.spring.study.aop.HelloWorldImpl1" />-->
     <!--<bean id="staticAdvisor" class="com.spring.study.aop.StaticAdvisor" p:advice-ref="springBeforeAdvice"/>-->
-    <bean id="abstactFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true"
-          p:interceptorNames="defaultPointcutAdvisor" p:proxyTargetClass="true"/>
+   <!-- <bean id="abstactFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true"
+          p:interceptorNames="springBeforeAdvice" p:proxyTargetClass="true"/>-->
 
-    <bean id="helloWorldImpl" parent="abstactFactoryBean" p:target-ref="helloWorldImplTarget" />
+    <!--<bean id="helloWorldImpl" parent="abstactFactoryBean" p:target-ref="helloWorldImplTarget" />-->
     <!-- 切入点reg匹配 -->
     <!--<bean id="regexpMethodPointcutAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor" p:advice-ref="springBeforeAdvice">
         <property name="patterns">
@@ -55,10 +55,10 @@
     </bean>-->
 
     <!-- 动态检查 类和方法匹配 -->
-    <bean id="dynamicMethodCheck" class="com.spring.study.aop.DynamicMethodCheck"/>
+    <!--<bean id="dynamicMethodCheck" class="com.spring.study.aop.DynamicMethodCheck"/>
     <bean id="defaultPointcutAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
         <property name="pointcut" ref="dynamicMethodCheck"/>
         <property name="advice" ref="springBeforeAdvice"/>
-    </bean>
+    </bean>-->
 
 </beans>

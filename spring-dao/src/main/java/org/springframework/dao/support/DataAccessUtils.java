@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 the original author or authors.
+ * Copyright 2002-2006 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,11 @@ package org.springframework.dao.support;
 
 import java.util.Collection;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.dao.TypeMismatchDataAccessException;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.NumberUtils;
 
@@ -58,10 +61,15 @@ public abstract class DataAccessUtils {
 	 * @param results the result Collection (can be <code>null</code>)
 	 * @return the unique result object
 	 * @throws IncorrectResultSizeDataAccessException if more than one
-	 * result object or none at all has been found in the given Collection
+	 * result object has been found in the given Collection
+	 * @throws EmptyResultDataAccessException if no result object
+	 * at all has been found in the given Collection
 	 */
 	public static Object requiredUniqueResult(Collection results) throws IncorrectResultSizeDataAccessException {
 		int size = (results != null ? results.size() : 0);
+		if (size == 0) {
+			throw new EmptyResultDataAccessException(1);
+		}
 		if (!CollectionUtils.hasUniqueObject(results)) {
 			throw new IncorrectResultSizeDataAccessException(1, size);
 		}
@@ -76,7 +84,9 @@ public abstract class DataAccessUtils {
 	 * @param results the result Collection (can be <code>null</code>)
 	 * @return the unique result object
 	 * @throws IncorrectResultSizeDataAccessException if more than one
-	 * result object or none at all has been found in the given Collection
+	 * result object has been found in the given Collection
+	 * @throws EmptyResultDataAccessException if no result object
+	 * at all has been found in the given Collection
 	 * @throws TypeMismatchDataAccessException if the unique object does
 	 * not match the specified required type
 	 */
@@ -112,7 +122,9 @@ public abstract class DataAccessUtils {
 	 * @param results the result Collection (can be <code>null</code>)
 	 * @return the unique int result
 	 * @throws IncorrectResultSizeDataAccessException if more than one
-	 * result object or none at all has been found in the given Collection
+	 * result object has been found in the given Collection
+	 * @throws EmptyResultDataAccessException if no result object
+	 * at all has been found in the given Collection
 	 * @throws TypeMismatchDataAccessException if the unique object
 	 * in the collection is not convertable to an int
 	 */
@@ -129,7 +141,9 @@ public abstract class DataAccessUtils {
 	 * @param results the result Collection (can be <code>null</code>)
 	 * @return the unique long result
 	 * @throws IncorrectResultSizeDataAccessException if more than one
-	 * result object or none at all has been found in the given Collection
+	 * result object has been found in the given Collection
+	 * @throws EmptyResultDataAccessException if no result object
+	 * at all has been found in the given Collection
 	 * @throws TypeMismatchDataAccessException if the unique object
 	 * in the collection is not convertable to a long
 	 */
@@ -137,6 +151,23 @@ public abstract class DataAccessUtils {
 			throws IncorrectResultSizeDataAccessException, TypeMismatchDataAccessException {
 
 		return ((Number) objectResult(results, Number.class)).longValue();
+	}
+	
+	
+	/**
+	 * Return a translated exception if this is appropriate,
+	 * otherwise return the input exception.
+	 * @param rawException exception we may wish to translate
+	 * @param pet PersistenceExceptionTranslator to use to perform the translation
+	 * @return a translated exception if translation is possible, or
+	 * the raw exception if it is not
+	 */
+	public static RuntimeException translateIfNecessary(
+			RuntimeException rawException, PersistenceExceptionTranslator pet) {
+
+		Assert.notNull(pet, "PersistenceExceptionTranslator must not be null");
+		DataAccessException dex = pet.translateExceptionIfPossible(rawException);
+		return (dex != null ? dex : rawException);
 	}
 
 }

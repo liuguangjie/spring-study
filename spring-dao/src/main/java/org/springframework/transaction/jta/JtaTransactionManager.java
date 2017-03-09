@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 the original author or authors.
+ * Copyright 2002-2006 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -102,7 +102,9 @@ import org.springframework.transaction.support.TransactionSynchronization;
  * <li>"java:comp/UserTransaction" for Resin 2.x, Oracle OC4J (Orion),
  * JOnAS (JOTM), BEA WebLogic
  * <li>"java:comp/TransactionManager" for Resin 3.x
- * <li>"java:/TransactionManager" for JBoss
+ * <li>"java:pm/TransactionManager" for Borland Enterprise Server and
+ * Sun Application Server (Sun ONE 7 and later)
+ * <li>"java:/TransactionManager" for JBoss Application Server
  * </ul>
  *
  * <p>All of these cases are autodetected by JtaTransactionManager (since Spring 1.2),
@@ -197,7 +199,7 @@ public class JtaTransactionManager extends AbstractPlatformTransactionManager
 	 * @see #setAutodetectTransactionManager
 	 */
 	public static final String[] FALLBACK_TRANSACTION_MANAGER_NAMES =
-			new String[] {"java:comp/TransactionManager", "java:/TransactionManager"};
+			new String[] {"java:comp/TransactionManager", "java:pm/TransactionManager", "java:/TransactionManager"};
 
 
 	private transient JndiTemplate jndiTemplate = new JndiTemplate();
@@ -551,11 +553,15 @@ public class JtaTransactionManager extends AbstractPlatformTransactionManager
 			String jndiName = FALLBACK_TRANSACTION_MANAGER_NAMES[i];
 			try {
 				TransactionManager tm = lookupTransactionManager(jndiName);
-				logger.debug("JTA TransactionManager found at fallback JNDI location [" + jndiName + "]");
+				if (logger.isDebugEnabled()) {
+					logger.debug("JTA TransactionManager found at fallback JNDI location [" + jndiName + "]");
+				}
 				return tm;
 			}
 			catch (TransactionSystemException ex) {
-				logger.debug("No JTA TransactionManager found at fallback JNDI location [" + jndiName + "]", ex);
+				if (logger.isDebugEnabled()) {
+					logger.debug("No JTA TransactionManager found at fallback JNDI location [" + jndiName + "]", ex);
+				}
 			}
 		}
 
@@ -798,7 +804,9 @@ public class JtaTransactionManager extends AbstractPlatformTransactionManager
 	protected void doRollback(DefaultTransactionStatus status) {
 		JtaTransactionObject txObject = (JtaTransactionObject) status.getTransaction();
 		try {
-			txObject.getUserTransaction().rollback();
+			if (txObject.getUserTransaction().getStatus() != Status.STATUS_NO_TRANSACTION) {
+				txObject.getUserTransaction().rollback();
+			}
 		}
 		catch (SystemException ex) {
 			throw new TransactionSystemException("JTA failure on rollback", ex);
@@ -811,7 +819,9 @@ public class JtaTransactionManager extends AbstractPlatformTransactionManager
 			logger.debug("Setting JTA transaction rollback-only");
 		}
 		try {
-			txObject.getUserTransaction().setRollbackOnly();
+			if (txObject.getUserTransaction().getStatus() != Status.STATUS_NO_TRANSACTION) {
+				txObject.getUserTransaction().setRollbackOnly();
+			}
 		}
 		catch (IllegalStateException ex) {
 			throw new NoTransactionException("No active JTA transaction");
@@ -875,18 +885,11 @@ public class JtaTransactionManager extends AbstractPlatformTransactionManager
 	// Serialization support
 	//---------------------------------------------------------------------
 
-	private void readObject(ObjectInputStream ois) throws IOException {
-		// Rely on default serialization, just initialize state after deserialization.
-		try {
-			ois.defaultReadObject();
-		}
-		catch (ClassNotFoundException ex) {
-			throw new IOException(
-					"Failed to deserialize JtaTransactionManager - check that JTA and Spring transaction " +
-					"libraries are available on the client side: " + ex.getMessage());
-		}
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		// Rely on default serialization; just initialize state after deserialization.
+		ois.defaultReadObject();
 
-		// Do client-side JNDI lookup.
+		// Create template for client-side JNDI lookup.
 		this.jndiTemplate = new JndiTemplate();
 
 		// Perform lookup for JTA UserTransaction and TransactionManager.

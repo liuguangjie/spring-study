@@ -15,11 +15,11 @@
             <name>Team Nexus Repository</name>
             <url>http://repo1.maven.org/maven2</url>
         </repository>-->
-        <!--<repository>
+        <repository>
             <id>alimaven</id>
             <name>aliyun maven</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-        </repository>-->
+        </repository>
         <!-- http://www.djlink.cn 公司自己的maven地址 -->
         <!--<repository>
             <id>djlink</id>
@@ -289,7 +289,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
@@ -315,7 +315,7 @@
                     <artifactId>spring-aop</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>-->
+        </dependency>
         <!--<dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
@@ -385,6 +385,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.ow2.jotm</groupId>
+            <artifactId>jotm-standalone</artifactId>
+            <version>2.1.1</version>
+        </dependency>
         <!--<dependency>
             <groupId>springframework</groupId>
             <artifactId>spring-dao</artifactId>
@@ -414,6 +419,16 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>4.1.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
         </dependency>
         <dependency>
             <groupId>org.jruby</groupId>
@@ -706,6 +721,11 @@
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
             <version>2.6.12</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-attributes</groupId>
+            <artifactId>commons-attributes-compiler</artifactId>
+            <version>2.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

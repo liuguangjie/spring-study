@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+       >
+
+    <!--<bean class="com.spring.study.property.DateEditorConfigurer">
+        <property name="pattens" >
+            <set>
+                <value>yyyy-MM-dd HH:mm:ss</value>
+                <value>yyyy-MM-dd</value>
+            </set>
+        </property>
+
+    </bean>-->
+
+    <!--<bean class="com.spring.study.property.BeanWrapList">
+        <property name="date" value="2017-03-08"/>
+    </bean>-->
+
+
+    <bean id="injectionList" class="com.spring.study.collection.InjectionCollections">
+        <property name="list" >
+            <list value-type="java.lang.String">
+                <value>java</value>
+                <value >c++</value>
+                <value>pythen</value>
+                <value>c</value>
+            </list>
+        </property>
+        <property name="map">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <entry key="java" value="java9"/>
+                <entry key="c++" value="first"/>
+                <entry key="c" value="one"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="java">simple</prop>
+            </props>
+        </property>
+        <property name="propertiesList">
+            <list>
+                <props>
+                    <prop key="asda">888</prop>
+                </props>
+                <props>
+                    <prop key="nini">asahsdf</prop>
+                </props>
+            </list>
+        </property>
+    </bean>
+
+
+
+</beans>

@@ -1,12 +1,12 @@
 /*
- * Copyright 2002-2005 the original author or authors.
- * 
+ * Copyright 2002-2006 the original author or authors.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ import org.springframework.core.OrderComparator;
  *
  * <p>Resource management code should check for thread-bound resources, e.g. JDBC
  * Connections or Hibernate Sessions, via <code>getResource</code>. Such code is
- * normally not supposed to bind resources to threads, as this is the responsiblity
+ * normally not supposed to bind resources to threads, as this is the responsibility
  * of transaction managers. A further option is to lazily bind on first use if
  * transaction synchronization is active, for performing transactions that span
  * an arbitrary number of resources.
@@ -99,17 +99,14 @@ public abstract class TransactionSynchronizationManager {
 	/**
 	 * Return all resources that are bound to the current thread.
 	 * <p>Mainly for debugging purposes. Resource managers should always invoke
-	 * hasResource for a specific resource key that they are interested in.
+	 * <code>hasResource</code> for a specific resource key that they are interested in.
 	 * @return Map with resource keys and resource objects,
 	 * or empty Map if currently none bound
 	 * @see #hasResource
 	 */
 	public static Map getResourceMap() {
 		Map map = (Map) resources.get();
-		if (map == null) {
-			map = new HashMap();
-		}
-		return Collections.unmodifiableMap(map);
+		return (map != null ? Collections.unmodifiableMap(map) : Collections.EMPTY_MAP);
 	}
 
 	/**
@@ -218,7 +215,8 @@ public abstract class TransactionSynchronizationManager {
 	/**
 	 * Register a new transaction synchronization for the current thread.
 	 * Typically called by resource management code.
-	 * <p>Note that synchronizations can implemented the Ordered interface.
+	 * <p>Note that synchronizations can implement the
+	 * {@link org.springframework.core.Ordered} interface.
 	 * They will be executed in an order according to their order value (if any).
 	 * @throws IllegalStateException if synchronization is not active
 	 * @see org.springframework.core.Ordered

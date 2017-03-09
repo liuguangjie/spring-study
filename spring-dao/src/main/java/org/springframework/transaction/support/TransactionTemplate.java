@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2005 the original author or authors.
+ * Copyright 2002-2006 the original author or authors.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,47 +18,49 @@ package org.springframework.transaction.support;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 
 /**
- * Helper class that simplifies programmatic transaction demarcation
- * and transaction exception handling.
+ * Template class that simplifies programmatic transaction demarcation and
+ * transaction exception handling.
  *
  * <p>The central method is "execute", supporting transactional code implementing
  * the TransactionCallback interface. It handles the transaction lifecycle and
  * possible exceptions such that neither the TransactionCallback implementation
  * nor the calling code needs to explicitly handle transactions.
  *
- * <p>Typical usage: Allows for writing low-level application services that use
+ * <p>Typical usage: Allows for writing low-level data access objects that use
  * (JNDI) resources but are not transaction-aware themselves. Instead, they
- * can implicitly take part in (JTA) transactions handled by higher-level
+ * can implicitly participate in (JTA) transactions handled by higher-level
  * application services utilizing this class, making calls to the low-level
  * services via an inner-class callback object.
  *
  * <p>Can be used within a service implementation via direct instantiation with
  * a transaction manager reference, or get prepared in an application context
- * and given to services as bean reference. Note: The transaction manager should
- * always be configured as bean in the application context, in the first case
- * given to the service directly, in the second case to the prepared template.
+ * and passed to services as bean reference. Note: The transaction manager should
+ * always be configured as bean in the application context: in the first case given
+ * to the service directly, in the second case given to the prepared template.
  *
  * <p>Supports setting the propagation behavior and the isolation level by name,
  * for convenient configuration in context definitions.
  *
  * @author Juergen Hoeller
  * @since 17.03.2003
+ * @see #execute
  * @see org.springframework.transaction.support.TransactionCallback
  * @see org.springframework.transaction.PlatformTransactionManager
  * @see org.springframework.transaction.jta.JtaTransactionManager
  */
-public class TransactionTemplate extends DefaultTransactionDefinition implements InitializingBean{
+public class TransactionTemplate extends DefaultTransactionDefinition implements InitializingBean {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	private PlatformTransactionManager transactionManager = null;
+
 
 	/**
 	 * Create a new TransactionTemplate instance.
@@ -74,6 +76,17 @@ public class TransactionTemplate extends DefaultTransactionDefinition implements
 	 * @param transactionManager transaction management strategy to be used
 	 */
 	public TransactionTemplate(PlatformTransactionManager transactionManager) {
+		this.transactionManager = transactionManager;
+	}
+	
+	/**
+	 * Create a new TransactionTemplate instance.
+	 * @param transactionManager transaction management strategy to be used
+	 * @param transactionDefinition transaction definition to copy from.
+	 * Properties can still be set to change values
+	 */
+	public TransactionTemplate(PlatformTransactionManager transactionManager, TransactionDefinition transactionDefinition) {
+		super(transactionDefinition);
 		this.transactionManager = transactionManager;
 	}
 
@@ -97,6 +110,7 @@ public class TransactionTemplate extends DefaultTransactionDefinition implements
 		}
 	}
 
+
 	/**
 	 * Execute the action specified by the given callback object within a transaction.
 	 * <p>Allows for returning a result object created within the transaction, i.e.
@@ -114,12 +128,12 @@ public class TransactionTemplate extends DefaultTransactionDefinition implements
 			result = action.doInTransaction(status);
 		}
 		catch (RuntimeException ex) {
-			// transactional code threw application exception -> rollback
+			// Transactional code threw application exception -> rollback
 			rollbackOnException(status, ex);
 			throw ex;
 		}
 		catch (Error err) {
-			// transactional code threw error -> rollback
+			// Transactional code threw error -> rollback
 			rollbackOnException(status, err);
 			throw err;
 		}

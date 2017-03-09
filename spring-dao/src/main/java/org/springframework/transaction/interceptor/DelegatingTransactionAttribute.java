@@ -18,8 +18,9 @@ package org.springframework.transaction.interceptor;
 
 /**
  * TransactionAttribute implementation that delegates all calls to a given target
- * TransactionAttribute. Abstract because it is meant to be to be subclasses,
- * overriding specific methods that should not simply delegate to the target.
+ * TransactionAttribute. Abstract because it is meant to be subclassed,
+ * with subclasses overriding specific methods that should not simply delegate
+ * to the target.
  *
  * @author Juergen Hoeller
  * @since 1.2
@@ -28,12 +29,15 @@ public abstract class DelegatingTransactionAttribute implements TransactionAttri
 
 	private final TransactionAttribute targetAttribute;
 
+
 	/**
 	 * Create a DelegatingTransactionAttribute for the given target attribute.
+	 * @param targetAttribute the target TransactionAttribute to delegate to
 	 */
 	public DelegatingTransactionAttribute(TransactionAttribute targetAttribute) {
 		this.targetAttribute = targetAttribute;
 	}
+
 
 	public int getPropagationBehavior() {
 		return this.targetAttribute.getPropagationBehavior();
@@ -58,6 +62,7 @@ public abstract class DelegatingTransactionAttribute implements TransactionAttri
 	public boolean rollbackOn(Throwable ex) {
 		return this.targetAttribute.rollbackOn(ex);
 	}
+
 
 	public boolean equals(Object obj) {
 		return this.targetAttribute.equals(obj);
