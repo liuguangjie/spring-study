@@ -27,17 +27,18 @@ public class SpringTransactionTest {
     @Test
     public void transactionProxyFactoryBean(){
         ClassPathXmlApplicationContext ac=new ClassPathXmlApplicationContext("dao/spring-dao.xml");
-        StudentService studentService=ac.getBean("studentService",StudentService.class);
+        StudentService studentService=ac.getBean("studentServiceTarget",StudentService.class);
         //StudentDao studentDao=ac.getBean("studentService",StudentDao.class);
         Student student=new Student();
         student.setId(7);
         student.setAge(4);
         student.setBirthday(new Date());
         student.setName("啊哈测试");
-        //studentService.addStudent(student);
+
         //studentDao.updatestudent(student);
         List<Student> students=studentService.getStudents();
         System.out.println(students);
+        studentService.addStudent(student);
 
         ac.close();
     }

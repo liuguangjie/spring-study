@@ -2,56 +2,89 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
-       >
+>
 
-       <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
-             destroy-method="close">
-              <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-              <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springmvc?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8" />
-              <property name="user" value="root"/>
-              <property name="password" value="root"/>
-       </bean>
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl"
+                  value="jdbc:mysql://localhost:3306/springmvc?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
+        <property name="user" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
 
-       <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
-              <property name="dataSource" ref="dataSource"/>
-       </bean>
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 
-       <bean id="studentDao" class="com.spring.study.dao.StudentDao">
-              <property name="dataSource" ref="dataSource"/>
-       </bean>
-       <bean id="studentServiceTarget" class="com.spring.study.dao.StudentService">
-              <property name="studentDao" ref="studentDao"/>
-       </bean>
+    <bean id="studentDao" class="com.spring.study.dao.StudentDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="studentServiceTarget" class="com.spring.study.dao.StudentService">
+        <property name="studentDao" ref="studentDao"/>
+    </bean>
 
-
-       <bean id="studentService"  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-              <property name="target" ref="studentServiceTarget"/>
-              <property name="proxyTargetClass" value="true"/>
-              <property name="transactionManager" ref="dataSourceTransactionManager"/>
-              <property name="transactionAttributes">
-                     <props>
-                            <!--<prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop>-->
-                            <prop key="add*">PROPAGATION_REQUIRED</prop>
-                            <!--<prop key="*">PROPAGATION_REQUIRED</prop>-->
-                     </props>
-              </property>
-       </bean>
+    <!--<bean id="aspectJAop2" class="com.spring.study.aop.AspectJAop"/>-->
 
 
+    <!--<bean id="studentService"  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+           <property name="target" ref="studentServiceTarget"/>
+           <property name="proxyTargetClass" value="true"/>
+           <property name="transactionManager" ref="dataSourceTransactionManager"/>
+           <property name="transactionAttributes">
+                  <props>
+                         &lt;!&ndash;<prop key="get*">PROPAGATION_SUPPORTS,readOnly</prop>&ndash;&gt;
+                         <prop key="add*">PROPAGATION_REQUIRED</prop>
+                         &lt;!&ndash;<prop key="*">PROPAGATION_REQUIRED</prop>&ndash;&gt;
+                  </props>
+           </property>
+    </bean>-->
 
 
-       <!--
-                                   spring事务传播行为
+    <tx:annotation-driven proxy-target-class="true" transaction-manager="dataSourceTransactionManager"/>
+    <!-- define  Advice and  specified  TransactionManager-->
+    <!--<tx:advice id="transactionInterceptor" transaction-manager="dataSourceTransactionManager">
+        <tx:attributes>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="add*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="load*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="search*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
 
-       事务的第一个方面是传播行为（propagation behavior）。
-       当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。
-       例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。
-       Spring定义了七种传播行为：
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="serviceMethods" expression="execution(* com.spring.study.dao.*Service.*(..))"/>
+        <aop:pointcut id="brforezz" expression="execution(* com.spring.study.dao.*Service.*(..))"/>
+        <aop:advisor advice-ref="transactionInterceptor" pointcut-ref="serviceMethods"/>
+        <aop:aspect id="aspect" ref="aspectJAop2">
+            <aop:before pointcut-ref="brforezz" method="aspectBefore"/>
+        </aop:aspect>
+    </aop:config>-->
 
-       传播行为	                        含义
+
+    <!--
+                                spring事务传播行为
+
+    事务的第一个方面是传播行为（propagation behavior）。
+    当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。
+    例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。
+    Spring定义了七种传播行为：
+
+    传播行为	                        含义
 PROPAGATION_REQUIRED	表示当前方法必须运行在事务中。如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务
 
 PROPAGATION_SUPPORTS	表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行
@@ -59,18 +92,18 @@ PROPAGATION_SUPPORTS	表示当前方法不需要事务上下文，但是如果�
 PROPAGATION_MANDATORY	表示该方法必须在事务中运行，如果当前事务不存在，则会抛出一个异常
 
 PROPAGATION_REQUIRED_NEW	表示当前方法必须运行在它自己的事务中。一个新的事务将被启动。
-                            如果存在当前事务，在该方法执行期间，当前事务会被挂起。
-                            如果使用JTATransactionManager的话，则需要访问TransactionManager
+                         如果存在当前事务，在该方法执行期间，当前事务会被挂起。
+                         如果使用JTATransactionManager的话，则需要访问TransactionManager
 
 PROPAGATION_NOT_SUPPORTED	表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。
-                            如果使用JTATransactionManager的话，则需要访问TransactionManager
+                         如果使用JTATransactionManager的话，则需要访问TransactionManager
 
 PROPAGATION_NEVER	表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常
 
 PROPAGATION_NESTED	表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。
-                     如果当前事务不存在，那么其行为与PROPAGATION_REQUIRED一样。注意各厂商对这种传播行为的支持是有所差异的。
-                     可以参考资源管理器的文档来确认它们是否支持嵌套事务
+                  如果当前事务不存在，那么其行为与PROPAGATION_REQUIRED一样。注意各厂商对这种传播行为的支持是有所差异的。
+                  可以参考资源管理器的文档来确认它们是否支持嵌套事务
 
 
-        -->
+     -->
 </beans>
