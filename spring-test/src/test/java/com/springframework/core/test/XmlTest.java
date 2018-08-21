@@ -201,20 +201,21 @@ public class XmlTest {
 
     @Test
     public void testSpringXml() throws Exception{
+/*
+        ClassPathResource resource=new ClassPathResource("spring-context.xml");
 
-        /*ClassPathResource resource=new ClassPathResource("spring-context.xml");*/
-
-        //System.out.println(resource);
-        //ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
-        //System.out.println(applicationContext);
+        System.out.println(resource);*/
+        /*ApplicationContext applicationContext=new ClassPathXmlApplicationContext(config);
+        System.out.println(applicationContext);*/
 
         /** 初级查看代码 */
+        /**看到代码  XmlBeanFactory 构造方法的 最后一行了*/
         /*XmlBeanFactory beanFactory=new XmlBeanFactory(resource);
         InjectionCollections injectionCollections=beanFactory.getBean(InjectionCollections.class);
         List<String> list=injectionCollections.getList();
         System.out.println(list);
-        beanFactory.destroySingletons();*/
-
+        beanFactory.destroySingletons();
+*/
        //beanFactory.addBeanPostProcessor(beanFactory.getBean("testBeanPostProcessor", BeanPostProcessor.class));
         //beanFactory.addBeanPostProcessor(new TestBeanPostProcessor());
         /*Happy happy0=beanFactory.getBean("happy",Happy.class);
